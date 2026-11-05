@@ -1,0 +1,144 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Welcome back, {{ session.get('admin_username', 'Admin') }}! 👋</h2>
+    <p class="page-subtitle">Here's an overview of your portfolio CMS.</p>
+</div>
+
+<!-- Stats Grid -->
+<div class="stats-grid">
+    <a href="{{ url_for('admin.projects_list') }}" class="stat-card stat-card--blue">
+        <div class="stat-icon"><i class="fas fa-folder"></i></div>
+        <div class="stat-info">
+            <div class="stat-value">{{ stats.total_projects }}</div>
+            <div class="stat-label">Total Projects</div>
+        </div>
+    </a>
+    <a href="{{ url_for('admin.projects_list') }}" class="stat-card stat-card--green">
+        <div class="stat-icon"><i class="fas fa-globe"></i></div>
+        <div class="stat-info">
+            <div class="stat-value">{{ stats.published_projects }}</div>
+            <div class="stat-label">Published</div>
+        </div>
+    </a>
+    <a href="{{ url_for('admin.projects_list') }}" class="stat-card stat-card--orange">
+        <div class="stat-icon"><i class="fas fa-pencil-alt"></i></div>
+        <div class="stat-info">
+            <div class="stat-value">{{ stats.draft_projects }}</div>
+            <div class="stat-label">Drafts</div>
+        </div>
+    </a>
+    <a href="{{ url_for('admin.messages') }}" class="stat-card stat-card--red">
+        <div class="stat-icon"><i class="fas fa-envelope"></i></div>
+        <div class="stat-info">
+            <div class="stat-value">{{ stats.unread_messages }}</div>
+            <div class="stat-label">Unread Messages</div>
+        </div>
+    </a>
+    <a href="{{ url_for('admin.skills') }}" class="stat-card stat-card--purple">
+        <div class="stat-icon"><i class="fas fa-code"></i></div>
+        <div class="stat-info">
+            <div class="stat-value">{{ stats.total_skills }}</div>
+            <div class="stat-label">Skills</div>
+        </div>
+    </a>
+    <a href="{{ url_for('admin.certifications') }}" class="stat-card stat-card--teal">
+        <div class="stat-icon"><i class="fas fa-certificate"></i></div>
+        <div class="stat-info">
+            <div class="stat-value">{{ stats.total_certifications }}</div>
+            <div class="stat-label">Certifications</div>
+        </div>
+    </a>
+</div>
+
+<!-- Quick Actions -->
+<div class="section-card">
+    <h3 class="card-title">Quick Actions</h3>
+    <div class="quick-actions">
+        <a href="{{ url_for('admin.project_new') }}" class="action-btn action-btn--primary">
+            <i class="fas fa-plus"></i> New Project
+        </a>
+        <a href="{{ url_for('admin.messages') }}" class="action-btn action-btn--secondary">
+            <i class="fas fa-envelope"></i> View Messages
+        </a>
+        <a href="{{ url_for('admin.settings') }}" class="action-btn action-btn--secondary">
+            <i class="fas fa-cog"></i> Edit Profile
+        </a>
+        <a href="{{ url_for('public.index') }}" target="_blank" class="action-btn action-btn--ghost">
+            <i class="fas fa-external-link-alt"></i> View Site
+        </a>
+    </div>
+</div>
+
+<!-- 1-Click GitHub Deploy / Server Sync -->
+<div class="section-card" style="border-left: 4px solid var(--primary, #0ea5e9);">
+    <div class="card-header-row" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+            <h3 class="card-title" style="margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fab fa-github" style="color: #6366f1;"></i> GitHub Production Sync
+            </h3>
+            <p style="margin: 0.25rem 0 0 0; color: #64748b; font-size: 0.88rem;">
+                Pull latest code directly from GitHub and trigger an automatic PythonAnywhere server reload without opening bash console.
+            </p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <span style="background: #f1f5f9; padding: 0.35rem 0.75rem; border-radius: 6px; font-family: monospace; font-size: 0.85rem; color: #334155; border: 1px solid #cbd5e1;">
+                Commit: <strong>{{ git_commit }}</strong>
+            </span>
+            <form method="POST" action="{{ url_for('admin.update_code') }}" style="margin: 0;"
+                  onsubmit="return confirm('Fetch latest code from GitHub (main branch) and reload PythonAnywhere server?');">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button type="submit" class="action-btn action-btn--primary" style="background: #6366f1; border-color: #6366f1; display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                    <i class="fas fa-cloud-download-alt"></i> Pull Latest Code &amp; Reload
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Messages -->
+<div class="section-card">
+    <div class="card-header-row">
+        <h3 class="card-title">Recent Messages</h3>
+        <a href="{{ url_for('admin.messages') }}" class="btn-link">View All →</a>
+    </div>
+    {% if recent_messages %}
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>From</th>
+                <th>Subject</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for msg in recent_messages %}
+            <tr class="{% if not msg.is_read %}row--unread{% endif %}">
+                <td>
+                    <div class="msg-sender">
+                        <strong>{{ msg.name }}</strong>
+                        <span class="msg-email">{{ msg.email }}</span>
+                    </div>
+                </td>
+                <td>{{ msg.subject }}</td>
+                <td>{{ msg.created_at.strftime('%b %d, %Y') }}</td>
+                <td>
+                    {% if msg.is_read %}
+                    <span class="badge badge--gray">Read</span>
+                    {% else %}
+                    <span class="badge badge--blue">Unread</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty-state"><i class="fas fa-inbox"></i> No messages yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

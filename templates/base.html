@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" itemscope itemtype="https://schema.org/WebPage">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ══ PRIMARY SEO META ══ -->
+    <title>{% block title %}Safi Ullah | AI & Machine Learning Engineer Portfolio{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Official portfolio of Safi Ullah, AI and Machine Learning Engineer specializing in Computer Vision, Deep Learning (CNNs), and Python applications.{% endblock %}">
+    <meta name="keywords" content="Safi Ullah, Machine Learning Engineer, Computer Vision, Deep Learning, AI Portfolio, Python, Layyah, Pakistan">
+    <meta name="author" content="Safi Ullah">
+    {% block robots %}
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+    {% endblock %}
+    <meta name="language" content="English">
+    <meta name="google-site-verification" content="XH9kibBHJIuVUUgmxhZvvb_EzSKrf5-E5PQmVh4Tvac">
+    <meta name="geo.region" content="PK">
+    <meta name="geo.placename" content="Layyah, Pakistan">
+
+    <!-- ══ CANONICAL ══ -->
+    <link rel="canonical" href="{% if request.path == '/' %}{{ request.url_root }}{% else %}{{ request.base_url.rstrip('/') }}{% endif %}">
+
+    <!-- ══ FAVICON & PWA ══ -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/favicon.svg') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+
+    <!-- ══ OPEN GRAPH (Facebook / LinkedIn) ══ -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Safi Ullah Portfolio">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="{% block og_title %}Safi Ullah | AI & Machine Learning Engineer Portfolio{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Official portfolio of Safi Ullah, AI and Machine Learning Engineer specializing in Computer Vision, Deep Learning (CNNs), and Python applications.{% endblock %}">
+    <meta property="og:url" content="{% if request.path == '/' %}{{ request.url_root }}{% else %}{{ request.base_url.rstrip('/') }}{% endif %}">
+    <meta property="og:image" content="{{ url_for('static', filename=settings.profile_image.replace('.jpg', '.webp').replace('.jpeg', '.webp') if settings and settings.profile_image else 'img/safi-ullah.webp', _external=True) }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Safi Ullah - AI & Machine Learning Engineer">
+
+    <!-- ══ TWITTER CARD ══ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@SAFIULLAH012">
+    <meta name="twitter:creator" content="@SAFIULLAH012">
+    <meta name="twitter:title" content="Safi Ullah | AI & Machine Learning Engineer Portfolio">
+    <meta name="twitter:description" content="Official portfolio of Safi Ullah, AI and Machine Learning Engineer specializing in Computer Vision, Deep Learning (CNNs), and Python applications.">
+    <meta name="twitter:image" content="{{ url_for('static', filename=settings.profile_image.replace('.jpg', '.webp').replace('.jpeg', '.webp') if settings and settings.profile_image else 'img/safi-ullah.webp', _external=True) }}">
+
+    <!-- ══ JSON-LD STRUCTURED DATA — Person & Professional Service Schema ══ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Safi Ullah",
+      "alternateName": ["Safiullah", "SAFIULLAH012"],
+      "url": "{{ request.host_url }}",
+      "image": {
+        "@type": "ImageObject",
+        "url": "{{ url_for('static', filename=settings.profile_image.replace('.jpg', '.webp').replace('.jpeg', '.webp') if settings and settings.profile_image else 'img/safi-ullah.webp', _external=True) }}",
+        "name": "Safi Ullah",
+        "caption": "Safi Ullah - AI & Machine Learning Engineer from Pakistan"
+      },
+      "jobTitle": "Computer Science Student & Machine Learning Enthusiast",
+      "description": "Safi Ullah is a Computer Science student at the University of Layyah, Pakistan, specializing in Computer Vision, Machine Learning, Deep Learning (CNNs), MediaPipe, OpenCV, and Python development.",
+      "nationality": "Pakistani",
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Machine Learning Developer & CS Student",
+        "occupationLocation": {
+          "@type": "Country",
+          "name": "Pakistan"
+        },
+        "skills": "Machine Learning, Deep Learning, Computer Vision, MediaPipe, OpenCV, TensorFlow, Keras, CNN, Python, Flask, Streamlit, Scikit-Learn"
+      },
+      "knowsAbout": [
+        "Machine Learning",
+        "Deep Learning",
+        "Computer Vision",
+        "Convolutional Neural Networks",
+        "MediaPipe",
+        "Python",
+        "Flask",
+        "Streamlit",
+        "OpenCV",
+        "TensorFlow",
+        "Keras",
+        "Data Science",
+        "Predictive Modeling"
+      ],
+      "sameAs": [
+        "{{ settings.github_url if settings else 'https://github.com/SAFIULLAH012' }}",
+        "{{ settings.linkedin_url if settings else '' }}"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Layyah",
+        "addressCountry": "PK",
+        "addressRegion": "Pakistan"
+      }
+    }
+    </script>
+
+    <!-- ══ JSON-LD — Website Schema ══ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Safi Ullah Portfolio",
+      "url": "{{ request.host_url }}",
+      "description": "Portfolio website of Safi Ullah – AI & Machine Learning Engineer, Computer Vision specialist from Pakistan.",
+      "author": {
+        "@type": "Person",
+        "name": "Safi Ullah"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ request.host_url }}#projects",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- ══ FONTS & ICONS ══ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', v='5.8') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <a href="#main-content" class="skip-link sr-only" style="position: absolute; top: -100px; left: 1rem; z-index: 9999; padding: 0.5rem 1rem; background: var(--dark, #0f172a); color: var(--primary, #952a65); border-radius: 4px; transition: top 0.2s;" onfocus="this.style.top='1rem'" onblur="this.style.top='-100px'">Skip to main content</a>
+
+    <!-- ══ COOKIE CONSENT BANNER ══ -->
+    <div id="cookie-banner" role="dialog" aria-label="Cookie consent" aria-live="polite" style="display:none;">
+        <div class="cookie-inner">
+            <p><i class="fas fa-cookie-bite"></i> This site uses cookies &amp; analytics to improve your experience. <a href="/privacy-policy" style="color:var(--primary);">Privacy Policy</a></p>
+            <div class="cookie-btns">
+                <button id="cookie-accept" class="btn btn-primary btn-sm">Accept</button>
+                <button id="cookie-decline" class="btn btn-outline btn-sm">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    {% block body %}{% endblock %}
+
+    <script src="{{ url_for('static', filename='js/script.js', v='4.1') }}"></script>
+
+    <!-- ══ GOOGLE ANALYTICS GA4 — Loads only after cookie consent ══ -->
+    <script>
+    (function(){
+        function loadGA(){
+            if(document.getElementById('ga4-script')) return;
+            var s = document.createElement('script');
+            s.id = 'ga4-script';
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=G-Q0SDKW2PD3';
+            document.head.appendChild(s);
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-Q0SDKW2PD3', { anonymize_ip: true });
+            window.gtag = gtag;
+        }
+
+        var banner = document.getElementById('cookie-banner');
+        var acceptBtn = document.getElementById('cookie-accept');
+        var declineBtn = document.getElementById('cookie-decline');
+
+        var consent = localStorage.getItem('safi_cookie_consent');
+        if(consent === 'accepted'){
+            loadGA();
+        } else if(consent === null){
+            banner.style.display = 'block';
+            document.body.classList.add('cookie-visible');
+        }
+
+        acceptBtn.addEventListener('click', function(){
+            localStorage.setItem('safi_cookie_consent', 'accepted');
+            banner.style.display = 'none';
+            document.body.classList.remove('cookie-visible');
+            loadGA();
+        });
+        declineBtn.addEventListener('click', function(){
+            localStorage.setItem('safi_cookie_consent', 'declined');
+            banner.style.display = 'none';
+            document.body.classList.remove('cookie-visible');
+        });
+    })();
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

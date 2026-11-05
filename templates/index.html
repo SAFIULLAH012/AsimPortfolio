@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M. ASIM — The Chemistry Series | Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ================= NAVBAR (BLACK TOP -> FROSTED GLASS BOTTOM, RIGHT-ALIGNED) ================= -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="#home" class="m-logo" aria-label="M. Asim Home">A</a>
+      <div class="nav-right">
+                <div class="links" id="navLinks">
+          <a href="#home" class="active">Home</a>
+          <a href="#about">About</a>
+          <a href="#education">Education</a>
+          <a href="#resume">Story</a>
+          <a href="#certifications">Certificates</a>
+          <a href="#originals">Research</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <a class="cta" href="#contact">LET'S CONNECT</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Toggle Navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ================= SCREEN 1: HERO (BLACK) ================= -->
+  <header id="home" class="hero section-black">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <h1 class="hero-title">M. <em>A</em>SIM</h1>
+          <p class="hero-tag">CHEMISTRY RESEARCH SCHOLAR &bull; LABORATORY ANALYST</p>
+          <p class="hero-desc">
+            Passionate Chemistry Student &amp; Laboratory Researcher specializing in Organic Synthesis, 
+            Spectroscopic Characterization (FTIR, UV-Vis, NMR), and Analytical Instrumentation. Dedicated to 
+            experimental precision, Good Laboratory Practices (GLP), and rigorous scientific inquiry.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#originals">▶&nbsp;&nbsp;View Lab Projects</a>
+            <a class="btn btn-ghost" href="#about">⤓&nbsp;&nbsp;About Me</a>
+          </div>
+        </div>
+        <div class="hero-art">
+          <div class="portrait-card">
+            <img src="assets/asim.jpeg" alt="M. Asim - Chemistry Researcher" class="portrait-img">
+            <div class="portrait-overlay"></div>
+            <span class="status-chip">ACTIVE LAB RESEARCH</span>
+            <span class="badge">M. ASIM &bull; CHEMISTRY SCHOLAR</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= SCREEN 2: ABOUT (WHITE) ================= -->
+  <section id="about" class="section-white">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2>About M. Asim</h2>
+          <p class="sec-subtitle">SCHOLAR &bull; SYNTHESIS BENCH RESEARCHER &bull; ANALYTICAL METHODS</p>
+        </div>
+        <span class="rule"></span>
+      </div>
+      <div class="about-grid">
+        <div class="about-visual">
+          <div class="portrait-card">
+            <img src="assets/asim.jpeg" alt="M. Asim - Chemist" class="portrait-img">
+            <div class="portrait-overlay"></div>
+            <span class="badge">CHEMIST &bull; RESEARCH SCHOLAR</span>
+          </div>
+          <div class="specialization-pills">
+            <span class="spec-pill">Organic Synthesis</span>
+            <span class="spec-pill">Spectroscopy</span>
+            <span class="spec-pill">GLP Protocol</span>
+          </div>
+        </div>
+        <div class="about-info">
+          <div class="quote-card">
+            <span class="quote-mark">&ldquo;</span>
+            <p class="quote">
+              Dedicated to exploring <b>chemical principles at molecular scale</b>, mastering analytical 
+              instrumentation, and upholding <b>rigorous laboratory safety</b>. Driven by a passion to transform 
+              theoretical chemistry into reproducible experimental discoveries.
+            </p>
+          </div>
+          <div class="about-facts">
+            <div class="fact">
+              <b>600+</b>
+              <span>LAB BENCH HOURS</span>
+              <small>Intensive practical lab execution</small>
+            </div>
+            <div class="fact">
+              <b>100%</b>
+              <span>GLP SAFETY FOCUS</span>
+              <small>Zero incidents compliance record</small>
+            </div>
+            <div class="fact">
+              <b>10+</b>
+              <span>INSTRUMENTS MASTERED</span>
+              <small>FTIR, UV-Vis, Rotovap &amp; more</small>
+            </div>
+          </div>
+          <div class="about-highlight-box">
+            <h4>ACADEMIC &amp; RESEARCH PROFILE</h4>
+            <div class="profile-points">
+              <div class="pt"><strong>Education:</strong> BS Chemistry (5th Semester, CGPA 3.82 / 4.00) &bull; University of Layyah</div>
+              <div class="pt"><strong>Academic Record:</strong> Matric 1087/1100 (98.82%) &bull; FSc Pre-Medical 884/1100 (80.36%)</div>
+              <div class="pt"><strong>Key Focus:</strong> Schiff Base Ligand Synthesis, Coordination Chemistry &amp; Natural Flavonoids</div>
+              <div class="pt"><strong>Core Philosophy:</strong> Experimental precision, analytical reproducibility, and lab hygiene.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SCREEN 3: STORY / RESUME (COLOR #952a65) ================= -->
+  <section class="section-green" id="education" aria-label="Education">
+    <div class="container">
+      <div class="text-center">
+        <div class="pill" aria-hidden="true">Education</div>
+        <h2 class="section-title">Academic &amp; Technical <span style="color: #ffffff;">Journey</span></h2>
+      </div>
+            {% if education %}
+      <ol class="timeline" aria-label="Education timeline">
+        {% for edu in education %}
+        <li class="timeline-item">
+          <div class="timeline-icon" aria-hidden="true">
+            <i class="fas fa-{% if 'university' in edu.institution.lower() or 'bs' in edu.level.lower() %}university{% elif 'fsc' in edu.degree.lower() or 'intermediate' in edu.level.lower() %}brain{% else %}graduation-cap{% endif %}"></i>
+          </div>
+          <div class="timeline-card">
+            <div class="timeline-info">
+              <span class="timeline-year">{{ edu.level }} &bull; {{ edu.start_year }} &mdash; {{ edu.end_year or 'Present' }}</span>
+              <h3>{{ edu.degree }}</h3>
+              <div class="institute"><i class="fas fa-map-marker-alt"></i> {{ edu.institution }}</div>
+              {% if edu.description %}<div class="desc">{{ edu.description | safe }}</div>{% endif %}
+            </div>
+            {% if edu.score %}
+            <div class="timeline-score" aria-label="{{ edu.score_label }}: {{ edu.score }}">
+              <div class="num">{{ edu.score.split(' ')[0].split('/')[0] }}</div>
+              <div class="label">{{ edu.score }}</div>
+            </div>
+            {% endif %}
+          </div>
+        </li>
+        {% endfor %}
+      </ol>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- ================= SCREEN 5: CERTIFICATIONS (SAFIULLAH STYLE CARDS - LIGHT/WHITE) ================= -->
+  <section id="resume" class="section-white">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2>The Full Story</h2>
+          <p class="sec-subtitle">ACADEMIC JOURNEY &bull; EXPERIMENTAL TRACK RECORD &bull; COMPETENCIES</p>
+        </div>
+        <span class="rule"></span>
+      </div>
+      <div class="story-grid">
+        <!-- LEFT: SCIENTIFIC TIMELINE PIPELINE -->
+        <div class="timeline-pipeline">
+          <!-- Milestone 1 -->
+          <div class="timeline-card">
+            <div class="t-spine">
+              <span class="t-node">01</span>
+              <span class="t-line"></span>
+            </div>
+            <div class="t-body">
+              <div class="t-header">
+                <span class="t-category">ACADEMIC FOUNDATION</span>
+                <span class="t-badge active">5th Semester &bull; CGPA 3.82</span>
+              </div>
+              <h3 class="t-title">BS Chemistry (Hons) &bull; University of Layyah</h3>
+              <p class="t-desc">
+                Core curriculum honors in Organic Synthesis, Reaction Kinetics &amp; Coordination Complexes.
+              </p>
+              <div class="t-tags">
+                <span class="t-tag">Organic Synthesis</span>
+                <span class="t-tag">Reaction Kinetics</span>
+                <span class="t-tag">Coordination Chem</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Milestone 2 -->
+          <div class="timeline-card">
+            <div class="t-spine">
+              <span class="t-node">02</span>
+              <span class="t-line"></span>
+            </div>
+            <div class="t-body">
+              <div class="t-header">
+                <span class="t-category">BENCH INVESTIGATION</span>
+                <span class="t-badge">Bench Operations &bull; Research</span>
+              </div>
+              <h3 class="t-title">Undergraduate Lab Researcher</h3>
+              <p class="t-desc">
+                Multi-step synthesis protocols, UV-Vis spectrophotometry &amp; strict GLP safety.
+              </p>
+              <div class="t-tags">
+                <span class="t-tag">Bench Synthesis</span>
+                <span class="t-tag">Spectrophotometry</span>
+                <span class="t-tag">GLP Compliance</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Milestone 3 -->
+          <div class="timeline-card">
+            <div class="t-spine">
+              <span class="t-node">03</span>
+            </div>
+            <div class="t-body">
+              <div class="t-header">
+                <span class="t-category">QUANTITATIVE METHODS</span>
+                <span class="t-badge">Analytical Metrology &bull; QC</span>
+              </div>
+              <h3 class="t-title">Quantitative Analytical Practicum</h3>
+              <p class="t-desc">
+                Precision volumetric titrations, gravimetric assays &amp; statistical error calibration.
+              </p>
+              <div class="t-tags">
+                <span class="t-tag">Volumetric Assays</span>
+                <span class="t-tag">Gravimetry</span>
+                <span class="t-tag">Data Metrology</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: SINGLE UNIFIED SCIENTIFIC ANALYTICS CARD -->
+        <div class="unified-analytics-card">
+          <!-- Section 1: Domains -->
+          <div class="card-section">
+            <div class="card-section-head">
+              <span class="sec-dot"></span>
+              <h4>PRIMARY SYNTHESIS &amp; COMPUTATIONAL DOMAINS</h4>
+            </div>
+            <div class="domain-badges-row">
+              <div class="d-pill"><span class="d-ico">&#x232C;</span><span>Organic Synthesis</span></div>
+              <div class="d-ico-sep">&bull;</div>
+              <div class="d-pill"><span class="d-ico">&#x269B;</span><span>Coordination Complexes</span></div>
+              <div class="d-ico-sep">&bull;</div>
+              <div class="d-pill"><span class="d-ico">&#x2699;</span><span>Computational Chemistry</span></div>
+              <div class="d-ico-sep">&bull;</div>
+              <div class="d-pill"><span class="d-ico">&lambda;</span><span>Spectroscopy</span></div>
+              <div class="d-ico-sep">&bull;</div>
+              <div class="d-pill"><span class="d-ico">&#x26A1;</span><span>Reaction Kinetics</span></div>
+            </div>
+          </div>
+
+          <div class="card-inner-rule"></div>
+
+          <!-- Section 2: Expertise Meters -->
+          <div class="card-section">
+            <div class="card-section-head">
+              <span class="sec-dot"></span>
+              <h4>BENCH &amp; ANALYSIS EXPERTISE</h4>
+            </div>
+            <div class="meters-list">
+              <div class="meter-row">
+                <div class="m-info">
+                  <span class="m-name">Spectroscopy (FTIR/UV-Vis)</span>
+                  <span class="m-val">94%</span>
+                </div>
+                <div class="m-bar"><i style="width: 94%"></i></div>
+              </div>
+              <div class="meter-row">
+                <div class="m-info">
+                  <span class="m-name">Wet Lab Synthesis</span>
+                  <span class="m-val">90%</span>
+                </div>
+                <div class="m-bar"><i style="width: 90%"></i></div>
+              </div>
+              <div class="meter-row">
+                <div class="m-info">
+                  <span class="m-name">Analytical Titrations</span>
+                  <span class="m-val">96%</span>
+                </div>
+                <div class="m-bar"><i style="width: 96%"></i></div>
+              </div>
+              <div class="meter-row">
+                <div class="m-info">
+                  <span class="m-name">Lab Safety &amp; GLP Compliance</span>
+                  <span class="m-val">98%</span>
+                </div>
+                <div class="m-bar"><i style="width: 98%"></i></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-inner-rule"></div>
+
+          <!-- Section 3: Software & Modeling -->
+          <div class="card-section">
+            <div class="card-section-head">
+              <span class="sec-dot"></span>
+              <h4>SCIENTIFIC SOFTWARE &amp; MODELING</h4>
+            </div>
+            <div class="software-pills-row">
+              <span class="soft-pill"><b>ChemDraw</b> Pro 22</span>
+              <span class="soft-pill"><b>OriginLab</b> Peak Fit</span>
+              <span class="soft-pill"><b>ORCA / DFT</b> Modeling</span>
+              <span class="soft-pill"><b>MestReNova</b> NMR</span>
+              <span class="soft-pill"><b>SciFinder</b> CAS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- ================= SCREEN 4: EDUCATION (SAFIULLAH STYLE TIMELINE - GREEN/TEAL) ================= -->
+  <section class="section-green" id="certifications" aria-label="Certifications">
+    <div class="container">
+      <div class="text-center">
+        <div class="pill" aria-hidden="true">Credentials</div>
+        <h2 class="section-title">Certifications &amp; Honors</h2>
+      </div>
+            {% if certifications %}
+      <div class="certs-grid">
+        {% for cert in certifications %}
+        <article class="cert-card">
+          <div class="cert-body">
+            <div class="cert-badge-row">
+              <span class="cert-id-tag">CERT-0{{ loop.index }}</span>
+            </div>
+            <h3>{{ cert.title }}</h3>
+            <p class="cert-issuer"><i class="fas fa-certificate"></i> {{ cert.issuer }}</p>
+            {% if cert.issue_date %}<p class="cert-date"><i class="far fa-calendar-alt"></i> {{ cert.issue_date }}</p>{% endif %}
+            {% if cert.credential_url %}
+            <a href="{{ cert.credential_url }}" target="_blank" rel="noopener noreferrer" class="cert-btn">
+              <i class="fas fa-external-link-alt" aria-hidden="true"></i> View Credential
+            </a>
+            {% endif %}
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </section>
+
+<!-- ================= SCREEN 5: ORIGINALS / PROJECTS (WHITE) - 6 PUBLISHED RESEARCH DOSSIERS ================= -->
+  <section id="originals" class="section-white">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <h2>Original Builds &amp; Research</h2>
+          <p class="sec-subtitle">SIX BENCHMARK LABORATORY DOSSIERS &bull; SYNTHESIS PROTOCOLS, INSTRUMENTAL ASSAYS &amp; METROLOGY</p>
+        </div>
+        <span class="rule"></span>
+      </div>
+      <div class="dossier-grid-6">
+        <!-- Dossier 1 -->
+        <article class="dossier-card">
+          <div class="card-accent-bar c-teal"></div>
+          <div class="dossier-top">
+            <div class="dossier-meta">
+              <span class="dossier-tag">COORDINATION SYNTHESIS</span>
+              <span class="dossier-id">REF: SYN-01</span>
+            </div>
+            <div class="formula-tag">[M(L)&sup2;] &bull; Cu(II) / Ni(II)</div>
+            <h3>SCHIFF BASE METAL COMPLEXES</h3>
+          </div>
+          <div class="dossier-benchmarks">
+            <div class="bm-box"><b>1622 cm&#8315;&sup1;</b><span>FTIR HC=N</span></div>
+            <div class="bm-box highlight"><b>87%</b><span>Yield</span></div>
+          </div>
+          <div class="dossier-footer">
+            <span class="d-chip">Reflux 78&deg;C</span>
+            <span class="d-chip">UV-Vis</span>
+            <span class="d-chip">Recrystallize</span>
+          </div>
+        </article>
+
+        <!-- Dossier 2 -->
+        <article class="dossier-card">
+          <div class="card-accent-bar c-cyan"></div>
+          <div class="dossier-top">
+            <div class="dossier-meta">
+              <span class="dossier-tag">ENVIRONMENTAL ANALYTICAL QC</span>
+              <span class="dossier-id">REF: ASSAY-02</span>
+            </div>
+            <div class="formula-tag">[Fe(phen)&sup3;]&sup2;&#8314; &bull; &lambda;max 510 nm</div>
+            <h3>WATER HEAVY METAL ASSAY</h3>
+          </div>
+          <div class="dossier-benchmarks">
+            <div class="bm-box highlight"><b>R&sup2; = 0.9989</b><span>Linearity</span></div>
+            <div class="bm-box"><b>pH 4.5</b><span>Buffer</span></div>
+          </div>
+          <div class="dossier-footer">
+            <span class="d-chip">UV-Vis</span>
+            <span class="d-chip">Beer-Lambert</span>
+            <span class="d-chip">Std Curve</span>
+          </div>
+        </article>
+
+        <!-- Dossier 3 -->
+        <article class="dossier-card">
+          <div class="card-accent-bar c-emerald"></div>
+          <div class="dossier-top">
+            <div class="dossier-meta">
+              <span class="dossier-tag">NATURAL PRODUCTS</span>
+              <span class="dossier-id">REF: EXTR-03</span>
+            </div>
+            <div class="formula-tag">C&#8326;-C&#8323;-C&#8326; Flavonoid Core</div>
+            <h3>BOTANICAL FLAVONOID EXTRACTION</h3>
+          </div>
+          <div class="dossier-benchmarks">
+            <div class="bm-box highlight"><b>91%</b><span>DPPH Scav.</span></div>
+            <div class="bm-box"><b>Rf 0.64</b><span>TLC Silica</span></div>
+          </div>
+          <div class="dossier-footer">
+            <span class="d-chip">Soxhlet Extr.</span>
+            <span class="d-chip">Rotovap</span>
+            <span class="d-chip">DPPH Assay</span>
+          </div>
+        </article>
+
+        <!-- Dossier 4 -->
+        <article class="dossier-card">
+          <div class="card-accent-bar c-purple"></div>
+          <div class="dossier-top">
+            <div class="dossier-meta">
+              <span class="dossier-tag">MEDICINAL ORGANIC SYNTHESIS</span>
+              <span class="dossier-id">REF: MED-04</span>
+            </div>
+            <div class="formula-tag">C&#8329;H&#8328;O&#8324; &bull; MW: 180.16 g/mol</div>
+            <h3>ASPIRIN ESTERIFICATION</h3>
+          </div>
+          <div class="dossier-benchmarks">
+            <div class="bm-box highlight"><b>92%</b><span>Pure Yield</span></div>
+            <div class="bm-box"><b>MP: 135&deg;C</b><span>Purity</span></div>
+          </div>
+          <div class="dossier-footer">
+            <span class="d-chip">Acylation</span>
+            <span class="d-chip">FeCl&#8323; Test</span>
+            <span class="d-chip">Crystallize</span>
+          </div>
+        </article>
+
+        <!-- Dossier 5 -->
+        <article class="dossier-card">
+          <div class="card-accent-bar c-rose"></div>
+          <div class="dossier-top">
+            <div class="dossier-meta">
+              <span class="dossier-tag">PHYSICAL CHEMICAL KINETICS</span>
+              <span class="dossier-id">REF: KIN-05</span>
+            </div>
+            <div class="formula-tag">CV&#8314; + OH&#8315; &rarr; CV-OH Fading</div>
+            <h3>CRYSTAL VIOLET KINETICS</h3>
+          </div>
+          <div class="dossier-benchmarks">
+            <div class="bm-box highlight"><b>58.4 kJ/mol</b><span>Ea Arrhenius</span></div>
+            <div class="bm-box"><b>k = 0.042 s&#8315;&sup1;</b><span>Rate Const.</span></div>
+          </div>
+          <div class="dossier-footer">
+            <span class="d-chip">&lambda;590 nm</span>
+            <span class="d-chip">Pseudo-1st Order</span>
+            <span class="d-chip">Arrhenius</span>
+          </div>
+        </article>
+
+        <!-- Dossier 6 -->
+        <article class="dossier-card">
+          <div class="card-accent-bar c-amber"></div>
+          <div class="dossier-top">
+            <div class="dossier-meta">
+              <span class="dossier-tag">QUANTITATIVE TITRIMETRY</span>
+              <span class="dossier-id">REF: TITR-06</span>
+            </div>
+            <div class="formula-tag">[Ca-EDTA]&sup2;&#8315; / [Mg-EDTA]&sup2;&#8315;</div>
+            <h3>EDTA WATER HARDNESS METROLOGY</h3>
+          </div>
+          <div class="dossier-benchmarks">
+            <div class="bm-box highlight"><b>&plusmn;0.02 mL</b><span>Std Dev</span></div>
+            <div class="bm-box"><b>pH 10.0</b><span>Buffer</span></div>
+          </div>
+          <div class="dossier-footer">
+            <span class="d-chip">Complexometry</span>
+            <span class="d-chip">Eriochrome T</span>
+            <span class="d-chip">Metrology</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SCREEN 6: FOOTER (BLACK - EXACT DEAD-CENTERED HORIZONTALLY & VERTICALLY) ================= -->
+  <footer id="contact" class="section-black footer-centered">
+    <div class="container footer-center-container">
+      <div class="pill pill-contact" aria-hidden="true">CONNECT &amp; COLLABORATE</div>
+      <h2 class="tbc">TO BE CONTINUED...</h2>
+      <p class="tbc-name">M. ASIM</p>
+      <p class="tbc-role">BS CHEMISTRY STUDENT &bull; LABORATORY RESEARCHER</p>
+      <div class="tbc-actions">
+        <a class="btn btn-primary" href="mailto:m.asim.chemistry@example.com">LET'S COLLABORATE</a>
+        <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">LinkedIn&nbsp;&#8599;</a>
+        <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">ResearchGate&nbsp;&#8599;</a>
+      </div>
+      <div class="tbc-links">
+        <a href="#home" id="watchAgain">&#9654; RETURN TO TOP</a>
+      </div>
+      <p class="copyright">&copy; 2026 M. ASIM &mdash; THE CHEMISTRY SERIES. ALL RIGHTS RESERVED.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -54,6 +54,52 @@
   }, { passive: true });
 
   // ======================
+  // ==========================================
+  // Dynamic Typewriter Effect for Hero Subtitle
+  // ==========================================
+  const typewriterEl = document.getElementById('typewriterText');
+  if (typewriterEl) {
+    const phrases = [
+      'CHEMISTRY STUDENT & RESEARCH SCHOLAR',
+      'COMPUTATIONAL CHEMISTRY ENTHUSIAST',
+      'MOLECULAR MODELING & DFT EXPLORER',
+      'LAB BENCH & SPECTROSCOPY ANALYST'
+    ];
+    let phraseIndex = 0;
+    let charIndex = phrases[0].length;
+    let isDeleting = true;
+    const typeSpeed = 70;
+    const deleteSpeed = 35;
+    const holdDelay = 2200;
+
+    function tick() {
+      const currentPhrase = phrases[phraseIndex];
+
+      if (isDeleting) {
+        charIndex--;
+        typewriterEl.textContent = currentPhrase.substring(0, charIndex);
+      } else {
+        charIndex++;
+        typewriterEl.textContent = currentPhrase.substring(0, charIndex);
+      }
+
+      let delta = isDeleting ? deleteSpeed : typeSpeed;
+
+      if (!isDeleting && charIndex === currentPhrase.length) {
+        delta = holdDelay;
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        delta = 350;
+      }
+
+      setTimeout(tick, delta);
+    }
+
+    setTimeout(tick, holdDelay);
+  }
+
   // UI/UX Motion Suite
   // ======================
 

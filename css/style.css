@@ -79,6 +79,8 @@ a {
    GLOBAL FULLSCREEN ARCHITECTURE (100vh / 100svh Consistent Layout)
    ========================================================================== */
 header.hero {
+  padding-top: 0 !important;
+}
   width: 100%;
   min-height: 100vh;
   min-height: 100svh;

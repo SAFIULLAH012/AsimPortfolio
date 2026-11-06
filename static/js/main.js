@@ -21,8 +21,6 @@
     });
   }
 
-
-
   // Smooth return to top
   if (watchAgain) {
     watchAgain.addEventListener('click', (e) => {
@@ -54,4 +52,66 @@
       }
     });
   }, { passive: true });
+
+  // ======================
+  // UI/UX Motion Suite
+  // ======================
+
+  // 1. Scroll Reveal (IntersectionObserver)
+  const revealElems = document.querySelectorAll('.motion-reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-inview');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealElems.forEach(el => revealObserver.observe(el));
+
+  // 2. Animated Counters for facts (e.g., 600+, 100%)
+  const counterElems = document.querySelectorAll('.fact b[data-target]');
+  const animateCounter = (el) => {
+    const target = +el.dataset.target;
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400; // ms
+    let start = null;
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = timestamp - start;
+      const eased = Math.min(progress / duration, 1);
+      const value = Math.floor(eased * target);
+      el.textContent = value + suffix;
+      if (progress < duration) {
+        requestAnimationFrame(step);
+      }
+    };
+    requestAnimationFrame(step);
+  };
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.6 });
+  counterElems.forEach(el => counterObserver.observe(el));
+
+  // 3. Expertise Meter Bar Animation
+  const meterBars = document.querySelectorAll('.meter-row .m-bar i[data-perc]');
+  const meterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const perc = entry.target.dataset.perc;
+        entry.target.style.width = perc;
+        meterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  meterBars.forEach(bar => {
+    bar.style.width = '0%';
+    meterObserver.observe(bar);
+  });
+
 })();

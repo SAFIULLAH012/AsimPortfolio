@@ -3118,28 +3118,3 @@ footer#contact .pill-contact {
   transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 0 10px rgba(149, 42, 101, 0.45);
 }
-/* ==== Override to enforce exact 100svh and eliminate dead space ==== */
-html {
-  scroll-padding-top: 0;
-}
-header.hero {
-  height: 100svh !important;
-  min-height: 100svh !important;
-  padding: 0 !important;
-}
-section {
-  height: 100svh !important;
-  min-height: 100svh !important;
-  padding-top: 0 !important;
-  scroll-margin-top: 0 !important;
-}
-@media (min-width: 992px) {
-  header.hero,
-  section,
-  footer#contact {
-    height: 100svh !important;
-    min-height: 100svh !important;
-    padding-top: 0 !important;
-    scroll-margin-top: 0 !important;
-  }
-}

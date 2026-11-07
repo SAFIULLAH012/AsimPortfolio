@@ -2050,7 +2050,7 @@
       }
 
       function checkSession() {
-        const sessionUser = sessionStorage.getItem('asim_cms_user');
+        const sessionUser = localStorage.getItem('asim_cms_user') || sessionStorage.getItem('asim_cms_user');
         if (sessionUser) {
           showDashboard(sessionUser);
         }
@@ -2068,7 +2068,7 @@
         if (creds.emails.includes(inputEmail) && inputPassword === creds.password) {
           loginSuccess.textContent = 'Authentication successful! Loading dashboard...';
           loginSuccess.style.display = 'block';
-          sessionStorage.setItem('asim_cms_user', inputEmail);
+          localStorage.setItem('asim_cms_user', inputEmail); sessionStorage.setItem('asim_cms_user', inputEmail);
           setTimeout(() => showDashboard(inputEmail), 500);
         } else {
           loginAlert.textContent = 'Invalid credentials. Please verify your email and password.';
@@ -2085,10 +2085,15 @@
         loadPersistedData();
         populateAllFormPanes();
         updateDashboardCounters();
+        const savedPane = localStorage.getItem('asim_cms_active_pane');
+        if (savedPane) {
+          const btn = document.querySelector(`.nav-tab-item button[data-pane="${savedPane}"]`);
+          if (btn) btn.click();
+        }
       }
 
       btnLogout.addEventListener('click', function() {
-        sessionStorage.removeItem('asim_cms_user');
+        localStorage.removeItem('asim_cms_user'); sessionStorage.removeItem('asim_cms_user');
         dashboardApp.style.display = 'none';
         loginCard.style.display = 'block';
         document.getElementById('adminPassword').value = '';
@@ -2123,6 +2128,7 @@
           tabPanes.forEach(p => p.classList.remove('active'));
           const targetPane = document.getElementById(targetPaneId);
           if (targetPane) targetPane.classList.add('active');
+          localStorage.setItem('asim_cms_active_pane', targetPaneId);
 
           // If mobile, close sidebar on selection
           if (window.innerWidth <= 991) {
@@ -2640,6 +2646,7 @@
         document.getElementById('themeAccentColor').value = color;
         document.getElementById('themeAccentPicker').value = color;
         currentData.theme.accentColor = color;
+        localStorage.setItem('asim_theme_color', color);
 
         // Update live preview box
         const previewBox = document.getElementById('liveThemePreviewBox');

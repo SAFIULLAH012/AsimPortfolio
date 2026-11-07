@@ -276,8 +276,9 @@ function applyCmsData() {
       const data = JSON.parse(raw);
 
       // 1. Theme Accent Color (Full Multi-Element Logical Synchronization)
-      if (data.theme && data.theme.accentColor) {
-        applyDynamicTheme(data.theme.accentColor);
+      const persistentColor = localStorage.getItem('asim_theme_color') || (data.theme && data.theme.accentColor);
+      if (persistentColor) {
+        applyDynamicTheme(persistentColor);
       }
       if (data.theme && data.theme.docTitle) {
         document.title = data.theme.docTitle;
@@ -656,7 +657,7 @@ function applyCmsData() {
       }
     });
   }, { threshold: 0.02, rootMargin: '0px 0px 50px 0px' });
-  revealElems.forEach(el => revealObserver.observe(el));
+  revealElems.forEach(el => { revealObserver.observe(el); el.classList.add('is-inview'); });
 
   // 2. Animated Counters for facts (e.g., 1083, 824)
   const counterElems = document.querySelectorAll('.fact b[data-target]');

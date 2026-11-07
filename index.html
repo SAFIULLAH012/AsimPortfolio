@@ -9,26 +9,33 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
   
-  <link rel="stylesheet" href="css/style.css?v=20261107_6">
-  <!-- EARLY DYNAMIC THEME ENGINE (Executes immediately before DOM render) -->
+  <link rel="stylesheet" href="css/style.css?v=20261107_7">
+    <!-- EARLY DYNAMIC THEME ENGINE (Executes immediately before DOM render) -->
   <script>
     (function() {
       try {
         var params = new URLSearchParams(window.location.search);
         var qColor = params.get('color') || params.get('theme');
-        var raw = localStorage.getItem('asim_portfolio_cms_data');
-        var data = raw ? JSON.parse(raw) : null;
         var hexColor = null;
 
         if (qColor) {
           if (!qColor.startsWith('#')) qColor = '#' + qColor;
           hexColor = qColor;
-          if (!data) data = { theme: {} };
+          localStorage.setItem('asim_theme_color', hexColor);
+          var raw = localStorage.getItem('asim_portfolio_cms_data');
+          var data = raw ? JSON.parse(raw) : {};
           data.theme = data.theme || {};
           data.theme.accentColor = hexColor;
           localStorage.setItem('asim_portfolio_cms_data', JSON.stringify(data));
-        } else if (data && data.theme && data.theme.accentColor) {
-          hexColor = data.theme.accentColor;
+        } else {
+          hexColor = localStorage.getItem('asim_theme_color');
+          if (!hexColor) {
+            var raw = localStorage.getItem('asim_portfolio_cms_data');
+            if (raw) {
+              var data = JSON.parse(raw);
+              if (data && data.theme && data.theme.accentColor) hexColor = data.theme.accentColor;
+            }
+          }
         }
 
         if (hexColor && hexColor.startsWith('#')) {
@@ -52,6 +59,15 @@
             var soft = 'rgba(' + r + ',' + g + ',' + b + ',0.12)';
             var subtle = 'rgba(' + r + ',' + g + ',' + b + ',0.22)';
             var border = 'rgba(' + r + ',' + g + ',' + b + ',0.4)';
+
+            document.documentElement.style.setProperty('--teal', hexColor);
+            document.documentElement.style.setProperty('--teal-dark', dark);
+            document.documentElement.style.setProperty('--teal-light', light);
+            document.documentElement.style.setProperty('--teal-lighter', lighter);
+            document.documentElement.style.setProperty('--teal-glow', glow);
+            document.documentElement.style.setProperty('--teal-soft', soft);
+            document.documentElement.style.setProperty('--teal-subtle', subtle);
+            document.documentElement.style.setProperty('--section-berry-bg', hexColor);
 
             var css = ':root{' +
               '--teal:' + hexColor + '!important;' +
@@ -82,15 +98,6 @@
               '.status-chip{border-color:' + hexColor + '!important;color:' + light + '!important;box-shadow:0 0 15px ' + soft + '!important;}' +
               'footer#contact .footer-tagline{color:' + light + '!important;}' +
               'footer#contact .tbc-tag,footer#contact .pill-contact{color:' + light + '!important;border:1.5px solid ' + hexColor + '!important;background:' + soft + '!important;box-shadow:0 0 20px ' + glow + '!important;}';
-
-            document.documentElement.style.setProperty('--teal', hexColor);
-            document.documentElement.style.setProperty('--teal-dark', dark);
-            document.documentElement.style.setProperty('--teal-light', light);
-            document.documentElement.style.setProperty('--teal-lighter', lighter);
-            document.documentElement.style.setProperty('--teal-glow', glow);
-            document.documentElement.style.setProperty('--teal-soft', soft);
-            document.documentElement.style.setProperty('--teal-subtle', subtle);
-            document.documentElement.style.setProperty('--section-berry-bg', hexColor);
 
             var styleEl = document.createElement('style');
             styleEl.id = 'early-theme-accent-style';
@@ -691,6 +698,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=20261107_6"></script>
+  <script src="js/main.js?v=20261107_7"></script>
 </body>
 </html>

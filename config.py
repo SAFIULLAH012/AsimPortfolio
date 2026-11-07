@@ -47,7 +47,7 @@ class Config:
     )
     ALLOWED_ADMIN_EMAILS = [
         email.strip() for email in os.environ.get(
-            "ALLOWED_ADMIN_EMAILS", "m.asim.chemistry@gmail.com"
+            "ALLOWED_ADMIN_EMAILS", "seefooo63@gmail.com,m.asim.chemistry@gmail.com"
         ).split(",") if email.strip()
     ]
 

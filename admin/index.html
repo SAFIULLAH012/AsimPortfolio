@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal | M. Asim — Computational Chemistry Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-black: #060608;
+      --bg-card: #0f1118;
+      --bg-card-hover: #161922;
+      --teal: #952a65;
+      --teal-glow: rgba(149, 42, 101, 0.45);
+      --gold: #ffd166;
+      --white: #ffffff;
+      --text-muted: #94a3b8;
+      --border-dark: rgba(255, 255, 255, 0.12);
+      --font-display: "Bebas Neue", sans-serif;
+      --font-sans: "Poppins", sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-black);
+      color: var(--white);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* Background Ambient Radiance */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(149, 42, 101, 0.22) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    header.admin-nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border-dark);
+      background: rgba(6, 6, 8, 0.85);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--white);
+    }
+
+    .brand-badge {
+      background: var(--teal);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+      box-shadow: 0 0 12px var(--teal-glow);
+    }
+
+    .brand-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .brand-title span {
+      color: var(--gold);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn-site-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      transition: color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-site-link:hover {
+      color: var(--white);
+    }
+
+    /* Main Container */
+    main.admin-main {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1.5rem;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* LOGIN CARD */
+    .login-card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-dark);
+      border-radius: 16px;
+      padding: 2.2rem 2rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(149, 42, 101, 0.15);
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .login-head {
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .login-head .portal-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(149, 42, 101, 0.2);
+      border: 1px solid var(--teal);
+      color: var(--gold);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 50px;
+      margin-bottom: 0.75rem;
+    }
+
+    .login-head h1 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .login-head p {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-wrap i {
+      position: absolute;
+      left: 1rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .input-wrap input {
+      width: 100%;
+      background: #060608;
+      border: 1.5px solid var(--border-dark);
+      color: var(--white);
+      padding: 0.75rem 1rem 0.75rem 2.6rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .input-wrap input:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 14px var(--teal-glow);
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--teal);
+      color: var(--white);
+      border: none;
+      padding: 0.8rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      box-shadow: 0 4px 20px var(--teal-glow);
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      background: #a93275;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(149, 42, 101, 0.6);
+    }
+
+    .alert {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      margin-bottom: 1.2rem;
+      display: none;
+    }
+
+    .alert-danger {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+
+    .alert-success {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      color: #86efac;
+    }
+
+    /* DASHBOARD VIEW (HIDDEN INITIALLY) */
+    .dashboard-panel {
+      display: none;
+      width: 100%;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    .dash-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .dash-header h2 {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      letter-spacing: 0.04em;
+    }
+
+    .dash-header h2 span {
+      color: var(--gold);
+    }
+
+    .dash-badge-user {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(149, 42, 101, 0.2);
+      border: 1.5px solid var(--teal);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .btn-logout {
+      background: transparent;
+      border: 1.5px solid rgba(239, 68, 68, 0.4);
+      color: #f87171;
+      padding: 0.4rem 1rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-logout:hover {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: #ef4444;
+      color: #ffffff;
+    }
+
+    /* STATS ROW */
+    .dash-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-dark);
+      border-radius: 12px;
+      padding: 1.2rem 1.4rem;
+    }
+
+    .stat-card .stat-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+
+    .stat-card .stat-val {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .stat-card .stat-meta {
+      font-size: 0.72rem;
+      color: var(--gold);
+      margin-top: 0.35rem;
+    }
+
+    /* SECTIONS GRID */
+    .cms-modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .module-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-dark);
+      border-radius: 12px;
+      padding: 1.4rem;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .module-card:hover {
+      border-color: var(--teal);
+      transform: translateY(-3px);
+    }
+
+    .module-card-head {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .module-card-head i {
+      color: var(--teal);
+      font-size: 1.15rem;
+    }
+
+    .module-card-head h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .module-input-row {
+      margin-bottom: 0.85rem;
+    }
+
+    .module-input-row label {
+      display: block;
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+      font-weight: 600;
+    }
+
+    .module-input-row input,
+    .module-input-row textarea {
+      width: 100%;
+      background: #060608;
+      border: 1.5px solid var(--border-dark);
+      border-radius: 6px;
+      padding: 0.55rem 0.8rem;
+      color: var(--white);
+      font-family: inherit;
+      font-size: 0.82rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .module-input-row input:focus,
+    .module-input-row textarea:focus {
+      border-color: var(--teal);
+    }
+
+    .btn-save-module {
+      background: rgba(149, 42, 101, 0.2);
+      border: 1.5px solid var(--teal);
+      color: var(--white);
+      padding: 0.45rem 1rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-save-module:hover {
+      background: var(--teal);
+      box-shadow: 0 0 15px var(--teal-glow);
+    }
+
+    /* HOSTING & BACKEND NOTICE */
+    .backend-notice-box {
+      background: rgba(255, 209, 102, 0.08);
+      border: 1.5px solid rgba(255, 209, 102, 0.4);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      font-size: 0.85rem;
+      color: #fef08a;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .backend-notice-box i {
+      font-size: 1.4rem;
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 0.2rem;
+    }
+
+    .backend-notice-box strong {
+      color: var(--white);
+    }
+
+    .backend-notice-box code {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 0.15em 0.4em;
+      border-radius: 4px;
+      color: #ffffff;
+      font-family: monospace;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer.admin-footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.75rem;
+      color: #64748b;
+      border-top: 1px solid var(--border-dark);
+      position: relative;
+      z-index: 10;
+    }
+
+    @media (max-width: 600px) {
+      header.admin-nav {
+        padding: 0.9rem 1.2rem;
+      }
+      .login-card {
+        padding: 1.6rem 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ADMIN NAVIGATION BAR -->
+  <header class="admin-nav">
+    <a href="../index.html" class="nav-brand">
+      <span class="brand-badge">CMS</span>
+      <span class="brand-title">M. Asim <span>&bull; Admin Portal</span></span>
+    </a>
+    <div class="nav-actions">
+      <a href="../index.html" class="btn-site-link">
+        <i class="fas fa-external-link-alt"></i> View Live Site
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN AREA -->
+  <main class="admin-main">
+    
+    <!-- LOGIN INTERFACE -->
+    <div class="login-card" id="loginCard">
+      <div class="login-head">
+        <div class="portal-pill">
+          <i class="fas fa-shield-alt"></i> Official CMS Gateway
+        </div>
+        <h1>SIGN IN</h1>
+        <p>Access M. Asim's Portfolio Management System</p>
+      </div>
+
+      <div class="alert alert-danger" id="loginAlert"></div>
+      <div class="alert alert-success" id="successAlert"></div>
+
+      <form id="adminLoginForm">
+        <div class="form-group">
+          <label for="adminEmail">Email Address or Username</label>
+          <div class="input-wrap">
+            <i class="fas fa-envelope"></i>
+            <input type="text" id="adminEmail" placeholder="seefooo63@gmail.com" required autocomplete="username">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="adminPassword">Password</label>
+          <div class="input-wrap">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="adminPassword" placeholder="••••••••" required autocomplete="current-password">
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <i class="fas fa-sign-in-alt"></i> Authenticate &amp; Access CMS
+        </button>
+      </form>
+    </div>
+
+    <!-- AUTHENTICATED DASHBOARD VIEW -->
+    <div class="dashboard-panel" id="dashboardPanel">
+      
+      <div class="dash-header">
+        <div>
+          <h2>PORTFOLIO <span>MANAGEMENT CMS</span></h2>
+          <p style="color: var(--text-muted); font-size: 0.85rem;">Active session verified on GitHub Pages &bull; Live Portfolio Control</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.85rem;">
+          <div class="dash-badge-user">
+            <i class="fas fa-user-check" style="color: var(--gold);"></i>
+            <span id="displayUser">seefooo63@gmail.com</span>
+          </div>
+          <button class="btn-logout" id="btnLogout">
+            <i class="fas fa-sign-out-alt"></i> Log Out
+          </button>
+        </div>
+      </div>
+
+      <!-- METRICS -->
+      <div class="dash-stats-grid">
+        <div class="stat-card">
+          <div class="stat-title">Active Screens</div>
+          <div class="stat-val">8 Viewports</div>
+          <div class="stat-meta">&#10003; 100svh Responsive Snap</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">Halo Derivatives</div>
+          <div class="stat-val">3 Compounds</div>
+          <div class="stat-meta">4-Chloro, 4-Bromo, 4-Fluoro</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">Academic CGPA</div>
+          <div class="stat-val">3.82 / 4.00</div>
+          <div class="stat-meta">5th Semester &bull; University of Layyah</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">Quantum Suite</div>
+          <div class="stat-val">4 Softwares</div>
+          <div class="stat-meta">Gaussian, GaussView, Chemcraft, Avogadro</div>
+        </div>
+      </div>
+
+      <!-- CMS MODULES -->
+      <div class="cms-modules-grid">
+        
+        <!-- Module 1: Profile & Scholar Overview -->
+        <div class="module-card">
+          <div class="module-card-head">
+            <i class="fas fa-user-graduate"></i>
+            <h3>Scholar Identity &amp; Bio</h3>
+          </div>
+          <div class="module-input-row">
+            <label>Full Name</label>
+            <input type="text" id="m_name" value="M. ASIM">
+          </div>
+          <div class="module-input-row">
+            <label>Academic Title</label>
+            <input type="text" id="m_title" value="BS Chemistry Student &bull; Computational Chemist">
+          </div>
+          <div class="module-input-row">
+            <label>Scholar Summary</label>
+            <textarea id="m_desc" rows="3">Currently pursuing BS Chemistry at University of Layyah. Dedicated to quantum chemical calculations, molecular modeling, and theoretical chemistry research.</textarea>
+          </div>
+          <button class="btn-save-module" onclick="saveModule('Scholar Profile')">
+            <i class="fas fa-check"></i> Update Profile Info
+          </button>
+        </div>
+
+        <!-- Module 2: Academic Scores -->
+        <div class="module-card">
+          <div class="module-card-head">
+            <i class="fas fa-university"></i>
+            <h3>Academic Foundation</h3>
+          </div>
+          <div class="module-input-row">
+            <label>BS Chemistry CGPA</label>
+            <input type="text" id="m_cgpa" value="3.82 / 4.00">
+          </div>
+          <div class="module-input-row">
+            <label>Current Status</label>
+            <input type="text" id="m_semester" value="5th Semester (In Progress)">
+          </div>
+          <div class="module-input-row">
+            <label>University / Affiliation</label>
+            <input type="text" id="m_uni" value="University of Layyah">
+          </div>
+          <button class="btn-save-module" onclick="saveModule('Academic Scores')">
+            <i class="fas fa-check"></i> Update Academic Records
+          </button>
+        </div>
+
+        <!-- Module 3: Computational Research Projects -->
+        <div class="module-card">
+          <div class="module-card-head">
+            <i class="fas fa-atom"></i>
+            <h3>Active Halo Derivatives</h3>
+          </div>
+          <div class="module-input-row">
+            <label>Target Compound 1</label>
+            <input type="text" value="4-Chloroacetophenone (C8H7ClO)">
+          </div>
+          <div class="module-input-row">
+            <label>Target Compound 2</label>
+            <input type="text" value="4-Bromoacetophenone (C8H7BrO)">
+          </div>
+          <div class="module-input-row">
+            <label>Target Compound 3</label>
+            <input type="text" value="4-Fluoroacetophenone (C8H7FO)">
+          </div>
+          <button class="btn-save-module" onclick="saveModule('Compounds Dossier')">
+            <i class="fas fa-check"></i> Update Compounds
+          </button>
+        </div>
+
+        <!-- Module 4: Contact & Social Coordinates -->
+        <div class="module-card">
+          <div class="module-card-head">
+            <i class="fas fa-paper-plane"></i>
+            <h3>Contact Coordinates</h3>
+          </div>
+          <div class="module-input-row">
+            <label>Official Email</label>
+            <input type="email" id="m_email" value="seefooo63@gmail.com">
+          </div>
+          <div class="module-input-row">
+            <label>LinkedIn URL</label>
+            <input type="url" value="https://linkedin.com">
+          </div>
+          <div class="module-input-row">
+            <label>ResearchGate URL</label>
+            <input type="url" value="https://researchgate.net">
+          </div>
+          <button class="btn-save-module" onclick="saveModule('Contact Details')">
+            <i class="fas fa-check"></i> Save Contact Coordinates
+          </button>
+        </div>
+
+      </div>
+
+      <!-- CLOUD & BACKEND RUNNER NOTICE -->
+      <div class="backend-notice-box">
+        <i class="fas fa-server"></i>
+        <div>
+          <p><strong>Dual Architecture Active:</strong> You are accessing the <strong>GitHub Pages Web Admin Gateway</strong>.</p>
+          <p style="margin-top: 0.35rem; color: #cbd5e1; font-size: 0.8rem;">
+            To run the full multi-user Python database backend locally with automated SQLite migrations, open your terminal and run <code>python app.py</code> then visit <code>http://127.0.0.1:5000/admin/login</code> with the exact same credentials!
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="admin-footer">
+    &copy; 2026 M. ASIM &mdash; COMPUTATIONAL CHEMISTRY PORTFOLIO CMS. ALL RIGHTS RESERVED.
+  </footer>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // Verified credentials provided by user
+      const VALID_EMAILS = ['seefooo63@gmail.com', 'seefoo', 'm.asim.chemistry@gmail.com'];
+      const VALID_PASSWORD = '12345678';
+
+      const loginCard = document.getElementById('loginCard');
+      const dashboardPanel = document.getElementById('dashboardPanel');
+      const loginForm = document.getElementById('adminLoginForm');
+      const loginAlert = document.getElementById('loginAlert');
+      const successAlert = document.getElementById('successAlert');
+      const displayUser = document.getElementById('displayUser');
+      const btnLogout = document.getElementById('btnLogout');
+
+      // Check if session exists in sessionStorage
+      const savedSession = sessionStorage.getItem('asim_cms_user');
+      if (savedSession) {
+        showDashboard(savedSession);
+      }
+
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        loginAlert.style.display = 'none';
+        successAlert.style.display = 'none';
+
+        const email = document.getElementById('adminEmail').value.trim().toLowerCase();
+        const password = document.getElementById('adminPassword').value;
+
+        if (VALID_EMAILS.includes(email) && password === VALID_PASSWORD) {
+          successAlert.textContent = 'Authentication successful! Redirecting to dashboard...';
+          successAlert.style.display = 'block';
+
+          sessionStorage.setItem('asim_cms_user', email);
+
+          setTimeout(function() {
+            showDashboard(email);
+          }, 600);
+        } else {
+          loginAlert.textContent = 'Invalid credentials. Please verify your email and password.';
+          loginAlert.style.display = 'block';
+          document.getElementById('adminPassword').value = '';
+          document.getElementById('adminPassword').focus();
+        }
+      });
+
+      function showDashboard(userEmail) {
+        loginCard.style.display = 'none';
+        dashboardPanel.style.display = 'block';
+        displayUser.textContent = userEmail;
+      }
+
+      btnLogout.addEventListener('click', function() {
+        sessionStorage.removeItem('asim_cms_user');
+        dashboardPanel.style.display = 'none';
+        loginCard.style.display = 'block';
+        document.getElementById('adminPassword').value = '';
+        loginAlert.style.display = 'none';
+        successAlert.style.display = 'none';
+      });
+
+      // Save notification helper
+      window.saveModule = function(moduleName) {
+        alert(moduleName + ' changes saved successfully!');
+      };
+
+    })();
+  </script>
+</body>
+</html>

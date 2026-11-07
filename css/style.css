@@ -3186,9 +3186,15 @@ section#resume {
 
 section#resume > .container {
   height: auto !important;
-  max-height: calc(100svh - var(--nav-height) - 2.5rem) !important;
   justify-content: center !important;
   gap: 0.55rem !important;
+}
+
+@media (min-width: 992px) {
+  section#resume > .container {
+    max-height: calc(100svh - var(--nav-height) - 2.5rem) !important;
+    overflow: hidden !important;
+  }
 }
 
 #resume .story-grid {
@@ -3220,6 +3226,35 @@ section#resume > .container {
   display: none !important;
 }
 
+/* TIMELINE 01 TO 03 ULTRA-SMOOTH ENERGY ANIMATION SUITE */
+@keyframes nodePulseGlowWave {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 8px rgba(149, 42, 101, 0.6), 0 0 0 0 rgba(149, 42, 101, 0.4);
+  }
+  50% {
+    transform: scale(1.12);
+    box-shadow: 0 0 18px rgba(212, 89, 158, 0.95), 0 0 0 8px rgba(212, 89, 158, 0);
+  }
+}
+
+@keyframes lineBeamFlow {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 200%;
+  }
+}
+
+#resume .timeline-card.journey-item {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#resume .timeline-card.journey-item:hover {
+  transform: translateX(4px) !important;
+}
+
 #resume .t-spine {
   width: 28px !important;
   display: flex !important;
@@ -3232,7 +3267,7 @@ section#resume > .container {
   width: 26px !important;
   height: 26px !important;
   border-radius: 50% !important;
-  background: var(--teal) !important;
+  background: linear-gradient(135deg, #952a65 0%, #b83a80 100%) !important;
   color: #ffffff !important;
   font-family: var(--font-display) !important;
   font-size: 1.05rem !important;
@@ -3241,15 +3276,42 @@ section#resume > .container {
   justify-content: center !important;
   border: 2px solid #ffffff !important;
   flex-shrink: 0 !important;
-  animation: nodePulse 3s ease-in-out infinite !important;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease !important;
 }
 
+/* Staggered pulsing waves for milestones 01, 02, 03 */
+#resume .journey-item:nth-child(1) .t-node {
+  animation: nodePulseGlowWave 2.4s ease-in-out infinite 0s !important;
+}
+
+#resume .journey-item:nth-child(2) .t-node {
+  animation: nodePulseGlowWave 2.4s ease-in-out infinite 0.8s !important;
+}
+
+#resume .journey-item:nth-child(3) .t-node {
+  animation: nodePulseGlowWave 2.4s ease-in-out infinite 1.6s !important;
+}
+
+/* Interactive rotational pop on milestone hover */
+#resume .timeline-card.journey-item:hover .t-node {
+  transform: scale(1.22) rotate(360deg) !important;
+  background: #ffd166 !important;
+  color: #08090e !important;
+  border-color: #952a65 !important;
+  box-shadow: 0 0 18px rgba(255, 209, 102, 0.95), 0 0 0 4px rgba(149, 42, 101, 0.3) !important;
+}
+
+/* Continuous quantum beam connecting line */
 #resume .t-line {
-  width: 2px !important;
+  width: 2.5px !important;
   flex: 1 !important;
-  min-height: 20px !important; /* Tight line height - gap eliminated */
-  background: rgba(149, 42, 101, 0.4) !important;
-  margin: 2px 0 !important;
+  min-height: 22px !important;
+  background: linear-gradient(180deg, #952a65 0%, #ffd166 30%, #d4599e 60%, #952a65 100%) !important;
+  background-size: 100% 200% !important;
+  animation: lineBeamFlow 2.4s linear infinite !important;
+  box-shadow: 0 0 8px rgba(149, 42, 101, 0.45) !important;
+  margin: 3px 0 !important;
+  border-radius: 2px !important;
 }
 
 #resume .t-body {
@@ -3259,7 +3321,13 @@ section#resume > .container {
   padding: 0.5rem 0.85rem !important;
   flex: 1 !important;
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.03) !important;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+#resume .timeline-card.journey-item:hover .t-body {
+  border-color: #952a65 !important;
+  box-shadow: 0 8px 24px rgba(149, 42, 101, 0.12), -4px 0 0 0 #952a65 !important;
+  background: #ffffff !important;
 }
 
 #resume .t-body:hover {
@@ -4015,21 +4083,32 @@ footer#contact .copyright {
     grid-template-columns: 1fr !important;
   }
 
-  /* CRITICAL MOBILE FIX: Never cap section height or container height on mobile */
+  /* CRITICAL MOBILE ARCHITECTURE FIX: Never cap section or container height on mobile */
+  section#resume,
+  section#resume.section-white,
+  section#about,
+  section#education,
+  section#certifications,
+  section#originals,
   section#methodology,
   section#methodology.section-berry {
     min-height: auto !important;
     height: auto !important;
     max-height: none !important;
     overflow: visible !important;
-    padding-top: calc(var(--nav-height) + 2rem) !important;
-    padding-bottom: 3.5rem !important;
+    padding-top: calc(var(--nav-height) + 1.8rem) !important;
+    padding-bottom: 3.2rem !important;
     position: relative !important;
-    z-index: 1 !important;
     display: block !important;
     width: 100% !important;
+    clear: both !important;
   }
 
+  section#resume > .container,
+  section#about > .container,
+  section#education > .container,
+  section#certifications > .container,
+  section#originals > .container,
   section#methodology > .container {
     height: auto !important;
     max-height: none !important;

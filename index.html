@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  
+  <link rel="stylesheet" href="css/style.css?v=20261107_6">
   <!-- EARLY DYNAMIC THEME ENGINE (Executes immediately before DOM render) -->
   <script>
     (function() {
@@ -81,6 +83,15 @@
               'footer#contact .footer-tagline{color:' + light + '!important;}' +
               'footer#contact .tbc-tag,footer#contact .pill-contact{color:' + light + '!important;border:1.5px solid ' + hexColor + '!important;background:' + soft + '!important;box-shadow:0 0 20px ' + glow + '!important;}';
 
+            document.documentElement.style.setProperty('--teal', hexColor);
+            document.documentElement.style.setProperty('--teal-dark', dark);
+            document.documentElement.style.setProperty('--teal-light', light);
+            document.documentElement.style.setProperty('--teal-lighter', lighter);
+            document.documentElement.style.setProperty('--teal-glow', glow);
+            document.documentElement.style.setProperty('--teal-soft', soft);
+            document.documentElement.style.setProperty('--teal-subtle', subtle);
+            document.documentElement.style.setProperty('--section-berry-bg', hexColor);
+
             var styleEl = document.createElement('style');
             styleEl.id = 'early-theme-accent-style';
             styleEl.textContent = css;
@@ -90,7 +101,6 @@
       } catch(e) {}
     })();
   </script>
-  <link rel="stylesheet" href="css/style.css?v=20261107_5">
 </head>
 <body>
 
@@ -681,6 +691,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=20261107_5"></script>
+  <script src="js/main.js?v=20261107_6"></script>
 </body>
 </html>

@@ -2014,14 +2014,14 @@
       }
 
       // Persist working dataset to localStorage
-      window.persistData = function() {
+      function persistData() {
         localStorage.setItem('asim_portfolio_cms_data', JSON.stringify(currentData));
         showToast("Changes saved successfully! Live website updated.");
         updateDashboardCounters();
       };
 
       // Toast notification helper
-      window.showToast = function(msg) {
+      function showToast(msg) {
         const toast = document.getElementById('toastNotice');
         const toastMsg = document.getElementById('toastMsg');
         toastMsg.textContent = msg;
@@ -2133,14 +2133,14 @@
       });
 
       // 4. IMAGE PREVIEW & BASE64 UPLOADER
-      window.updateAvatarPreview = function(url) {
+      function updateAvatarPreview(url) {
         const preview = document.getElementById('heroAvatarPreview');
         if (url) {
           preview.src = url.startsWith('http') || url.startsWith('data:') ? url : '../' + url;
         }
       };
 
-      window.handleImageUpload = function(event, urlInputId, previewImgId) {
+      function handleImageUpload(event, urlInputId, previewImgId) {
         const file = event.target.files[0];
         if (!file) return;
 
@@ -2277,7 +2277,7 @@
         });
       }
 
-      window.addEducationItem = function() {
+      function addEducationItem() {
         currentData.education.push({
           degree: "New Degree Title",
           year: "Year or Status",
@@ -2291,7 +2291,7 @@
         showToast("New education milestone added! Remember to save.");
       };
 
-      window.deleteEducationItem = function(index) {
+      function deleteEducationItem(index) {
         if (confirm("Are you sure you want to remove this education milestone?")) {
           currentData.education.splice(index, 1);
           renderEducationList();
@@ -2379,7 +2379,7 @@
         });
       }
 
-      window.addCompoundItem = function() {
+      function addCompoundItem() {
         const nextNum = currentData.compounds.length + 1;
         currentData.compounds.push({
           tag: "CMPD-0" + nextNum,
@@ -2399,7 +2399,7 @@
         showToast("New compound added! Remember to save.");
       };
 
-      window.deleteCompoundItem = function(index) {
+      function deleteCompoundItem(index) {
         if (confirm("Remove this target compound from portfolio?")) {
           currentData.compounds.splice(index, 1);
           renderCompoundsList();
@@ -2460,12 +2460,12 @@
         });
       }
 
-      window.addSkillItem = function() {
+      function addSkillItem() {
         currentData.skills.push({ name: "New Quantum Software", sub: "Computational Function", icon: "fa-atom" });
         renderSkillsList();
       };
 
-      window.deleteSkillItem = function(index) {
+      function deleteSkillItem(index) {
         currentData.skills.splice(index, 1);
         renderSkillsList();
       };
@@ -2499,12 +2499,12 @@
         });
       }
 
-      window.addInterestItem = function() {
+      function addInterestItem() {
         currentData.interests.push({ icon: "⬡", label: "New Research Topic" });
         renderInterestsList();
       };
 
-      window.deleteInterestItem = function(index) {
+      function deleteInterestItem(index) {
         currentData.interests.splice(index, 1);
         renderInterestsList();
       };
@@ -2552,7 +2552,7 @@
         });
       }
 
-      window.addCertItem = function() {
+      function addCertItem() {
         currentData.certifications.push({
           idTag: "AWARD / CERT",
           title: "New Certificate Title",
@@ -2565,7 +2565,7 @@
         showToast("New certification added! Remember to save.");
       };
 
-      window.deleteCertItem = function(index) {
+      function deleteCertItem(index) {
         if (confirm("Remove this certification?")) {
           currentData.certifications.splice(index, 1);
           renderCertsList();
@@ -2574,7 +2574,7 @@
       };
 
       // 7. SECTION-SPECIFIC SAVE HANDLERS
-      window.saveProfileSection = function() {
+      function saveProfileSection() {
         currentData.profile.name = document.getElementById('profileName').value;
         currentData.profile.tagline = document.getElementById('profileTagline').value;
         currentData.profile.typewriter = document.getElementById('profileTypewriter').value;
@@ -2587,7 +2587,7 @@
         persistData();
       };
 
-      window.saveAboutSection = function() {
+      function saveAboutSection() {
         currentData.about.secSubtitle = document.getElementById('aboutSubtitle').value;
         currentData.about.quote = document.getElementById('aboutQuote').value;
         currentData.about.specializations = document.getElementById('aboutSpecializations').value;
@@ -2603,11 +2603,11 @@
         persistData();
       };
 
-      window.saveEducationSection = function() { persistData(); };
-      window.saveJourneySection = function() { persistData(); };
-      window.saveCompoundsSection = function() { persistData(); };
+      function saveEducationSection() { persistData(); };
+      function saveJourneySection() { persistData(); };
+      function saveCompoundsSection() { persistData(); };
 
-      window.saveMethodologySection = function() {
+      function saveMethodologySection() {
         currentData.methodology.pill = document.getElementById('methodPill').value;
         currentData.methodology.title = document.getElementById('methodTitle').value;
         currentData.methodology.intro = document.getElementById('methodIntro').value;
@@ -2615,10 +2615,10 @@
         persistData();
       };
 
-      window.saveSkillsSection = function() { persistData(); };
-      window.saveCertificationsSection = function() { persistData(); };
+      function saveSkillsSection() { persistData(); };
+      function saveCertificationsSection() { persistData(); };
 
-      window.saveContactSection = function() {
+      function saveContactSection() {
         currentData.contact.pill = document.getElementById('contactPill').value;
         currentData.contact.heading = document.getElementById('contactHeading').value;
         currentData.contact.name = document.getElementById('contactName').value;
@@ -2635,7 +2635,7 @@
         persistData();
       };
 
-            window.setThemeAccentLive = function(color, autoSave = true) {
+            function setThemeAccentLive(color, autoSave = true) {
         if (!color) return;
         document.getElementById('themeAccentColor').value = color;
         document.getElementById('themeAccentPicker').value = color;
@@ -2664,7 +2664,7 @@
         }
       };
 
-      window.saveSettingsSection = function() {
+      function saveSettingsSection() {
         currentData.theme.accentColor = document.getElementById('themeAccentColor').value;
         currentData.theme.docTitle = document.getElementById('siteDocTitle').value;
 
@@ -2683,7 +2683,7 @@
       };
 
       // GLOBAL SAVE ALL
-      window.saveAllCmsData = function() {
+      function saveAllCmsData() {
         saveProfileSection();
         saveAboutSection();
         saveMethodologySection();
@@ -2705,7 +2705,7 @@
       });
 
       // 8. BACKUP EXPORT & IMPORT (JSON)
-      window.exportBackupJson = function() {
+      function exportBackupJson() {
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentData, null, 2));
         const dlAnchor = document.createElement('a');
         dlAnchor.setAttribute("href", dataStr);
@@ -2715,7 +2715,7 @@
         dlAnchor.remove();
       };
 
-      window.importBackupJson = function(event) {
+      function importBackupJson(event) {
         const file = event.target.files[0];
         if (!file) return;
         const reader = new FileReader();
@@ -2736,7 +2736,37 @@
       // Check on initial load
       checkSession();
 
-    })();
-  </script>
+    
+      // Export to window for inline HTML onclick attributes
+      window.persistData = persistData;
+      window.showToast = showToast;
+      window.updateAvatarPreview = updateAvatarPreview;
+      window.handleImageUpload = handleImageUpload;
+      window.addEducationItem = addEducationItem;
+      window.deleteEducationItem = deleteEducationItem;
+      window.addCompoundItem = addCompoundItem;
+      window.deleteCompoundItem = deleteCompoundItem;
+      window.addSkillItem = addSkillItem;
+      window.deleteSkillItem = deleteSkillItem;
+      window.addInterestItem = addInterestItem;
+      window.deleteInterestItem = deleteInterestItem;
+      window.addCertItem = addCertItem;
+      window.deleteCertItem = deleteCertItem;
+      window.saveProfileSection = saveProfileSection;
+      window.saveAboutSection = saveAboutSection;
+      window.saveEducationSection = saveEducationSection;
+      window.saveJourneySection = saveJourneySection;
+      window.saveCompoundsSection = saveCompoundsSection;
+      window.saveMethodologySection = saveMethodologySection;
+      window.saveSkillsSection = saveSkillsSection;
+      window.saveCertificationsSection = saveCertificationsSection;
+      window.saveContactSection = saveContactSection;
+      window.setThemeAccentLive = setThemeAccentLive;
+      window.saveSettingsSection = saveSettingsSection;
+      window.saveAllCmsData = saveAllCmsData;
+      window.exportBackupJson = exportBackupJson;
+      window.importBackupJson = importBackupJson;
+
+    })();</script>
 </body>
 </html>

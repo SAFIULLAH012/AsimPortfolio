@@ -112,7 +112,7 @@
         revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.02, rootMargin: '0px 0px 50px 0px' });
   revealElems.forEach(el => revealObserver.observe(el));
 
   // 2. Animated Counters for facts (e.g., 600+, 100%)

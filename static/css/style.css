@@ -3484,7 +3484,7 @@ section#resume > .container {
   margin: 0.35rem 0 0.55rem;
 }
 
-/* 3. SCREEN 7: METHODOLOGY (#methodology) - PURE #952a65 BERRY THEME (RESPONSIVE ON EVERY SCREEN) */
+/* 3. SCREEN 7: METHODOLOGY (#methodology) - PURE #952a65 BERRY THEME */
 section#methodology,
 section#methodology.section-berry {
   background-color: #952a65 !important;
@@ -3499,11 +3499,17 @@ section#methodology.section-berry {
 
 section#methodology > .container {
   height: auto !important;
-  max-height: calc(100svh - var(--nav-height) - 1.8rem) !important;
   justify-content: center !important;
   gap: clamp(0.35rem, 1vh, 0.65rem) !important;
   display: flex !important;
   flex-direction: column !important;
+}
+
+@media (min-width: 992px) {
+  section#methodology > .container {
+    max-height: calc(100svh - var(--nav-height) - 1.8rem) !important;
+    overflow: hidden !important;
+  }
 }
 
 section#methodology .pill-framework {
@@ -3520,6 +3526,12 @@ section#methodology .pill-framework {
   justify-content: center !important;
   border-radius: 50px !important;
   margin: 0 auto 0.35rem auto !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section#methodology .pill-framework:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.35) !important;
 }
 
 section#methodology .section-title {
@@ -3561,14 +3573,15 @@ section#methodology .methodology-intro {
   border-radius: 10px !important;
   padding: clamp(0.6rem, 1.1vw, 0.85rem) clamp(0.75rem, 1.3vw, 1rem) !important;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18) !important;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+  animation: glassCardPulse 6s ease-in-out infinite;
 }
 
 .method-card:hover {
-  transform: translateY(-3px) !important;
-  background: rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-4px) scale(1.02) !important;
+  background: rgba(255, 255, 255, 0.26) !important;
   border-color: #ffffff !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.28), 0 0 16px rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.25) !important;
 }
 
 .method-card-head {
@@ -3591,6 +3604,14 @@ section#methodology .methodology-intro {
   text-align: center !important;
   flex-shrink: 0 !important;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, color 0.3s ease;
+}
+
+.method-card:hover .method-step-num {
+  transform: rotate(360deg) scale(1.15) !important;
+  background: #ffd166 !important;
+  color: #060608 !important;
+  box-shadow: 0 0 14px rgba(255, 209, 102, 0.8) !important;
 }
 
 .method-card-head h4 {
@@ -3623,13 +3644,14 @@ section#methodology .methodology-intro {
   justify-content: center !important;
   gap: 0.55rem !important;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25) !important;
+  animation: goldNoticePulse 3.5s ease-in-out infinite;
 }
 
 .methodology-note i {
   color: #ffd166 !important;
 }
 
-/* 4. FOOTER / CONTACT TWEAKS (DETACHED FROM TOP & BEAUTIFULLY CENTERED) */
+/* 4. FOOTER / CONTACT TWEAKS (RESTORED ICONIC FONT & DETACHED TOP GAP) */
 footer#contact {
   position: relative !important;
   padding-top: calc(var(--nav-height) + clamp(2rem, 4.5vh, 3.5rem)) !important;
@@ -3640,24 +3662,37 @@ footer#contact {
   align-items: center !important;
   text-align: center !important;
   box-sizing: border-box !important;
+  clear: both !important;
 }
 
 footer#contact .pill-contact {
   margin: 0 auto clamp(0.35rem, 0.9vh, 0.7rem) auto !important;
 }
 
-footer#contact .tbc {
+/* RESTORED ORIGINAL GRAND FONT FOR LET'S CONNECT & COLLABORATE */
+footer#contact .tbc,
+footer.section-black .tbc {
   font-family: var(--font-display) !important;
   font-weight: 400 !important;
-  font-size: clamp(1.8rem, 3.8vw, 3rem) !important;
-  line-height: 1.15 !important;
+  font-size: clamp(3.2rem, 8.5vw, 6.8rem) !important;
+  line-height: 0.95 !important;
   letter-spacing: 0.04em !important;
-  background: linear-gradient(180deg, #ffffff 40%, #a0a0b2) !important;
+  background: linear-gradient(180deg, #ffffff 40%, #7d7d8e 100%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   color: transparent !important;
   margin: 0.15rem auto clamp(0.25rem, 0.7vh, 0.45rem) !important;
   text-align: center !important;
+  animation: tbcMetallicSheen 7s ease-in-out infinite;
+  background-size: 200% auto !important;
+}
+
+@media (max-width: 768px) {
+  footer#contact .tbc,
+  footer.section-black .tbc {
+    font-size: clamp(2.4rem, 11vw, 4.2rem) !important;
+    line-height: 1 !important;
+  }
 }
 
 footer#contact .tbc-name {
@@ -3694,6 +3729,15 @@ footer#contact .tbc-actions {
 footer#contact .tbc-actions .btn {
   padding: 0.45rem 1.15rem !important;
   font-size: 0.76rem !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease !important;
+}
+
+footer#contact .tbc-actions .btn-primary {
+  animation: buttonAuraPulse 3.5s infinite;
+}
+
+footer#contact .tbc-actions .btn:hover {
+  transform: translateY(-3px) scale(1.03) !important;
 }
 
 footer#contact .tbc-links {
@@ -3705,6 +3749,9 @@ footer#contact .tbc-links a {
   font-size: 0.74rem !important;
   letter-spacing: 0.16em !important;
   color: #94a3b8 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  animation: returnTopBounce 2.4s ease-in-out infinite;
 }
 
 footer#contact .tbc-links a:hover {
@@ -3731,7 +3778,209 @@ footer#contact .copyright {
   margin: 0 !important;
 }
 
-/* RESPONSIVE MEDIA QUERIES (TABLET & MOBILE) */
+/* ==========================================================================
+   THE 20+ SIGNATURE ANIMATIONS & MOTION SUITE
+   ========================================================================== */
+
+/* 1. Ambient Shifting Glow */
+@keyframes ambientGlowShift {
+  0%, 100% { filter: hue-rotate(0deg) brightness(1); }
+  50% { filter: hue-rotate(15deg) brightness(1.08); }
+}
+
+/* 2. Hero Title Sheen */
+@keyframes heroTitleSheen {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* 3. Portrait 3D Levitation */
+@keyframes portraitLevitate {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(0.6deg); }
+}
+
+/* 4. Radar Beacon Ring Pulse */
+@keyframes beaconPulseRadar {
+  0% { box-shadow: 0 0 0 0 rgba(149, 42, 101, 0.7); }
+  70% { box-shadow: 0 0 0 12px rgba(149, 42, 101, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(149, 42, 101, 0); }
+}
+
+/* 5. Pill Badge Diagonal Light Sheen */
+@keyframes pillBadgeSweep {
+  0% { left: -100%; opacity: 0; }
+  50% { opacity: 0.6; }
+  100% { left: 200%; opacity: 0; }
+}
+
+/* 6. Stat Counter Pop Physics */
+@keyframes statPopIn {
+  0% { transform: scale(0.92); opacity: 0.6; }
+  50% { transform: scale(1.04); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* 7. Animated Gradient Border Rotation */
+@keyframes borderRotate {
+  0% { border-color: rgba(149, 42, 101, 0.35); }
+  50% { border-color: rgba(212, 89, 158, 0.75); }
+  100% { border-color: rgba(149, 42, 101, 0.35); }
+}
+
+/* 8. Research Quote Gleam */
+@keyframes quoteShine {
+  0%, 100% { opacity: 0.9; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-2px); }
+}
+
+/* 9. Timeline Progress Line Pulse */
+@keyframes timelineTrackGlow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.9; }
+}
+
+/* 10. Milestone Node Berry Wave */
+@keyframes berryNodeWave {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(149, 42, 101, 0.5), 0 0 0 0 rgba(149, 42, 101, 0.3);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(212, 89, 158, 0.85), 0 0 0 6px rgba(212, 89, 158, 0.15);
+    transform: scale(1.08);
+  }
+}
+
+/* 11. Domain Chip Floating Wave */
+@keyframes chipFloatWave {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+}
+
+/* 12. Software Suite 3D Lift & Shadow Glow */
+@keyframes softwareCardElevate {
+  0%, 100% { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+  50% { box-shadow: 0 8px 24px rgba(149, 42, 101, 0.16); }
+}
+
+/* 13. Certificate Ribbon Shimmer */
+@keyframes ribbonShine {
+  0% { transform: translateX(-150%) skewX(-20deg); }
+  100% { transform: translateX(250%) skewX(-20deg); }
+}
+
+/* 14. Expertise Meter Tip Radiant Flare */
+@keyframes meterTipGlow {
+  0%, 100% { filter: drop-shadow(0 0 2px rgba(149, 42, 101, 0.5)); }
+  50% { filter: drop-shadow(0 0 8px rgba(212, 89, 158, 0.9)); }
+}
+
+/* 15. Dossier Card 3D Depth Float */
+@keyframes dossierCardFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* 16. Halo-Derivative Ring Pulse */
+@keyframes haloRingPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(149, 42, 101, 0.4); }
+  50% { box-shadow: 0 0 0 5px rgba(149, 42, 101, 0.15); }
+}
+
+/* 17. Scope Bar Wave Scan */
+@keyframes scopeWave {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 18. Methodology Step Number Spin & Pop */
+@keyframes stepSpinPop {
+  0% { transform: rotate(0deg) scale(1); }
+  60% { transform: rotate(360deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1.1); }
+}
+
+/* 19. Workflow Card Ambient Glass Refraction */
+@keyframes glassCardPulse {
+  0%, 100% { border-color: rgba(255, 255, 255, 0.32); }
+  50% { border-color: rgba(255, 255, 255, 0.52); }
+}
+
+/* 20. Computational Details Gold Warning Pulse */
+@keyframes goldNoticePulse {
+  0%, 100% {
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25), 0 0 0 0 rgba(255, 209, 102, 0.2);
+  }
+  50% {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3), 0 0 14px rgba(255, 209, 102, 0.5);
+  }
+}
+
+/* 21. Contact Giant Heading Metallic Shimmer */
+@keyframes tbcMetallicSheen {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 22. Magnetic Button Aura Pulse */
+@keyframes buttonAuraPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(149, 42, 101, 0.45); }
+  50% { box-shadow: 0 0 18px 3px rgba(149, 42, 101, 0.65); }
+}
+
+/* 23. Return To Top Spring Bounce */
+@keyframes returnTopBounce {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-5px); }
+  60% { transform: translateY(-2px); }
+}
+
+/* 24. Social Icon Float & Glow */
+@keyframes socialIconFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* 25. Particle Orb Drift */
+@keyframes orbDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(15px, -20px) scale(1.05); }
+  66% { transform: translate(-10px, 15px) scale(0.95); }
+}
+
+/* Element class attachments for animations */
+.portrait-card {
+  animation: portraitLevitate 5.5s ease-in-out infinite !important;
+}
+.beacon-dot, .sec-dot {
+  animation: beaconPulseRadar 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+}
+#resume .timeline-node {
+  animation: berryNodeWave 2.8s ease-in-out infinite !important;
+}
+.sw-card {
+  animation: softwareCardElevate 4.5s ease-in-out infinite !important;
+}
+.project-scope-bar {
+  background-size: 200% 200% !important;
+  animation: scopeWave 7s ease infinite !important;
+}
+.fact b {
+  animation: statPopIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.d-pill:hover {
+  animation: chipFloatWave 2s ease-in-out infinite !important;
+}
+.dossier-card:hover {
+  animation: dossierCardFloat 3s ease-in-out infinite !important;
+}
+
+/* ==========================================================================
+   RESPONSIVE MEDIA QUERIES (COMPREHENSIVE FIX FOR MOBILE STACKING & OVERLAP)
+   ========================================================================== */
 @media (max-width: 991px) {
   #resume.section-white .story-grid,
   #resume .story-grid {
@@ -3765,20 +4014,63 @@ footer#contact .copyright {
   .software-grid-2x2 {
     grid-template-columns: 1fr !important;
   }
+
+  /* CRITICAL MOBILE FIX: Never cap section height or container height on mobile */
   section#methodology,
   section#methodology.section-berry {
     min-height: auto !important;
     height: auto !important;
     max-height: none !important;
+    overflow: visible !important;
     padding-top: calc(var(--nav-height) + 2rem) !important;
-    padding-bottom: 3rem !important;
+    padding-bottom: 3.5rem !important;
+    position: relative !important;
+    z-index: 1 !important;
+    display: block !important;
+    width: 100% !important;
   }
+
+  section#methodology > .container {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* CRITICAL MOBILE FIX: Ensure footer#contact is fully clear, visible, and never slides under */
   footer#contact {
     min-height: auto !important;
     height: auto !important;
     max-height: none !important;
-    padding-top: calc(var(--nav-height) + 3rem) !important;
-    padding-bottom: 3.5rem !important;
+    overflow: visible !important;
+    padding-top: calc(var(--nav-height) + 2.5rem) !important;
+    padding-bottom: 4rem !important;
+    position: relative !important;
+    z-index: 5 !important;
+    clear: both !important;
+    display: block !important;
+    width: 100% !important;
+  }
+
+  footer#contact > .container,
+  footer#contact .footer-center-container,
+  .footer-center-container.motion-reveal {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    visibility: visible !important;
+  }
+
+  /* Prevent any motion-reveal element from remaining hidden on mobile */
+  .motion-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    visibility: visible !important;
   }
 }
 
@@ -3796,10 +4088,10 @@ footer#contact .copyright {
   section#methodology,
   section#methodology.section-berry {
     padding-top: calc(var(--nav-height) + 1.5rem) !important;
-    padding-bottom: 2.5rem !important;
+    padding-bottom: 2.8rem !important;
   }
   footer#contact {
-    padding-top: calc(var(--nav-height) + 2.5rem) !important;
-    padding-bottom: 3rem !important;
+    padding-top: calc(var(--nav-height) + 2.2rem) !important;
+    padding-bottom: 3.5rem !important;
   }
 }

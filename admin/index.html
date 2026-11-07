@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Portal | M. Asim — Computational Chemistry Portfolio</title>
+  <title>Admin Dashboard &amp; CMS | M. Asim Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -11,16 +11,22 @@
   <style>
     :root {
       --bg-black: #060608;
-      --bg-card: #0f1118;
-      --bg-card-hover: #161922;
+      --bg-surface: #0c0e14;
+      --bg-card: #131620;
+      --bg-card-hover: #1a1e2b;
+      --bg-input: #080a0f;
       --teal: #952a65;
-      --teal-glow: rgba(149, 42, 101, 0.45);
+      --teal-light: #b83a80;
+      --teal-glow: rgba(149, 42, 101, 0.4);
       --gold: #ffd166;
       --white: #ffffff;
       --text-muted: #94a3b8;
-      --border-dark: rgba(255, 255, 255, 0.12);
+      --text-subtle: #64748b;
+      --border-dark: rgba(255, 255, 255, 0.1);
+      --border-accent: rgba(149, 42, 101, 0.5);
       --font-display: "Bebas Neue", sans-serif;
       --font-sans: "Poppins", sans-serif;
+      --sidebar-width: 280px;
     }
 
     *, *::before, *::after {
@@ -40,735 +46,1980 @@
       overflow-x: hidden;
     }
 
-    /* Background Ambient Radiance */
+    /* Ambient background glow */
     body::before {
       content: '';
       position: fixed;
-      top: -20%;
+      top: -150px;
       left: 50%;
       transform: translateX(-50%);
-      width: 800px;
-      height: 800px;
+      width: 900px;
+      height: 900px;
       background: radial-gradient(circle, rgba(149, 42, 101, 0.22) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
 
-    header.admin-nav {
+    /* =========================================================
+       LOGIN GATE CARD (Shown when not authenticated)
+       ========================================================= */
+    #loginCard {
       position: relative;
       z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 2rem;
-      border-bottom: 1px solid var(--border-dark);
-      background: rgba(6, 6, 8, 0.85);
-      backdrop-filter: blur(12px);
-    }
-
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      text-decoration: none;
-      color: var(--white);
-    }
-
-    .brand-badge {
-      background: var(--teal);
-      color: var(--white);
-      font-family: var(--font-display);
-      font-size: 1.25rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
-      letter-spacing: 0.05em;
-      box-shadow: 0 0 12px var(--teal-glow);
-    }
-
-    .brand-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .brand-title span {
-      color: var(--gold);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .btn-site-link {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      transition: color 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .btn-site-link:hover {
-      color: var(--white);
-    }
-
-    /* Main Container */
-    main.admin-main {
-      position: relative;
-      z-index: 1;
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2.5rem 1.5rem;
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    /* LOGIN CARD */
-    .login-card {
-      width: 100%;
       max-width: 440px;
-      background: var(--bg-card);
-      border: 1.5px solid var(--border-dark);
+      width: 92%;
+      margin: auto;
+      padding: 2.5rem 2rem;
+      background: rgba(19, 22, 32, 0.88);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-dark);
       border-radius: 16px;
-      padding: 2.2rem 2rem;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(149, 42, 101, 0.15);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px var(--teal-glow);
+      text-align: center;
       animation: fadeIn 0.5s ease-out;
     }
 
-    .login-head {
-      text-align: center;
+    .login-logo {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), #4a1533);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-size: 1.8rem;
+      color: var(--white);
+      box-shadow: 0 8px 25px var(--teal-glow);
+    }
+
+    .login-title {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.35rem;
+    }
+
+    .login-subtitle {
+      color: var(--text-muted);
+      font-size: 0.85rem;
       margin-bottom: 1.8rem;
     }
 
-    .login-head .portal-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: rgba(149, 42, 101, 0.2);
-      border: 1px solid var(--teal);
-      color: var(--gold);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      padding: 0.3rem 0.9rem;
-      border-radius: 50px;
-      margin-bottom: 0.75rem;
-    }
-
-    .login-head h1 {
-      font-family: var(--font-display);
-      font-size: 2.5rem;
-      letter-spacing: 0.04em;
-      line-height: 1;
-      margin-bottom: 0.4rem;
-    }
-
-    .login-head p {
-      color: var(--text-muted);
-      font-size: 0.82rem;
-    }
-
     .form-group {
-      margin-bottom: 1.25rem;
+      text-align: left;
+      margin-bottom: 1.2rem;
     }
 
     .form-group label {
       display: block;
       font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
       text-transform: uppercase;
+      letter-spacing: 0.08em;
       color: var(--text-muted);
       margin-bottom: 0.4rem;
+      font-weight: 500;
     }
 
-    .input-wrap {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .input-wrap i {
-      position: absolute;
-      left: 1rem;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    .input-wrap input {
+    .form-group input {
       width: 100%;
-      background: #060608;
-      border: 1.5px solid var(--border-dark);
-      color: var(--white);
-      padding: 0.75rem 1rem 0.75rem 2.6rem;
+      padding: 0.8rem 1rem;
+      background: var(--bg-input);
+      border: 1px solid var(--border-dark);
       border-radius: 8px;
-      font-size: 0.88rem;
-      font-family: inherit;
-      outline: none;
-      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      color: var(--white);
+      font-family: var(--font-sans);
+      font-size: 0.92rem;
+      transition: all 0.25s ease;
     }
 
-    .input-wrap input:focus {
+    .form-group input:focus {
+      outline: none;
       border-color: var(--teal);
       box-shadow: 0 0 14px var(--teal-glow);
     }
 
-    .btn-submit {
+    .btn-login {
       width: 100%;
-      background: var(--teal);
+      padding: 0.85rem;
+      background: linear-gradient(135deg, var(--teal), #b83a80);
       color: var(--white);
       border: none;
-      padding: 0.8rem;
       border-radius: 8px;
-      font-size: 0.88rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
       cursor: pointer;
-      display: inline-flex;
+      box-shadow: 0 8px 25px var(--teal-glow);
+      transition: all 0.25s ease;
+      margin-top: 0.5rem;
+      display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      margin-top: 0.5rem;
-      box-shadow: 0 4px 20px var(--teal-glow);
-      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .btn-submit:hover {
-      background: #a93275;
+    .btn-login:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 25px rgba(149, 42, 101, 0.6);
+      box-shadow: 0 12px 30px var(--teal-glow);
+      filter: brightness(1.1);
     }
 
-    .alert {
+    .login-alert {
+      margin-top: 1rem;
       padding: 0.75rem 1rem;
       border-radius: 8px;
       font-size: 0.82rem;
-      margin-bottom: 1.2rem;
       display: none;
     }
 
-    .alert-danger {
+    .login-alert.error {
       background: rgba(239, 68, 68, 0.15);
       border: 1px solid rgba(239, 68, 68, 0.4);
       color: #fca5a5;
     }
 
-    .alert-success {
+    .login-alert.success {
       background: rgba(34, 197, 94, 0.15);
       border: 1px solid rgba(34, 197, 94, 0.4);
       color: #86efac;
     }
 
-    /* DASHBOARD VIEW (HIDDEN INITIALLY) */
-    .dashboard-panel {
+    /* =========================================================
+       ADMIN DASHBOARD APP SHELL
+       ========================================================= */
+    #dashboardApp {
       display: none;
-      width: 100%;
-      animation: fadeIn 0.4s ease-out;
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      flex-direction: column;
     }
 
-    .dash-header {
+    /* TOP NAVBAR */
+    .top-navbar {
+      height: 64px;
+      background: rgba(12, 14, 20, 0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-dark);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
+      padding: 0 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .top-left {
+      display: flex;
+      align-items: center;
       gap: 1rem;
-      margin-bottom: 2rem;
-      padding-bottom: 1.2rem;
-      border-bottom: 1px solid var(--border-dark);
     }
 
-    .dash-header h2 {
+    /* Hamburger Toggle (Phone / Tablet) */
+    .btn-hamburger {
+      display: none;
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      color: var(--white);
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .btn-hamburger:hover {
+      border-color: var(--teal);
+      color: var(--teal-light);
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--teal), #4a1533);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1rem;
+    }
+
+    .brand-text h1 {
       font-family: var(--font-display);
-      font-size: 2.4rem;
-      letter-spacing: 0.04em;
+      font-size: 1.35rem;
+      letter-spacing: 0.08em;
+      line-height: 1.1;
     }
 
-    .dash-header h2 span {
-      color: var(--gold);
+    .brand-text span {
+      font-size: 0.68rem;
+      color: var(--teal-light);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
     }
 
-    .dash-badge-user {
+    .top-right {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .btn-top-action {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(149, 42, 101, 0.2);
-      border: 1.5px solid var(--teal);
-      padding: 0.4rem 1rem;
-      border-radius: 50px;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-view-site {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-dark);
+      color: var(--white);
+    }
+
+    .btn-view-site:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--teal);
+    }
+
+    .btn-save-all-top {
+      background: var(--teal);
+      border: 1px solid var(--teal-light);
+      color: var(--white);
+      box-shadow: 0 4px 15px var(--teal-glow);
+    }
+
+    .btn-save-all-top:hover {
+      filter: brightness(1.15);
+      transform: translateY(-1px);
+    }
+
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .user-pill i {
+      color: #22c55e;
+      font-size: 0.6rem;
     }
 
     .btn-logout {
       background: transparent;
-      border: 1.5px solid rgba(239, 68, 68, 0.4);
-      color: #f87171;
-      padding: 0.4rem 1rem;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+      padding: 0.45rem 0.8rem;
       border-radius: 8px;
       font-size: 0.8rem;
-      font-weight: 600;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
       transition: all 0.2s ease;
     }
 
     .btn-logout:hover {
-      background: rgba(239, 68, 68, 0.2);
+      background: rgba(239, 68, 68, 0.15);
       border-color: #ef4444;
-      color: #ffffff;
     }
 
-    /* STATS ROW */
-    .dash-stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
+    /* =========================================================
+       MAIN LAYOUT: SIDEBAR (SIDE TABS) + CONTENT AREA
+       ========================================================= */
+    .admin-layout {
+      display: flex;
+      flex: 1;
+      position: relative;
     }
 
-    .stat-card {
+    /* SIDEBAR (Desktop / Laptop) */
+    .admin-sidebar {
+      width: var(--sidebar-width);
+      background: rgba(12, 14, 20, 0.98);
+      border-right: 1px solid var(--border-dark);
+      min-height: calc(100vh - 64px);
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 64px;
+      height: calc(100vh - 64px);
+      overflow-y: auto;
+      z-index: 90;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .sidebar-section-title {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-subtle);
+      font-weight: 700;
+      padding: 1.2rem 1.25rem 0.5rem;
+    }
+
+    .nav-tabs-list {
+      list-style: none;
+      padding: 0 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .nav-tab-item button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.75rem 1rem;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: var(--text-muted);
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .nav-tab-item button i {
+      font-size: 1rem;
+      width: 20px;
+      text-align: center;
+      color: var(--text-subtle);
+      transition: color 0.2s ease;
+    }
+
+    .nav-tab-item button:hover {
       background: var(--bg-card);
-      border: 1.5px solid var(--border-dark);
-      border-radius: 12px;
-      padding: 1.2rem 1.4rem;
+      color: var(--white);
     }
 
-    .stat-card .stat-title {
+    .nav-tab-item button:hover i {
+      color: var(--teal-light);
+    }
+
+    .nav-tab-item button.active {
+      background: linear-gradient(90deg, rgba(149, 42, 101, 0.25) 0%, rgba(149, 42, 101, 0.08) 100%);
+      border-color: var(--border-accent);
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .nav-tab-item button.active i {
+      color: var(--teal-light);
+    }
+
+    .nav-tab-item button.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 15%;
+      bottom: 15%;
+      width: 4px;
+      border-radius: 0 4px 4px 0;
+      background: var(--teal);
+      box-shadow: 0 0 10px var(--teal);
+    }
+
+    .tab-badge {
+      margin-left: auto;
+      font-size: 0.68rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 1.25rem 1rem;
+      border-top: 1px solid var(--border-dark);
+      background: rgba(6, 6, 8, 0.4);
+    }
+
+    .quick-status-chip {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .btn-reset-data {
+      width: 100%;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      padding: 0.5rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-reset-data:hover {
+      border-color: #ef4444;
+      color: #ef4444;
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    /* Mobile Sidebar Overlay */
+    .sidebar-backdrop {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 85;
+    }
+
+    /* CONTENT AREA */
+    .admin-content {
+      flex: 1;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .tab-pane {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    /* Pane Headers */
+    .pane-header {
+      margin-bottom: 1.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .pane-title-group h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 0.06em;
+      line-height: 1.1;
+    }
+
+    .pane-title-group p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .pane-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Cards & Containers */
+    .cms-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      transition: border-color 0.2s ease;
+    }
+
+    .cms-card:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .cms-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .cms-card-header h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--white);
+    }
+
+    .cms-card-header h3 i {
+      color: var(--teal-light);
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    .form-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .form-row {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-row label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #cbd5e1;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-row label small {
+      color: var(--text-subtle);
+      font-weight: 400;
+    }
+
+    .form-row input,
+    .form-row textarea,
+    .form-row select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: var(--bg-input);
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .form-row input:focus,
+    .form-row textarea:focus,
+    .form-row select:focus {
+      outline: none;
+      border-color: var(--teal);
+      box-shadow: 0 0 12px var(--teal-glow);
+    }
+
+    /* Picture Upload & Live Preview Area */
+    .image-preview-box {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      background: var(--bg-surface);
+      border: 1px dashed var(--border-dark);
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .preview-thumb {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 2px solid var(--teal);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .preview-meta {
+      flex: 1;
+    }
+
+    .file-input-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+
+    .file-input-wrapper input[type="file"] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .btn-file-select {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-dark);
+      color: var(--white);
+      padding: 0.45rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      cursor: pointer;
+    }
+
+    .btn-file-select:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--teal);
+    }
+
+    /* List Card Items (Degrees, Compounds, Certs) */
+    .dynamic-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .dynamic-item-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-dark);
+      border-radius: 10px;
+      padding: 1.25rem;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .dynamic-item-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .item-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .item-index-badge {
       font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.15em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 0.35rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      background: rgba(149, 42, 101, 0.25);
+      border: 1px solid var(--border-accent);
+      color: var(--teal-light);
     }
 
-    .stat-card .stat-val {
-      font-family: var(--font-display);
-      font-size: 2.2rem;
+    .btn-delete-item {
+      background: transparent;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 0.3rem 0.5rem;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-delete-item:hover {
+      background: rgba(239, 68, 68, 0.15);
+    }
+
+    .btn-add-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px dashed var(--border-dark);
       color: var(--white);
-      line-height: 1;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 100%;
+      justify-content: center;
+      margin-top: 0.5rem;
     }
 
-    .stat-card .stat-meta {
-      font-size: 0.72rem;
-      color: var(--gold);
-      margin-top: 0.35rem;
+    .btn-add-item:hover {
+      border-color: var(--teal);
+      background: rgba(149, 42, 101, 0.1);
+      color: var(--teal-light);
     }
 
-    /* SECTIONS GRID */
-    .cms-modules-grid {
+    /* Action Buttons */
+    .btn-save-pane {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--teal), #b83a80);
+      border: none;
+      color: var(--white);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      box-shadow: 0 4px 15px var(--teal-glow);
+      transition: all 0.25s ease;
+    }
+
+    .btn-save-pane:hover {
+      filter: brightness(1.12);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px var(--teal-glow);
+    }
+
+    /* Fast Stats Grid on Overview Tab */
+    .overview-stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 1.25rem;
       margin-bottom: 2rem;
     }
 
-    .module-card {
+    .stat-box {
       background: var(--bg-card);
-      border: 1.5px solid var(--border-dark);
+      border: 1px solid var(--border-dark);
       border-radius: 12px;
-      padding: 1.4rem;
-      transition: transform 0.2s ease, border-color 0.2s ease;
+      padding: 1.25rem;
+      position: relative;
+      overflow: hidden;
     }
 
-    .module-card:hover {
-      border-color: var(--teal);
-      transform: translateY(-3px);
-    }
-
-    .module-card-head {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      margin-bottom: 1rem;
-      padding-bottom: 0.65rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .module-card-head i {
-      color: var(--teal);
-      font-size: 1.15rem;
-    }
-
-    .module-card-head h3 {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--white);
-    }
-
-    .module-input-row {
-      margin-bottom: 0.85rem;
-    }
-
-    .module-input-row label {
-      display: block;
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      margin-bottom: 0.25rem;
-      font-weight: 600;
-    }
-
-    .module-input-row input,
-    .module-input-row textarea {
-      width: 100%;
-      background: #060608;
-      border: 1.5px solid var(--border-dark);
-      border-radius: 6px;
-      padding: 0.55rem 0.8rem;
-      color: var(--white);
-      font-family: inherit;
-      font-size: 0.82rem;
-      outline: none;
-      transition: border-color 0.2s ease;
-    }
-
-    .module-input-row input:focus,
-    .module-input-row textarea:focus {
-      border-color: var(--teal);
-    }
-
-    .btn-save-module {
-      background: rgba(149, 42, 101, 0.2);
-      border: 1.5px solid var(--teal);
-      color: var(--white);
-      padding: 0.45rem 1rem;
-      border-radius: 6px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: all 0.2s ease;
-    }
-
-    .btn-save-module:hover {
+    .stat-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
       background: var(--teal);
-      box-shadow: 0 0 15px var(--teal-glow);
     }
 
-    /* HOSTING & BACKEND NOTICE */
-    .backend-notice-box {
-      background: rgba(255, 209, 102, 0.08);
-      border: 1.5px solid rgba(255, 209, 102, 0.4);
-      border-radius: 12px;
-      padding: 1.2rem 1.5rem;
-      font-size: 0.85rem;
-      color: #fef08a;
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
+    .stat-box-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
     }
 
-    .backend-notice-box i {
-      font-size: 1.4rem;
-      color: var(--gold);
-      flex-shrink: 0;
-      margin-top: 0.2rem;
-    }
-
-    .backend-notice-box strong {
+    .stat-box-number {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
       color: var(--white);
+      line-height: 1;
+      margin-bottom: 0.35rem;
     }
 
-    .backend-notice-box code {
-      background: rgba(0, 0, 0, 0.4);
-      padding: 0.15em 0.4em;
-      border-radius: 4px;
-      color: #ffffff;
-      font-family: monospace;
+    .stat-box-desc {
+      font-size: 0.74rem;
+      color: var(--text-subtle);
     }
 
+    /* Toast Notification */
+    .toast-notice {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #0f172a;
+      border: 1px solid #22c55e;
+      color: #86efac;
+      padding: 0.9rem 1.4rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      z-index: 1000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .toast-notice.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Animations */
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    footer.admin-footer {
-      text-align: center;
-      padding: 1.5rem;
-      font-size: 0.75rem;
-      color: #64748b;
-      border-top: 1px solid var(--border-dark);
-      position: relative;
-      z-index: 10;
+    /* =========================================================
+       RESPONSIVE BREAKPOINTS (Mobile Hamburger vs Laptop Sidebar)
+       ========================================================= */
+    @media (max-width: 991px) {
+      .btn-hamburger {
+        display: inline-flex;
+      }
+
+      .admin-sidebar {
+        position: fixed;
+        top: 64px;
+        left: 0;
+        bottom: 0;
+        width: 300px;
+        transform: translateX(-100%);
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.7);
+        z-index: 95;
+      }
+
+      .admin-sidebar.open {
+        transform: translateX(0);
+      }
+
+      .sidebar-backdrop.open {
+        display: block;
+      }
+
+      .admin-content {
+        padding: 1.25rem 1rem;
+      }
+
+      .overview-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .form-grid-2, .form-grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .top-navbar {
+        padding: 0 1rem;
+      }
+
+      .btn-save-all-top span {
+        display: none;
+      }
     }
 
-    @media (max-width: 600px) {
-      header.admin-nav {
-        padding: 0.9rem 1.2rem;
+    @media (max-width: 576px) {
+      .overview-stats-grid {
+        grid-template-columns: 1fr;
       }
-      .login-card {
-        padding: 1.6rem 1.3rem;
+
+      .pane-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .pane-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .user-pill {
+        display: none;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- ADMIN NAVIGATION BAR -->
-  <header class="admin-nav">
-    <a href="../index.html" class="nav-brand">
-      <span class="brand-badge">CMS</span>
-      <span class="brand-title">M. Asim <span>&bull; Admin Portal</span></span>
-    </a>
-    <div class="nav-actions">
-      <a href="../index.html" class="btn-site-link">
-        <i class="fas fa-external-link-alt"></i> View Live Site
-      </a>
+  <!-- =========================================================
+       GATEWAY 1: LOGIN CARD (seefooo63@gmail.com / 12345678)
+       ========================================================= -->
+  <main id="loginCard">
+    <div class="login-logo">
+      <i class="fas fa-atom"></i>
     </div>
-  </header>
+    <h2 class="login-title">ADMIN GATEWAY</h2>
+    <p class="login-subtitle">M. Asim &bull; Computational Chemistry Portfolio CMS</p>
 
-  <!-- MAIN AREA -->
-  <main class="admin-main">
-    
-    <!-- LOGIN INTERFACE -->
-    <div class="login-card" id="loginCard">
-      <div class="login-head">
-        <div class="portal-pill">
-          <i class="fas fa-shield-alt"></i> Official CMS Gateway
-        </div>
-        <h1>SIGN IN</h1>
-        <p>Access M. Asim's Portfolio Management System</p>
+    <form id="loginForm" autocomplete="off">
+      <div class="form-group">
+        <label for="adminEmail">Email Address or Username</label>
+        <input type="text" id="adminEmail" placeholder="seefooo63@gmail.com" required>
       </div>
 
-      <div class="alert alert-danger" id="loginAlert"></div>
-      <div class="alert alert-success" id="successAlert"></div>
-
-      <form id="adminLoginForm">
-        <div class="form-group">
-          <label for="adminEmail">Email Address or Username</label>
-          <div class="input-wrap">
-            <i class="fas fa-envelope"></i>
-            <input type="text" id="adminEmail" placeholder="seefooo63@gmail.com" required autocomplete="username">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="adminPassword">Password</label>
-          <div class="input-wrap">
-            <i class="fas fa-lock"></i>
-            <input type="password" id="adminPassword" placeholder="••••••••" required autocomplete="current-password">
-          </div>
-        </div>
-
-        <button type="submit" class="btn-submit">
-          <i class="fas fa-sign-in-alt"></i> Authenticate &amp; Access CMS
-        </button>
-      </form>
-    </div>
-
-    <!-- AUTHENTICATED DASHBOARD VIEW -->
-    <div class="dashboard-panel" id="dashboardPanel">
-      
-      <div class="dash-header">
-        <div>
-          <h2>PORTFOLIO <span>MANAGEMENT CMS</span></h2>
-          <p style="color: var(--text-muted); font-size: 0.85rem;">Active session verified on GitHub Pages &bull; Live Portfolio Control</p>
-        </div>
-        <div style="display: flex; align-items: center; gap: 0.85rem;">
-          <div class="dash-badge-user">
-            <i class="fas fa-user-check" style="color: var(--gold);"></i>
-            <span id="displayUser">seefooo63@gmail.com</span>
-          </div>
-          <button class="btn-logout" id="btnLogout">
-            <i class="fas fa-sign-out-alt"></i> Log Out
-          </button>
-        </div>
+      <div class="form-group">
+        <label for="adminPassword">Admin Password</label>
+        <input type="password" id="adminPassword" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required>
       </div>
 
-      <!-- METRICS -->
-      <div class="dash-stats-grid">
-        <div class="stat-card">
-          <div class="stat-title">Active Screens</div>
-          <div class="stat-val">8 Viewports</div>
-          <div class="stat-meta">&#10003; 100svh Responsive Snap</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-title">Halo Derivatives</div>
-          <div class="stat-val">3 Compounds</div>
-          <div class="stat-meta">4-Chloro, 4-Bromo, 4-Fluoro</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-title">Academic CGPA</div>
-          <div class="stat-val">3.82 / 4.00</div>
-          <div class="stat-meta">5th Semester &bull; University of Layyah</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-title">Quantum Suite</div>
-          <div class="stat-val">4 Softwares</div>
-          <div class="stat-meta">Gaussian, GaussView, Chemcraft, Avogadro</div>
-        </div>
-      </div>
+      <button type="submit" class="btn-login">
+        <i class="fas fa-shield-alt"></i> Authenticate &amp; Access
+      </button>
+    </form>
 
-      <!-- CMS MODULES -->
-      <div class="cms-modules-grid">
-        
-        <!-- Module 1: Profile & Scholar Overview -->
-        <div class="module-card">
-          <div class="module-card-head">
-            <i class="fas fa-user-graduate"></i>
-            <h3>Scholar Identity &amp; Bio</h3>
-          </div>
-          <div class="module-input-row">
-            <label>Full Name</label>
-            <input type="text" id="m_name" value="M. ASIM">
-          </div>
-          <div class="module-input-row">
-            <label>Academic Title</label>
-            <input type="text" id="m_title" value="BS Chemistry Student &bull; Computational Chemist">
-          </div>
-          <div class="module-input-row">
-            <label>Scholar Summary</label>
-            <textarea id="m_desc" rows="3">Currently pursuing BS Chemistry at University of Layyah. Dedicated to quantum chemical calculations, molecular modeling, and theoretical chemistry research.</textarea>
-          </div>
-          <button class="btn-save-module" onclick="saveModule('Scholar Profile')">
-            <i class="fas fa-check"></i> Update Profile Info
-          </button>
-        </div>
-
-        <!-- Module 2: Academic Scores -->
-        <div class="module-card">
-          <div class="module-card-head">
-            <i class="fas fa-university"></i>
-            <h3>Academic Foundation</h3>
-          </div>
-          <div class="module-input-row">
-            <label>BS Chemistry CGPA</label>
-            <input type="text" id="m_cgpa" value="3.82 / 4.00">
-          </div>
-          <div class="module-input-row">
-            <label>Current Status</label>
-            <input type="text" id="m_semester" value="5th Semester (In Progress)">
-          </div>
-          <div class="module-input-row">
-            <label>University / Affiliation</label>
-            <input type="text" id="m_uni" value="University of Layyah">
-          </div>
-          <button class="btn-save-module" onclick="saveModule('Academic Scores')">
-            <i class="fas fa-check"></i> Update Academic Records
-          </button>
-        </div>
-
-        <!-- Module 3: Computational Research Projects -->
-        <div class="module-card">
-          <div class="module-card-head">
-            <i class="fas fa-atom"></i>
-            <h3>Active Halo Derivatives</h3>
-          </div>
-          <div class="module-input-row">
-            <label>Target Compound 1</label>
-            <input type="text" value="4-Chloroacetophenone (C8H7ClO)">
-          </div>
-          <div class="module-input-row">
-            <label>Target Compound 2</label>
-            <input type="text" value="4-Bromoacetophenone (C8H7BrO)">
-          </div>
-          <div class="module-input-row">
-            <label>Target Compound 3</label>
-            <input type="text" value="4-Fluoroacetophenone (C8H7FO)">
-          </div>
-          <button class="btn-save-module" onclick="saveModule('Compounds Dossier')">
-            <i class="fas fa-check"></i> Update Compounds
-          </button>
-        </div>
-
-        <!-- Module 4: Contact & Social Coordinates -->
-        <div class="module-card">
-          <div class="module-card-head">
-            <i class="fas fa-paper-plane"></i>
-            <h3>Contact Coordinates</h3>
-          </div>
-          <div class="module-input-row">
-            <label>Official Email</label>
-            <input type="email" id="m_email" value="seefooo63@gmail.com">
-          </div>
-          <div class="module-input-row">
-            <label>LinkedIn URL</label>
-            <input type="url" value="https://linkedin.com">
-          </div>
-          <div class="module-input-row">
-            <label>ResearchGate URL</label>
-            <input type="url" value="https://researchgate.net">
-          </div>
-          <button class="btn-save-module" onclick="saveModule('Contact Details')">
-            <i class="fas fa-check"></i> Save Contact Coordinates
-          </button>
-        </div>
-
-      </div>
-
-      <!-- CLOUD & BACKEND RUNNER NOTICE -->
-      <div class="backend-notice-box">
-        <i class="fas fa-server"></i>
-        <div>
-          <p><strong>Dual Architecture Active:</strong> You are accessing the <strong>GitHub Pages Web Admin Gateway</strong>.</p>
-          <p style="margin-top: 0.35rem; color: #cbd5e1; font-size: 0.8rem;">
-            To run the full multi-user Python database backend locally with automated SQLite migrations, open your terminal and run <code>python app.py</code> then visit <code>http://127.0.0.1:5000/admin/login</code> with the exact same credentials!
-          </p>
-        </div>
-      </div>
-
-    </div>
-
+    <div class="login-alert error" id="loginAlert"></div>
+    <div class="login-alert success" id="loginSuccess"></div>
   </main>
 
-  <footer class="admin-footer">
-    &copy; 2026 M. ASIM &mdash; COMPUTATIONAL CHEMISTRY PORTFOLIO CMS. ALL RIGHTS RESERVED.
-  </footer>
+  <!-- =========================================================
+       GATEWAY 2: FULL-SCALE RESPONSIVE CMS DASHBOARD
+       ========================================================= -->
+  <div id="dashboardApp">
+    
+    <!-- TOP NAVIGATION BAR -->
+    <header class="top-navbar">
+      <div class="top-left">
+        <!-- Hamburger Button for Phone / Tablet -->
+        <button class="btn-hamburger" id="btnHamburger" aria-label="Toggle navigation drawer">
+          <i class="fas fa-bars"></i>
+        </button>
 
+        <div class="brand-group">
+          <div class="brand-icon">
+            <i class="fas fa-atom"></i>
+          </div>
+          <div class="brand-text">
+            <h1>M. ASIM &bull; CMS</h1>
+            <span>Computational Portfolio</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="top-right">
+        <a href="../" target="_blank" class="btn-top-action btn-view-site">
+          <i class="fas fa-external-link-alt"></i> <span>View Live Site</span>
+        </a>
+
+        <button class="btn-top-action btn-save-all-top" id="btnSaveAllTop">
+          <i class="fas fa-cloud-upload-alt"></i> <span>Save All Changes</span>
+        </button>
+
+        <div class="user-pill">
+          <i class="fas fa-circle"></i>
+          <span id="displayUserPill">seefooo63@gmail.com</span>
+        </div>
+
+        <button class="btn-logout" id="btnLogout" title="Log out of CMS">
+          <i class="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- MOBILE SIDEBAR BACKDROP OVERLAY -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <!-- MAIN CMS WORKSPACE (SIDEBAR + CONTENT PANES) -->
+    <div class="admin-layout">
+      
+      <!-- SIDEBAR (Fixed Side Tabs on Laptop, Slide-over on Mobile) -->
+      <aside class="admin-sidebar" id="adminSidebar">
+        
+        <div class="sidebar-section-title">Navigation &amp; Controls</div>
+        <ul class="nav-tabs-list">
+          <li class="nav-tab-item">
+            <button class="active" data-pane="paneOverview">
+              <i class="fas fa-tachometer-alt"></i>
+              <span>Overview &amp; Stats</span>
+            </button>
+          </li>
+          <li class="nav-tab-item">
+            <button data-pane="paneProfile">
+              <i class="fas fa-user-circle"></i>
+              <span>Profile &amp; Hero (Screen 1)</span>
+            </button>
+          </li>
+          <li class="nav-tab-item">
+            <button data-pane="paneAbout">
+              <i class="fas fa-address-card"></i>
+              <span>About Scholar &amp; Metrics</span>
+            </button>
+          </li>
+          <li class="nav-tab-item">
+            <button data-pane="paneEducation">
+              <i class="fas fa-graduation-cap"></i>
+              <span>Academic Timeline (Screen 3)</span>
+              <span class="tab-badge" id="badgeEdu">3</span>
+            </button>
+          </li>
+          <li class="nav-tab-item">
+            <button data-pane="paneJourney">
+              <i class="fas fa-route"></i>
+              <span>Research Journey (Screen 4)</span>
+            </button>
+          </li>
+          <li class="nav-tab-item">
+            <button data-pane="paneCompounds">
+              <i class="fas fa-flask"></i>
+              <span>Halo-Derivatives (Screen 6)</span>
+              <span class="tab-badge" id="badgeCompounds">3</span>
+            </button>
+          </li>
+          <li class="nav-tab-item">
+            <button data-pane="paneMethodology">
+              <i class="fas fa-project-diagram"></i>
+              <span>Theoretical Framework (Screen 7)</span>
+            </button>
+          </li>
+          <li class="nav-tab-item">
+            <button data-pane="paneSkills">
+              <i class="fas fa-tools"></i>
+              <span>Quantum Suite &amp; Software</span>
+            </button>
+          </li>
+          <li class="nav-tab-item">
+            <button data-pane="paneCertifications">
+              <i class="fas fa-award"></i>
+              <span>Certifications &amp; Awards (Screen 5)</span>
+              <span class="tab-badge" id="badgeCerts">3</span>
+            </button>
+          </li>
+          <li class="nav-tab-item">
+            <button data-pane="paneContact">
+              <i class="fas fa-paper-plane"></i>
+              <span>Contact Coordinates &amp; Footer</span>
+            </button>
+          </li>
+          <li class="nav-tab-item">
+            <button data-pane="paneSettings">
+              <i class="fas fa-sliders-h"></i>
+              <span>Theme Appearance &amp; Settings</span>
+            </button>
+          </li>
+        </ul>
+
+        <div class="sidebar-footer">
+          <div class="quick-status-chip">
+            <span>Storage: <strong>Local &amp; Live Sync</strong></span>
+            <i class="fas fa-database" style="color: #22c55e;"></i>
+          </div>
+          <button class="btn-reset-data" id="btnResetData">
+            <i class="fas fa-undo"></i> Reset to Original Data
+          </button>
+        </div>
+      </aside>
+
+      <!-- CONTENT PANES -->
+      <main class="admin-content">
+
+        <!-- ==========================================
+             PANE 1: OVERVIEW & STATS
+             ========================================== -->
+        <section class="tab-pane active" id="paneOverview">
+          <div class="pane-header">
+            <div class="pane-title-group">
+              <h2>Overview &amp; Live Status</h2>
+              <p>Manage all components, content, and media for M. Asim's Computational Chemistry Portfolio.</p>
+            </div>
+            <div class="pane-actions">
+              <button class="btn-save-pane" onclick="saveAllCmsData()">
+                <i class="fas fa-save"></i> Save All Changes
+              </button>
+            </div>
+          </div>
+
+          <div class="overview-stats-grid">
+            <div class="stat-box">
+              <div class="stat-box-title">Target Derivatives</div>
+              <div class="stat-box-number" id="statCmpdCount">3</div>
+              <div class="stat-box-desc">4-Chloro, 4-Bromo, 4-Fluoro</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-box-title">BS Chemistry CGPA</div>
+              <div class="stat-box-number" id="statCgpa">3.82</div>
+              <div class="stat-box-desc">University of Layyah</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-box-title">Framework Steps</div>
+              <div class="stat-box-number">06</div>
+              <div class="stat-box-desc">Quantum chemical methodology</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-box-title">Achievements</div>
+              <div class="stat-box-number" id="statCertCount">3</div>
+              <div class="stat-box-desc">Academic distinctions</div>
+            </div>
+          </div>
+
+          <!-- Quick Actions & Data Management -->
+          <div class="cms-card">
+            <div class="cms-card-header">
+              <h3><i class="fas fa-exchange-alt"></i> Backup, Export &amp; Live Sync</h3>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+              Every update saved here reflects immediately across the live portfolio website via instant browser storage. You can also export a complete JSON backup or import saved data.
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+              <button class="btn-top-action btn-view-site" onclick="exportBackupJson()">
+                <i class="fas fa-file-download"></i> Export Data Backup (JSON)
+              </button>
+              <label class="btn-top-action btn-view-site" style="margin: 0; cursor: pointer;">
+                <i class="fas fa-file-upload"></i> Import Backup (JSON)
+                <input type="file" id="importJsonInput" accept=".json" style="display: none;" onchange="importBackupJson(event)">
+              </label>
+              <a href="../" target="_blank" class="btn-top-action btn-save-all-top">
+                <i class="fas fa-external-link-alt"></i> Preview Live Website
+              </a>
+            </div>
+          </div>
+
+          <!-- System Architecture Notice -->
+          <div class="cms-card" style="background: rgba(149, 42, 101, 0.08); border-color: var(--border-accent);">
+            <div class="cms-card-header">
+              <h3><i class="fas fa-check-circle" style="color: #22c55e;"></i> Universal Dashboard Active</h3>
+            </div>
+            <p style="font-size: 0.84rem; color: #cbd5e1; line-height: 1.6;">
+              This dashboard is connected with <strong>Responsive Hamburger navigation for mobile</strong> and <strong>full vertical side tabs for laptop/desktop</strong>. Every single string, picture, compound, academic metric, certification, and theoretical step is 100% editable right here!
+            </p>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             PANE 2: PROFILE & HERO (SCREEN 1)
+             ========================================== -->
+        <section class="tab-pane" id="paneProfile">
+          <div class="pane-header">
+            <div class="pane-title-group">
+              <h2>Profile &amp; Hero Section</h2>
+              <p>Customize scholar name, hero typewriter titles, bio description, and profile picture.</p>
+            </div>
+            <div class="pane-actions">
+              <button class="btn-save-pane" onclick="saveProfileSection()">
+                <i class="fas fa-save"></i> Save Profile Info
+              </button>
+            </div>
+          </div>
+
+          <div class="cms-card">
+            <div class="cms-card-header">
+              <h3><i class="fas fa-portrait"></i> Scholar Picture &amp; Visual Identity</h3>
+            </div>
+            
+            <div class="image-preview-box">
+              <img src="../assets/asim.jpeg" id="heroAvatarPreview" alt="Profile Preview" class="preview-thumb">
+              <div class="preview-meta">
+                <label style="font-size: 0.82rem; font-weight: 500; display: block; margin-bottom: 0.25rem;">Profile Image (File or URL)</label>
+                <div class="form-row" style="margin-bottom: 0.5rem;">
+                  <input type="text" id="heroAvatarUrl" placeholder="assets/asim.jpeg or https://..." oninput="updateAvatarPreview(this.value)">
+                </div>
+                <div class="file-input-wrapper">
+                  <button type="button" class="btn-file-select">
+                    <i class="fas fa-upload"></i> Upload Picture from Device
+                  </button>
+                  <input type="file" id="heroAvatarFile" accept="image/*" onchange="handleImageUpload(event, 'heroAvatarUrl', 'heroAvatarPreview')">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label for="profileName">Full Display Name</label>
+                <input type="text" id="profileName" value="M. ASIM">
+              </div>
+              <div class="form-row">
+                <label for="profileTagline">Hero Subtitle / Tagline</label>
+                <input type="text" id="profileTagline" value="BS Chemistry Student &bull; Computational Chemistry Enthusiast">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label for="profileTypewriter">Typewriter Animated Keywords <small>(Comma separated)</small></label>
+              <input type="text" id="profileTypewriter" value="COMPUTATIONAL CHEMIST, BS CHEMISTRY STUDENT, MOLECULAR MODELING RESEARCHER, THEORETICAL CHEMISTRY ENTHUSIAST">
+            </div>
+
+            <div class="form-row">
+              <label for="profileBio">Hero Description / Scholar Bio</label>
+              <textarea id="profileBio" rows="4">Computational Chemistry undergraduate specializing in quantum chemical calculations, molecular modeling, and electronic structure analysis. Investigating molecular properties and chemical reactivity through computational approaches.</textarea>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label for="heroBtn1Text">Primary Button Text</label>
+                <input type="text" id="heroBtn1Text" value="Explore Research">
+              </div>
+              <div class="form-row">
+                <label for="heroBtn1Link">Primary Button Link</label>
+                <input type="text" id="heroBtn1Link" value="#originals">
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label for="heroBtn2Text">Secondary Button Text</label>
+                <input type="text" id="heroBtn2Text" value="About Me">
+              </div>
+              <div class="form-row">
+                <label for="heroBtn2Link">Secondary Button Link</label>
+                <input type="text" id="heroBtn2Link" value="#about">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             PANE 3: ABOUT SCHOLAR & METRICS (SCREEN 2)
+             ========================================== -->
+        <section class="tab-pane" id="paneAbout">
+          <div class="pane-header">
+            <div class="pane-title-group">
+              <h2>About Scholar &amp; Academic Metrics</h2>
+              <p>Configure academic background overview, quote, and quick examination metrics.</p>
+            </div>
+            <div class="pane-actions">
+              <button class="btn-save-pane" onclick="saveAboutSection()">
+                <i class="fas fa-save"></i> Save About Details
+              </button>
+            </div>
+          </div>
+
+          <div class="cms-card">
+            <div class="cms-card-header">
+              <h3><i class="fas fa-quote-left"></i> Scholar Summary &amp; Quote</h3>
+            </div>
+            
+            <div class="form-row">
+              <label for="aboutSubtitle">Section Subtitle</label>
+              <input type="text" id="aboutSubtitle" value="COMPUTATIONAL CHEMIST &bull; BS CHEMISTRY STUDENT &bull; RESEARCH ENTHUSIAST">
+            </div>
+
+            <div class="form-row">
+              <label for="aboutQuote">Scholar Overview Quote</label>
+              <textarea id="aboutQuote" rows="4">Undergraduate BS Chemistry student (5th Semester) with a strong academic interest in computational chemistry and theoretical molecular research. Exploring molecular structures, electronic properties, chemical bonding, and reactivity using Gaussian, GaussView, Chemcraft, and Avogadro. Currently conducting computational research on para-haloacetophenone derivatives.</textarea>
+            </div>
+
+            <div class="form-row">
+              <label for="aboutSpecializations">Specialization Pills <small>(Comma separated)</small></label>
+              <input type="text" id="aboutSpecializations" value="Gaussian, GaussView, Chemcraft, Avogadro, FMO Analysis, NBO Analysis">
+            </div>
+          </div>
+
+          <div class="cms-card">
+            <div class="cms-card-header">
+              <h3><i class="fas fa-chart-line"></i> Academic Score Facts</h3>
+            </div>
+
+            <div class="form-grid-3">
+              <div class="form-row">
+                <label for="matricMarks">Matric Obtained Marks</label>
+                <input type="text" id="matricMarks" value="1083">
+              </div>
+              <div class="form-row">
+                <label for="matricTotal">Matric Total Marks</label>
+                <input type="text" id="matricTotal" value="1100">
+              </div>
+              <div class="form-row">
+                <label for="matricBoard">Matric Board</label>
+                <input type="text" id="matricBoard" value="BISE DG Khan">
+              </div>
+            </div>
+
+            <div class="form-grid-3">
+              <div class="form-row">
+                <label for="interMarks">Intermediate Obtained</label>
+                <input type="text" id="interMarks" value="824">
+              </div>
+              <div class="form-row">
+                <label for="interTotal">Intermediate Total</label>
+                <input type="text" id="interTotal" value="1100">
+              </div>
+              <div class="form-row">
+                <label for="interBoard">Intermediate Board</label>
+                <input type="text" id="interBoard" value="BISE DG Khan">
+              </div>
+            </div>
+
+            <div class="form-grid-3">
+              <div class="form-row">
+                <label for="cgpaVal">BS Chemistry CGPA</label>
+                <input type="text" id="cgpaVal" value="3.82">
+              </div>
+              <div class="form-row">
+                <label for="cgpaTotal">CGPA Scale</label>
+                <input type="text" id="cgpaTotal" value="4.00">
+              </div>
+              <div class="form-row">
+                <label for="currentSemester">Current Status</label>
+                <input type="text" id="currentSemester" value="5th Semester (In Progress)">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             PANE 4: ACADEMIC TIMELINE (SCREEN 3)
+             ========================================== -->
+        <section class="tab-pane" id="paneEducation">
+          <div class="pane-header">
+            <div class="pane-title-group">
+              <h2>Academic Background &amp; Education Timeline</h2>
+              <p>Add, edit, or remove educational degrees and milestones.</p>
+            </div>
+            <div class="pane-actions">
+              <button class="btn-save-pane" onclick="saveEducationSection()">
+                <i class="fas fa-save"></i> Save Education Records
+              </button>
+            </div>
+          </div>
+
+          <div class="cms-card">
+            <div class="cms-card-header">
+              <h3><i class="fas fa-graduation-cap"></i> Educational Milestones</h3>
+            </div>
+
+            <div class="dynamic-list" id="educationListContainer">
+              <!-- Dynamically populated -->
+            </div>
+
+            <button type="button" class="btn-add-item" onclick="addEducationItem()">
+              <i class="fas fa-plus-circle"></i> Add Educational Milestone
+            </button>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             PANE 5: RESEARCH JOURNEY (SCREEN 4)
+             ========================================== -->
+        <section class="tab-pane" id="paneJourney">
+          <div class="pane-header">
+            <div class="pane-title-group">
+              <h2>My Academic &amp; Research Journey (Screen 4)</h2>
+              <p>Configure the 3 timeline journey steps and descriptions.</p>
+            </div>
+            <div class="pane-actions">
+              <button class="btn-save-pane" onclick="saveJourneySection()">
+                <i class="fas fa-save"></i> Save Journey Steps
+              </button>
+            </div>
+          </div>
+
+          <div class="cms-card">
+            <div class="dynamic-list" id="journeyListContainer">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             PANE 6: HALO-DERIVATIVES / PROJECTS (SCREEN 6)
+             ========================================== -->
+        <section class="tab-pane" id="paneCompounds">
+          <div class="pane-header">
+            <div class="pane-title-group">
+              <h2>Target Halo-Derivatives &amp; Research Projects</h2>
+              <p>Manage 4-Chloro, 4-Bromo, 4-Fluoro derivatives and any new quantum projects.</p>
+            </div>
+            <div class="pane-actions">
+              <button class="btn-save-pane" onclick="saveCompoundsSection()">
+                <i class="fas fa-save"></i> Save Derivatives
+              </button>
+            </div>
+          </div>
+
+          <div class="cms-card">
+            <div class="cms-card-header">
+              <h3><i class="fas fa-flask"></i> Active Halo-Derivatives Dossier</h3>
+            </div>
+
+            <div class="dynamic-list" id="compoundsListContainer">
+              <!-- Dynamically populated -->
+            </div>
+
+            <button type="button" class="btn-add-item" onclick="addCompoundItem()">
+              <i class="fas fa-plus-circle"></i> Add Target Compound / Project
+            </button>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             PANE 7: THEORETICAL FRAMEWORK (SCREEN 7)
+             ========================================== -->
+        <section class="tab-pane" id="paneMethodology">
+          <div class="pane-header">
+            <div class="pane-title-group">
+              <h2>Theoretical Framework &amp; Methodology</h2>
+              <p>Customize the 6 research methodology stages and computational details notice.</p>
+            </div>
+            <div class="pane-actions">
+              <button class="btn-save-pane" onclick="saveMethodologySection()">
+                <i class="fas fa-save"></i> Save Methodology
+              </button>
+            </div>
+          </div>
+
+          <div class="cms-card">
+            <div class="cms-card-header">
+              <h3><i class="fas fa-heading"></i> Framework Overview &amp; Intro</h3>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label for="methodPill">Framework Pill Badge</label>
+                <input type="text" id="methodPill" value="Theoretical Framework">
+              </div>
+              <div class="form-row">
+                <label for="methodTitle">Framework Title</label>
+                <input type="text" id="methodTitle" value="Computational Research Methodology">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label for="methodIntro">Methodology Introduction Text</label>
+              <textarea id="methodIntro" rows="3">Computational chemistry provides a theoretical framework for investigating molecular structures, electronic properties, and chemical behavior through quantum chemical calculations and computational analysis.</textarea>
+            </div>
+
+            <div class="form-row">
+              <label for="methodNote">Computational Details Notice</label>
+              <input type="text" id="methodNote" value="Computational Details: To be updated after methodology is finalized.">
+            </div>
+          </div>
+
+          <div class="cms-card">
+            <div class="cms-card-header">
+              <h3><i class="fas fa-list-ol"></i> The 6 Computational Methodology Steps</h3>
+            </div>
+
+            <div class="dynamic-list" id="methodStepsContainer">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             PANE 8: QUANTUM SUITE & SKILLS
+             ========================================== -->
+        <section class="tab-pane" id="paneSkills">
+          <div class="pane-header">
+            <div class="pane-title-group">
+              <h2>Quantum Chemistry Suite &amp; Interests</h2>
+              <p>Manage software proficiency and core research interest badges.</p>
+            </div>
+            <div class="pane-actions">
+              <button class="btn-save-pane" onclick="saveSkillsSection()">
+                <i class="fas fa-save"></i> Save Quantum Suite
+              </button>
+            </div>
+          </div>
+
+          <div class="cms-card">
+            <div class="cms-card-header">
+              <h3><i class="fas fa-laptop-code"></i> Quantum Software Proficiency</h3>
+            </div>
+
+            <div class="dynamic-list" id="skillsListContainer">
+              <!-- Dynamically populated -->
+            </div>
+
+            <button type="button" class="btn-add-item" onclick="addSkillItem()">
+              <i class="fas fa-plus-circle"></i> Add Software / Tool
+            </button>
+          </div>
+
+          <div class="cms-card">
+            <div class="cms-card-header">
+              <h3><i class="fas fa-atom"></i> Core Research Interests</h3>
+            </div>
+
+            <div class="dynamic-list" id="interestsListContainer">
+              <!-- Dynamically populated -->
+            </div>
+
+            <button type="button" class="btn-add-item" onclick="addInterestItem()">
+              <i class="fas fa-plus-circle"></i> Add Research Interest
+            </button>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             PANE 9: CERTIFICATIONS & AWARDS (SCREEN 5)
+             ========================================== -->
+        <section class="tab-pane" id="paneCertifications">
+          <div class="pane-header">
+            <div class="pane-title-group">
+              <h2>Certifications, Awards &amp; Academic Achievements</h2>
+              <p>Add, edit, or remove certificates and distinctions.</p>
+            </div>
+            <div class="pane-actions">
+              <button class="btn-save-pane" onclick="saveCertificationsSection()">
+                <i class="fas fa-save"></i> Save Certificates
+              </button>
+            </div>
+          </div>
+
+          <div class="cms-card">
+            <div class="cms-card-header">
+              <h3><i class="fas fa-award"></i> Certificates &amp; Achievements List</h3>
+            </div>
+
+            <div class="dynamic-list" id="certsListContainer">
+              <!-- Dynamically populated -->
+            </div>
+
+            <button type="button" class="btn-add-item" onclick="addCertItem()">
+              <i class="fas fa-plus-circle"></i> Add New Certificate / Award
+            </button>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             PANE 10: CONTACT & FOOTER (SCREEN 8)
+             ========================================== -->
+        <section class="tab-pane" id="paneContact">
+          <div class="pane-header">
+            <div class="pane-title-group">
+              <h2>Contact Coordinates &amp; Footer Section</h2>
+              <p>Update official email, academic links, contact text, and copyright.</p>
+            </div>
+            <div class="pane-actions">
+              <button class="btn-save-pane" onclick="saveContactSection()">
+                <i class="fas fa-save"></i> Save Contact Info
+              </button>
+            </div>
+          </div>
+
+          <div class="cms-card">
+            <div class="cms-card-header">
+              <h3><i class="fas fa-paper-plane"></i> Connect Section Text</h3>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label for="contactPill">Pill Badge</label>
+                <input type="text" id="contactPill" value="CONNECT &amp; COLLABORATE">
+              </div>
+              <div class="form-row">
+                <label for="contactHeading">Main Heading</label>
+                <input type="text" id="contactHeading" value="LET'S CONNECT &amp; COLLABORATE">
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label for="contactName">Name in Footer</label>
+                <input type="text" id="contactName" value="M. ASIM">
+              </div>
+              <div class="form-row">
+                <label for="contactRole">Role Description</label>
+                <input type="text" id="contactRole" value="BS CHEMISTRY STUDENT &bull; COMPUTATIONAL CHEMISTRY ENTHUSIAST">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label for="contactDesc">Connect Invitation Description</label>
+              <textarea id="contactDesc" rows="4">I am interested in connecting with researchers, academics, students, and scientific communities working in computational chemistry, molecular modeling, and theoretical chemistry. I welcome academic discussions, research-related communication, and opportunities to learn and contribute to computational chemistry projects.</textarea>
+            </div>
+          </div>
+
+          <div class="cms-card">
+            <div class="cms-card-header">
+              <h3><i class="fas fa-link"></i> Contact Channels &amp; Links</h3>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label for="contactEmail">Official Email</label>
+                <input type="email" id="contactEmail" value="seefooo63@gmail.com">
+              </div>
+              <div class="form-row">
+                <label for="contactPhone">Phone / WhatsApp <small>(Optional)</small></label>
+                <input type="text" id="contactPhone" value="">
+              </div>
+            </div>
+
+            <div class="form-grid-3">
+              <div class="form-row">
+                <label for="contactLinkedIn">LinkedIn URL</label>
+                <input type="url" id="contactLinkedIn" value="https://linkedin.com">
+              </div>
+              <div class="form-row">
+                <label for="contactResearchGate">ResearchGate URL</label>
+                <input type="url" id="contactResearchGate" value="https://researchgate.net">
+              </div>
+              <div class="form-row">
+                <label for="contactGitHub">GitHub URL</label>
+                <input type="url" id="contactGitHub" value="https://github.com">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label for="contactAddress">University / Department Address</label>
+              <input type="text" id="contactAddress" value="Department of Chemistry, University of Layyah, Punjab, Pakistan">
+            </div>
+
+            <div class="form-row">
+              <label for="footerTagline">Footer Tagline</label>
+              <input type="text" id="footerTagline" value="M. ASIM • COMPUTATIONAL CHEMIST | COMPUTATIONAL CHEMISTRY • MOLECULAR MODELING • THEORETICAL RESEARCH">
+            </div>
+
+            <div class="form-row">
+              <label for="footerCopyright">Copyright Line</label>
+              <input type="text" id="footerCopyright" value="&copy; 2026 M. ASIM — COMPUTATIONAL CHEMISTRY PORTFOLIO. ALL RIGHTS RESERVED.">
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             PANE 11: SETTINGS & THEME
+             ========================================== -->
+        <section class="tab-pane" id="paneSettings">
+          <div class="pane-header">
+            <div class="pane-title-group">
+              <h2>Theme Appearance &amp; Security Settings</h2>
+              <p>Customize accent theme color, website meta title, and admin password.</p>
+            </div>
+            <div class="pane-actions">
+              <button class="btn-save-pane" onclick="saveSettingsSection()">
+                <i class="fas fa-save"></i> Save Settings
+              </button>
+            </div>
+          </div>
+
+          <div class="cms-card">
+            <div class="cms-card-header">
+              <h3><i class="fas fa-palette"></i> Visual Theme &amp; Accent Color</h3>
+            </div>
+            
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label for="themeAccentColor">Primary Theme Color <small>(Default: #952a65 Berry)</small></label>
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                  <input type="color" id="themeAccentPicker" value="#952a65" style="width: 50px; height: 42px; padding: 2px; cursor: pointer;" onchange="document.getElementById('themeAccentColor').value = this.value">
+                  <input type="text" id="themeAccentColor" value="#952a65" onchange="document.getElementById('themeAccentPicker').value = this.value">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <label for="siteDocTitle">Browser Tab Title</label>
+                <input type="text" id="siteDocTitle" value="M. Asim | Computational Chemistry Portfolio">
+              </div>
+            </div>
+          </div>
+
+          <div class="cms-card">
+            <div class="cms-card-header">
+              <h3><i class="fas fa-lock"></i> Change Admin Gateway Password</h3>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label for="newAdminEmail">Admin Email</label>
+                <input type="email" id="newAdminEmail" value="seefooo63@gmail.com">
+              </div>
+              <div class="form-row">
+                <label for="newAdminPassword">New Password</label>
+                <input type="password" id="newAdminPassword" placeholder="Leave blank to keep 12345678">
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- FLOATING TOAST NOTIFICATION -->
+  <div class="toast-notice" id="toastNotice">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMsg">Changes saved successfully!</span>
+  </div>
+
+  <!-- CMS CORE JAVASCRIPT LOGIC -->
   <script>
     (function() {
       'use strict';
 
-      // Verified credentials provided by user
-      const VALID_EMAILS = ['seefooo63@gmail.com', 'seefoo', 'm.asim.chemistry@gmail.com'];
-      const VALID_PASSWORD = '12345678';
+      // 1. DEFAULT DATASET (Matches 100% of the live website)
+      const DEFAULT_DATA = {
+        profile: {
+          name: "M. ASIM",
+          tagline: "BS Chemistry Student • Computational Chemistry Enthusiast",
+          typewriter: "COMPUTATIONAL CHEMIST, BS CHEMISTRY STUDENT, MOLECULAR MODELING RESEARCHER, THEORETICAL CHEMISTRY ENTHUSIAST",
+          bio: "Computational Chemistry undergraduate specializing in quantum chemical calculations, molecular modeling, and electronic structure analysis. Investigating molecular properties and chemical reactivity through computational approaches.",
+          avatar: "assets/asim.jpeg",
+          heroBtn1Text: "Explore Research",
+          heroBtn1Link: "#originals",
+          heroBtn2Text: "About Me",
+          heroBtn2Link: "#about"
+        },
+        about: {
+          secSubtitle: "COMPUTATIONAL CHEMIST • BS CHEMISTRY STUDENT • RESEARCH ENTHUSIAST",
+          quote: "Undergraduate BS Chemistry student (5th Semester) with a strong academic interest in computational chemistry and theoretical molecular research. Exploring molecular structures, electronic properties, chemical bonding, and reactivity using Gaussian, GaussView, Chemcraft, and Avogadro. Currently conducting computational research on para-haloacetophenone derivatives.",
+          specializations: "Gaussian, GaussView, Chemcraft, Avogadro, FMO Analysis, NBO Analysis",
+          matricMarks: "1083",
+          matricTotal: "1100",
+          matricBoard: "BISE DG Khan",
+          interMarks: "824",
+          interTotal: "1100",
+          interBoard: "BISE DG Khan",
+          cgpa: "3.82",
+          cgpaTotal: "4.00",
+          semester: "5th Semester (In Progress)"
+        },
+        education: [
+          {
+            degree: "Bachelor of Science in Chemistry",
+            year: "Currently Studying — 5th Semester",
+            institute: "University of Layyah",
+            score: "3.82",
+            scoreLabel: "CGPA: 3.82/4.00",
+            desc: "Undergraduate degree with academic focus on computational chemistry and theoretical molecular modeling.",
+            icon: "fa-university"
+          },
+          {
+            degree: "Intermediate (HSSC)",
+            year: "Higher Secondary School Certificate (HSSC)",
+            institute: "BISE DG Khan board",
+            score: "824",
+            scoreLabel: "Obtained: 824/1100",
+            desc: "Pre-Medical science foundation with core fundamentals in Chemistry and Physics.",
+            icon: "fa-atom"
+          },
+          {
+            degree: "Matriculation (SSC)",
+            year: "Secondary School Certificate (SSC)",
+            institute: "BISE DG Khan board",
+            score: "1083",
+            scoreLabel: "Obtained: 1083/1100",
+            desc: "Science Group with academic distinction in fundamental physical and chemical sciences.",
+            icon: "fa-graduation-cap"
+          }
+        ],
+        journey: [
+          {
+            step: "01",
+            category: "ACADEMIC FOUNDATION",
+            badge: "5th Semester • CGPA 3.82",
+            title: "Academic Foundation",
+            desc: "Currently pursuing BS Chemistry (5th Semester) at University of Layyah with a 3.82 CGPA. Developing a strong academic foundation in physical chemistry and computational theory.",
+            tags: "BS Chemistry, 5th Semester, CGPA 3.82"
+          },
+          {
+            step: "02",
+            category: "COMPUTATIONAL TOOLS",
+            badge: "Modeling • Visualization",
+            title: "Computational Chemistry Software",
+            desc: "Applying quantum tools to visualize geometries, configure electronic calculations, and inspect molecular coordinates.",
+            tags: "Gaussian, GaussView, Chemcraft, Avogadro"
+          },
+          {
+            step: "03",
+            category: "ELECTRONIC PROPERTIES",
+            badge: "Quantum • Reactivity",
+            title: "Molecular Electronic Analysis",
+            desc: "Research focus on predicting molecular reactivity and electronic distributions using quantum electronic descriptors.",
+            tags: "FMO, NBO, NLO, TDM, DOS, GRPs"
+          }
+        ],
+        compounds: [
+          {
+            tag: "CMPD-01",
+            status: "ONGOING RESEARCH",
+            name: "4-CHLOROACETOPHENONE",
+            formula: "C8H7ClO • 4-Cl-C6H4-COCH3",
+            desc: "Computational modeling examining molecular geometry, electronic structure, dipole moments, and chlorine halogen substituent effects.",
+            bm1Title: "FMO / NBO",
+            bm1Sub: "Analysis",
+            bm2Title: "Dipole μ",
+            bm2Sub: "Polarity",
+            chips: "Gaussian, Chemcraft, In Progress",
+            accent: "c-teal"
+          },
+          {
+            tag: "CMPD-02",
+            status: "ONGOING RESEARCH",
+            name: "4-BROMOACETOPHENONE",
+            formula: "C8H7BrO • 4-Br-C6H4-COCH3",
+            desc: "Comparative quantum chemical investigation focusing on heavier bromine substituent influence on molecular polarizability and orbital energy gaps.",
+            bm1Title: "NLO / TDM",
+            bm1Sub: "Optics",
+            bm2Title: "ΔE Gap",
+            bm2Sub: "Hardness",
+            chips: "GaussView, Avogadro, In Progress",
+            accent: "c-purple"
+          },
+          {
+            tag: "CMPD-03",
+            status: "ONGOING RESEARCH",
+            name: "4-FLUOROACETOPHENONE",
+            formula: "C8H7FO • 4-F-C6H4-COCH3",
+            desc: "Density functional exploration of fluorine's strong electronegative inductive effect on charge distribution and frontier molecular orbitals.",
+            bm1Title: "DOS / GRPs",
+            bm1Sub: "Reactivity",
+            bm2Title: "δ± Charge",
+            bm2Sub: "Inductive",
+            chips: "FMO Frontier, DFT State, In Progress",
+            accent: "c-cyan"
+          }
+        ],
+        methodology: {
+          pill: "Theoretical Framework",
+          title: "Computational Research Methodology",
+          intro: "Computational chemistry provides a theoretical framework for investigating molecular structures, electronic properties, and chemical behavior through quantum chemical calculations and computational analysis.",
+          note: "Computational Details: To be updated after methodology is finalized.",
+          steps: [
+            { num: "01", title: "Molecular Structure Preparation", desc: "Geometry construction & initial coordinate modeling in GaussView & Avogadro." },
+            { num: "02", title: "Computational Setup", desc: "Configuring calculation types, molecular charge, and spin multiplicity parameters." },
+            { num: "03", title: "Quantum Chemical Calculations", desc: "Execution of electronic structure calculations using Gaussian software." },
+            { num: "04", title: "Molecular Orbital Analysis", desc: "Inspection of HOMO-LUMO frontiers, band gaps, and orbitals in Chemcraft." },
+            { num: "05", title: "Electronic Property Analysis", desc: "Evaluation of NBO, NLO, TDM, DOS, and global reactivity descriptors." },
+            { num: "06", title: "Comparative Interpretation", desc: "Systematic evaluation of substituent effects across halo-derivatives." }
+          ]
+        },
+        skills: [
+          { name: "Gaussian", sub: "DFT & Quantum Engine", icon: "fa-atom" },
+          { name: "GaussView", sub: "3D Geometry Builder", icon: "fa-desktop" },
+          { name: "Chemcraft", sub: "Orbital & Gap Visualizer", icon: "fa-cube" },
+          { name: "Avogadro", sub: "Coordinate Modeler", icon: "fa-project-diagram" }
+        ],
+        interests: [
+          { icon: "⚙", label: "Computational Chemistry" },
+          { icon: "⬡", label: "Molecular Modeling" },
+          { icon: "ψ", label: "Quantum Calculations" },
+          { icon: "⊞", label: "Electronic Structure" },
+          { icon: "⚡", label: "Reactivity" },
+          { icon: "ρ", label: "DFT Theory" }
+        ],
+        certifications: [
+          {
+            idTag: "BS CHEMISTRY",
+            title: "Bachelor of Science in Chemistry",
+            issuer: "University of Layyah",
+            date: "CGPA: 3.82 / 4.00 • 5th Semester",
+            desc: "Academic excellence in core undergraduate chemical sciences with a focused research trajectory in computational chemistry."
+          },
+          {
+            idTag: "INTERMEDIATE",
+            title: "Higher Secondary School Certificate (HSSC)",
+            issuer: "BISE DG Khan board",
+            date: "Obtained Marks: 824 / 1100",
+            desc: "Pre-Medical science foundation with comprehensive coursework in fundamental chemistry and physics."
+          },
+          {
+            idTag: "MATRICULATION",
+            title: "Secondary School Certificate (SSC)",
+            issuer: "BISE DG Khan board",
+            date: "Obtained Marks: 1083 / 1100",
+            desc: "High academic distinction in Secondary School Science Group provincial board examinations."
+          }
+        ],
+        contact: {
+          pill: "CONNECT & COLLABORATE",
+          heading: "LET'S CONNECT & COLLABORATE",
+          name: "M. ASIM",
+          role: "BS CHEMISTRY STUDENT • COMPUTATIONAL CHEMISTRY ENTHUSIAST",
+          desc: "I am interested in connecting with researchers, academics, students, and scientific communities working in computational chemistry, molecular modeling, and theoretical chemistry. I welcome academic discussions, research-related communication, and opportunities to learn and contribute to computational chemistry projects.",
+          email: "seefooo63@gmail.com",
+          phone: "",
+          linkedin: "https://linkedin.com",
+          researchgate: "https://researchgate.net",
+          github: "https://github.com",
+          address: "Department of Chemistry, University of Layyah, Punjab, Pakistan",
+          tagline: "M. ASIM • COMPUTATIONAL CHEMIST | COMPUTATIONAL CHEMISTRY • MOLECULAR MODELING • THEORETICAL RESEARCH",
+          copyright: "© 2026 M. ASIM — COMPUTATIONAL CHEMISTRY PORTFOLIO. ALL RIGHTS RESERVED."
+        },
+        theme: {
+          accentColor: "#952a65",
+          docTitle: "M. Asim | Computational Chemistry Portfolio"
+        }
+      };
 
+      // Current in-memory working dataset
+      let currentData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+
+      // Load saved dataset if available
+      function loadPersistedData() {
+        const saved = localStorage.getItem('asim_portfolio_cms_data');
+        if (saved) {
+          try {
+            const parsed = JSON.parse(saved);
+            currentData = Object.assign({}, DEFAULT_DATA, parsed);
+          } catch(e) {
+            console.error('Failed to parse saved CMS data:', e);
+          }
+        }
+      }
+
+      // Persist working dataset to localStorage
+      window.persistData = function() {
+        localStorage.setItem('asim_portfolio_cms_data', JSON.stringify(currentData));
+        showToast("Changes saved successfully! Live website updated.");
+        updateDashboardCounters();
+      };
+
+      // Toast notification helper
+      window.showToast = function(msg) {
+        const toast = document.getElementById('toastNotice');
+        const toastMsg = document.getElementById('toastMsg');
+        toastMsg.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3200);
+      };
+
+      // 2. AUTHENTICATION CONTROLS
       const loginCard = document.getElementById('loginCard');
-      const dashboardPanel = document.getElementById('dashboardPanel');
-      const loginForm = document.getElementById('adminLoginForm');
+      const dashboardApp = document.getElementById('dashboardApp');
+      const loginForm = document.getElementById('loginForm');
       const loginAlert = document.getElementById('loginAlert');
-      const successAlert = document.getElementById('successAlert');
-      const displayUser = document.getElementById('displayUser');
+      const loginSuccess = document.getElementById('loginSuccess');
+      const displayUserPill = document.getElementById('displayUserPill');
       const btnLogout = document.getElementById('btnLogout');
 
-      // Check if session exists in sessionStorage
-      const savedSession = sessionStorage.getItem('asim_cms_user');
-      if (savedSession) {
-        showDashboard(savedSession);
+      function getAuthCredentials() {
+        const savedCreds = localStorage.getItem('asim_cms_auth');
+        if (savedCreds) {
+          try { return JSON.parse(savedCreds); } catch(e){}
+        }
+        return {
+          emails: ['seefooo63@gmail.com', 'seefoo', 'm.asim.chemistry@gmail.com'],
+          password: '12345678'
+        };
+      }
+
+      function checkSession() {
+        const sessionUser = sessionStorage.getItem('asim_cms_user');
+        if (sessionUser) {
+          showDashboard(sessionUser);
+        }
       }
 
       loginForm.addEventListener('submit', function(e) {
         e.preventDefault();
         loginAlert.style.display = 'none';
-        successAlert.style.display = 'none';
+        loginSuccess.style.display = 'none';
 
-        const email = document.getElementById('adminEmail').value.trim().toLowerCase();
-        const password = document.getElementById('adminPassword').value;
+        const creds = getAuthCredentials();
+        const inputEmail = document.getElementById('adminEmail').value.trim().toLowerCase();
+        const inputPassword = document.getElementById('adminPassword').value;
 
-        if (VALID_EMAILS.includes(email) && password === VALID_PASSWORD) {
-          successAlert.textContent = 'Authentication successful! Redirecting to dashboard...';
-          successAlert.style.display = 'block';
-
-          sessionStorage.setItem('asim_cms_user', email);
-
-          setTimeout(function() {
-            showDashboard(email);
-          }, 600);
+        if (creds.emails.includes(inputEmail) && inputPassword === creds.password) {
+          loginSuccess.textContent = 'Authentication successful! Loading dashboard...';
+          loginSuccess.style.display = 'block';
+          sessionStorage.setItem('asim_cms_user', inputEmail);
+          setTimeout(() => showDashboard(inputEmail), 500);
         } else {
           loginAlert.textContent = 'Invalid credentials. Please verify your email and password.';
           loginAlert.style.display = 'block';
@@ -779,23 +2030,628 @@
 
       function showDashboard(userEmail) {
         loginCard.style.display = 'none';
-        dashboardPanel.style.display = 'block';
-        displayUser.textContent = userEmail;
+        dashboardApp.style.display = 'flex';
+        displayUserPill.textContent = userEmail;
+        loadPersistedData();
+        populateAllFormPanes();
+        updateDashboardCounters();
       }
 
       btnLogout.addEventListener('click', function() {
         sessionStorage.removeItem('asim_cms_user');
-        dashboardPanel.style.display = 'none';
+        dashboardApp.style.display = 'none';
         loginCard.style.display = 'block';
         document.getElementById('adminPassword').value = '';
         loginAlert.style.display = 'none';
-        successAlert.style.display = 'none';
+        loginSuccess.style.display = 'none';
       });
 
-      // Save notification helper
-      window.saveModule = function(moduleName) {
-        alert(moduleName + ' changes saved successfully!');
+      // 3. RESPONSIVE SIDEBAR & HAMBURGER TOGGLE (Mobile & Laptop)
+      const btnHamburger = document.getElementById('btnHamburger');
+      const adminSidebar = document.getElementById('adminSidebar');
+      const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+
+      function toggleMobileSidebar() {
+        adminSidebar.classList.toggle('open');
+        sidebarBackdrop.classList.toggle('open');
+      }
+
+      btnHamburger.addEventListener('click', toggleMobileSidebar);
+      sidebarBackdrop.addEventListener('click', toggleMobileSidebar);
+
+      // TAB NAVIGATION SWITCHING
+      const tabButtons = document.querySelectorAll('.nav-tab-item button');
+      const tabPanes = document.querySelectorAll('.tab-pane');
+
+      tabButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const targetPaneId = this.dataset.pane;
+          
+          tabButtons.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+
+          tabPanes.forEach(p => p.classList.remove('active'));
+          const targetPane = document.getElementById(targetPaneId);
+          if (targetPane) targetPane.classList.add('active');
+
+          // If mobile, close sidebar on selection
+          if (window.innerWidth <= 991) {
+            adminSidebar.classList.remove('open');
+            sidebarBackdrop.classList.remove('open');
+          }
+        });
+      });
+
+      // 4. IMAGE PREVIEW & BASE64 UPLOADER
+      window.updateAvatarPreview = function(url) {
+        const preview = document.getElementById('heroAvatarPreview');
+        if (url) {
+          preview.src = url.startsWith('http') || url.startsWith('data:') ? url : '../' + url;
+        }
       };
+
+      window.handleImageUpload = function(event, urlInputId, previewImgId) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const base64 = e.target.result;
+          document.getElementById(urlInputId).value = base64;
+          document.getElementById(previewImgId).src = base64;
+          showToast('Image uploaded and preview updated!');
+        };
+        reader.readAsDataURL(file);
+      };
+
+      // 5. POPULATE ALL CMS FORMS WITH CURRENT DATA
+      function populateAllFormPanes() {
+        const d = currentData;
+
+        // Profile
+        document.getElementById('profileName').value = d.profile.name || '';
+        document.getElementById('profileTagline').value = d.profile.tagline || '';
+        document.getElementById('profileTypewriter').value = d.profile.typewriter || '';
+        document.getElementById('profileBio').value = d.profile.bio || '';
+        document.getElementById('heroAvatarUrl').value = d.profile.avatar || '';
+        document.getElementById('heroBtn1Text').value = d.profile.heroBtn1Text || '';
+        document.getElementById('heroBtn1Link').value = d.profile.heroBtn1Link || '';
+        document.getElementById('heroBtn2Text').value = d.profile.heroBtn2Text || '';
+        document.getElementById('heroBtn2Link').value = d.profile.heroBtn2Link || '';
+        updateAvatarPreview(d.profile.avatar);
+
+        // About & Metrics
+        document.getElementById('aboutSubtitle').value = d.about.secSubtitle || '';
+        document.getElementById('aboutQuote').value = d.about.quote || '';
+        document.getElementById('aboutSpecializations').value = d.about.specializations || '';
+        document.getElementById('matricMarks').value = d.about.matricMarks || '';
+        document.getElementById('matricTotal').value = d.about.matricTotal || '';
+        document.getElementById('matricBoard').value = d.about.matricBoard || '';
+        document.getElementById('interMarks').value = d.about.interMarks || '';
+        document.getElementById('interTotal').value = d.about.interTotal || '';
+        document.getElementById('interBoard').value = d.about.interBoard || '';
+        document.getElementById('cgpaVal').value = d.about.cgpa || '';
+        document.getElementById('cgpaTotal').value = d.about.cgpaTotal || '';
+        document.getElementById('currentSemester').value = d.about.semester || '';
+
+        // Dynamic Lists
+        renderEducationList();
+        renderJourneyList();
+        renderCompoundsList();
+        renderMethodologySteps();
+        renderSkillsList();
+        renderInterestsList();
+        renderCertsList();
+
+        // Methodology Intro
+        document.getElementById('methodPill').value = d.methodology.pill || '';
+        document.getElementById('methodTitle').value = d.methodology.title || '';
+        document.getElementById('methodIntro').value = d.methodology.intro || '';
+        document.getElementById('methodNote').value = d.methodology.note || '';
+
+        // Contact
+        document.getElementById('contactPill').value = d.contact.pill || '';
+        document.getElementById('contactHeading').value = d.contact.heading || '';
+        document.getElementById('contactName').value = d.contact.name || '';
+        document.getElementById('contactRole').value = d.contact.role || '';
+        document.getElementById('contactDesc').value = d.contact.desc || '';
+        document.getElementById('contactEmail').value = d.contact.email || '';
+        document.getElementById('contactPhone').value = d.contact.phone || '';
+        document.getElementById('contactLinkedIn').value = d.contact.linkedin || '';
+        document.getElementById('contactResearchGate').value = d.contact.researchgate || '';
+        document.getElementById('contactGitHub').value = d.contact.github || '';
+        document.getElementById('contactAddress').value = d.contact.address || '';
+        document.getElementById('footerTagline').value = d.contact.tagline || '';
+        document.getElementById('footerCopyright').value = d.contact.copyright || '';
+
+        // Theme
+        document.getElementById('themeAccentColor').value = d.theme.accentColor || '#952a65';
+        document.getElementById('themeAccentPicker').value = d.theme.accentColor || '#952a65';
+        document.getElementById('siteDocTitle').value = d.theme.docTitle || '';
+      }
+
+      function updateDashboardCounters() {
+        document.getElementById('statCmpdCount').textContent = currentData.compounds.length;
+        document.getElementById('badgeCompounds').textContent = currentData.compounds.length;
+        document.getElementById('statCgpa').textContent = currentData.about.cgpa;
+        document.getElementById('statCertCount').textContent = currentData.certifications.length;
+        document.getElementById('badgeCerts').textContent = currentData.certifications.length;
+        document.getElementById('badgeEdu').textContent = currentData.education.length;
+      }
+
+      // 6. DYNAMIC LIST RENDERERS
+      // A. Education List
+      function renderEducationList() {
+        const container = document.getElementById('educationListContainer');
+        container.innerHTML = '';
+        currentData.education.forEach((item, index) => {
+          const card = document.createElement('div');
+          card.className = 'dynamic-item-card';
+          card.innerHTML = `
+            <div class="item-card-top">
+              <span class="item-index-badge">DEGREE #${index + 1}</span>
+              <button type="button" class="btn-delete-item" onclick="deleteEducationItem(${index})">
+                <i class="fas fa-trash-alt"></i> Remove
+              </button>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label>Degree Name</label>
+                <input type="text" value="${item.degree || ''}" onchange="currentData.education[${index}].degree = this.value">
+              </div>
+              <div class="form-row">
+                <label>Year / Status</label>
+                <input type="text" value="${item.year || ''}" onchange="currentData.education[${index}].year = this.value">
+              </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label>Institute / Board</label>
+                <input type="text" value="${item.institute || ''}" onchange="currentData.education[${index}].institute = this.value">
+              </div>
+              <div class="form-row">
+                <label>Score (e.g. 3.82)</label>
+                <input type="text" value="${item.score || ''}" onchange="currentData.education[${index}].score = this.value">
+              </div>
+            </div>
+            <div class="form-row">
+              <label>Description</label>
+              <textarea rows="2" onchange="currentData.education[${index}].desc = this.value">${item.desc || ''}</textarea>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      window.addEducationItem = function() {
+        currentData.education.push({
+          degree: "New Degree Title",
+          year: "Year or Status",
+          institute: "Institution / Board",
+          score: "0.00",
+          scoreLabel: "Score Label",
+          desc: "Description of studies and achievements.",
+          icon: "fa-graduation-cap"
+        });
+        renderEducationList();
+        showToast("New education milestone added! Remember to save.");
+      };
+
+      window.deleteEducationItem = function(index) {
+        if (confirm("Are you sure you want to remove this education milestone?")) {
+          currentData.education.splice(index, 1);
+          renderEducationList();
+        }
+      };
+
+      // B. Research Journey Steps
+      function renderJourneyList() {
+        const container = document.getElementById('journeyListContainer');
+        container.innerHTML = '';
+        currentData.journey.forEach((item, index) => {
+          const card = document.createElement('div');
+          card.className = 'dynamic-item-card';
+          card.innerHTML = `
+            <div class="item-card-top">
+              <span class="item-index-badge">STEP ${item.step} &bull; ${item.category}</span>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label>Step Title</label>
+                <input type="text" value="${item.title || ''}" onchange="currentData.journey[${index}].title = this.value">
+              </div>
+              <div class="form-row">
+                <label>Badge Text</label>
+                <input type="text" value="${item.badge || ''}" onchange="currentData.journey[${index}].badge = this.value">
+              </div>
+            </div>
+            <div class="form-row">
+              <label>Description</label>
+              <textarea rows="2" onchange="currentData.journey[${index}].desc = this.value">${item.desc || ''}</textarea>
+            </div>
+            <div class="form-row">
+              <label>Tags <small>(Comma separated)</small></label>
+              <input type="text" value="${item.tags || ''}" onchange="currentData.journey[${index}].tags = this.value">
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      // C. Compounds / Halo Derivatives
+      function renderCompoundsList() {
+        const container = document.getElementById('compoundsListContainer');
+        container.innerHTML = '';
+        currentData.compounds.forEach((item, index) => {
+          const card = document.createElement('div');
+          card.className = 'dynamic-item-card';
+          card.innerHTML = `
+            <div class="item-card-top">
+              <span class="item-index-badge">${item.tag || 'CMPD-0' + (index+1)} &bull; ${item.status || 'RESEARCH'}</span>
+              <button type="button" class="btn-delete-item" onclick="deleteCompoundItem(${index})">
+                <i class="fas fa-trash-alt"></i> Remove
+              </button>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label>Compound / Project Name</label>
+                <input type="text" value="${item.name || ''}" onchange="currentData.compounds[${index}].name = this.value">
+              </div>
+              <div class="form-row">
+                <label>Molecular Formula &amp; Structure</label>
+                <input type="text" value="${item.formula || ''}" onchange="currentData.compounds[${index}].formula = this.value">
+              </div>
+            </div>
+            <div class="form-row">
+              <label>Description &amp; Computational Scope</label>
+              <textarea rows="2" onchange="currentData.compounds[${index}].desc = this.value">${item.desc || ''}</textarea>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label>Benchmark Metric 1 (e.g. FMO / NBO)</label>
+                <input type="text" value="${item.bm1Title || ''}" onchange="currentData.compounds[${index}].bm1Title = this.value">
+              </div>
+              <div class="form-row">
+                <label>Benchmark Metric 2 (e.g. Dipole μ)</label>
+                <input type="text" value="${item.bm2Title || ''}" onchange="currentData.compounds[${index}].bm2Title = this.value">
+              </div>
+            </div>
+            <div class="form-row">
+              <label>Software Chips / Badges <small>(Comma separated)</small></label>
+              <input type="text" value="${item.chips || ''}" onchange="currentData.compounds[${index}].chips = this.value">
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      window.addCompoundItem = function() {
+        const nextNum = currentData.compounds.length + 1;
+        currentData.compounds.push({
+          tag: "CMPD-0" + nextNum,
+          status: "ONGOING RESEARCH",
+          name: "NEW HALO DERIVATIVE",
+          formula: "Formula / Structure",
+          desc: "Computational modeling details and substituent analysis.",
+          bm1Title: "DFT State",
+          bm1Sub: "Orbital",
+          bm2Title: "ΔE Gap",
+          bm2Sub: "Reactivity",
+          chips: "Gaussian, Chemcraft, In Progress",
+          accent: "c-teal"
+        });
+        renderCompoundsList();
+        updateDashboardCounters();
+        showToast("New compound added! Remember to save.");
+      };
+
+      window.deleteCompoundItem = function(index) {
+        if (confirm("Remove this target compound from portfolio?")) {
+          currentData.compounds.splice(index, 1);
+          renderCompoundsList();
+          updateDashboardCounters();
+        }
+      };
+
+      // D. Methodology 6 Steps
+      function renderMethodologySteps() {
+        const container = document.getElementById('methodStepsContainer');
+        container.innerHTML = '';
+        currentData.methodology.steps.forEach((step, index) => {
+          const card = document.createElement('div');
+          card.className = 'dynamic-item-card';
+          card.innerHTML = `
+            <div class="item-card-top">
+              <span class="item-index-badge">STEP ${step.num}</span>
+            </div>
+            <div class="form-row">
+              <label>Step Title</label>
+              <input type="text" value="${step.title || ''}" onchange="currentData.methodology.steps[${index}].title = this.value">
+            </div>
+            <div class="form-row">
+              <label>Step Details &amp; Software Used</label>
+              <textarea rows="2" onchange="currentData.methodology.steps[${index}].desc = this.value">${step.desc || ''}</textarea>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      // E. Quantum Software Suite
+      function renderSkillsList() {
+        const container = document.getElementById('skillsListContainer');
+        container.innerHTML = '';
+        currentData.skills.forEach((skill, index) => {
+          const card = document.createElement('div');
+          card.className = 'dynamic-item-card';
+          card.innerHTML = `
+            <div class="item-card-top">
+              <span class="item-index-badge">SOFTWARE #${index + 1}</span>
+              <button type="button" class="btn-delete-item" onclick="deleteSkillItem(${index})">
+                <i class="fas fa-trash-alt"></i> Remove
+              </button>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label>Software Name</label>
+                <input type="text" value="${skill.name || ''}" onchange="currentData.skills[${index}].name = this.value">
+              </div>
+              <div class="form-row">
+                <label>Sub-title / Role</label>
+                <input type="text" value="${skill.sub || ''}" onchange="currentData.skills[${index}].sub = this.value">
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      window.addSkillItem = function() {
+        currentData.skills.push({ name: "New Quantum Software", sub: "Computational Function", icon: "fa-atom" });
+        renderSkillsList();
+      };
+
+      window.deleteSkillItem = function(index) {
+        currentData.skills.splice(index, 1);
+        renderSkillsList();
+      };
+
+      // F. Research Interests
+      function renderInterestsList() {
+        const container = document.getElementById('interestsListContainer');
+        container.innerHTML = '';
+        currentData.interests.forEach((item, index) => {
+          const card = document.createElement('div');
+          card.className = 'dynamic-item-card';
+          card.innerHTML = `
+            <div class="item-card-top">
+              <span class="item-index-badge">INTEREST #${index + 1}</span>
+              <button type="button" class="btn-delete-item" onclick="deleteInterestItem(${index})">
+                <i class="fas fa-trash-alt"></i> Remove
+              </button>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label>Symbol / Icon</label>
+                <input type="text" value="${item.icon || '⬡'}" onchange="currentData.interests[${index}].icon = this.value">
+              </div>
+              <div class="form-row">
+                <label>Interest Label</label>
+                <input type="text" value="${item.label || ''}" onchange="currentData.interests[${index}].label = this.value">
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      window.addInterestItem = function() {
+        currentData.interests.push({ icon: "⬡", label: "New Research Topic" });
+        renderInterestsList();
+      };
+
+      window.deleteInterestItem = function(index) {
+        currentData.interests.splice(index, 1);
+        renderInterestsList();
+      };
+
+      // G. Certifications & Achievements
+      function renderCertsList() {
+        const container = document.getElementById('certsListContainer');
+        container.innerHTML = '';
+        currentData.certifications.forEach((cert, index) => {
+          const card = document.createElement('div');
+          card.className = 'dynamic-item-card';
+          card.innerHTML = `
+            <div class="item-card-top">
+              <span class="item-index-badge">ACHIEVEMENT #${index + 1}</span>
+              <button type="button" class="btn-delete-item" onclick="deleteCertItem(${index})">
+                <i class="fas fa-trash-alt"></i> Remove
+              </button>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label>Category Tag (e.g. BS CHEMISTRY)</label>
+                <input type="text" value="${cert.idTag || ''}" onchange="currentData.certifications[${index}].idTag = this.value">
+              </div>
+              <div class="form-row">
+                <label>Certificate / Award Title</label>
+                <input type="text" value="${cert.title || ''}" onchange="currentData.certifications[${index}].title = this.value">
+              </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-row">
+                <label>Issuer / University / Board</label>
+                <input type="text" value="${cert.issuer || ''}" onchange="currentData.certifications[${index}].issuer = this.value">
+              </div>
+              <div class="form-row">
+                <label>Date / Score / CGPA</label>
+                <input type="text" value="${cert.date || ''}" onchange="currentData.certifications[${index}].date = this.value">
+              </div>
+            </div>
+            <div class="form-row">
+              <label>Description</label>
+              <textarea rows="2" onchange="currentData.certifications[${index}].desc = this.value">${cert.desc || ''}</textarea>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+
+      window.addCertItem = function() {
+        currentData.certifications.push({
+          idTag: "AWARD / CERT",
+          title: "New Certificate Title",
+          issuer: "Issuing Organization",
+          date: "Date or Achievement Details",
+          desc: "Description of the certification."
+        });
+        renderCertsList();
+        updateDashboardCounters();
+        showToast("New certification added! Remember to save.");
+      };
+
+      window.deleteCertItem = function(index) {
+        if (confirm("Remove this certification?")) {
+          currentData.certifications.splice(index, 1);
+          renderCertsList();
+          updateDashboardCounters();
+        }
+      };
+
+      // 7. SECTION-SPECIFIC SAVE HANDLERS
+      window.saveProfileSection = function() {
+        currentData.profile.name = document.getElementById('profileName').value;
+        currentData.profile.tagline = document.getElementById('profileTagline').value;
+        currentData.profile.typewriter = document.getElementById('profileTypewriter').value;
+        currentData.profile.bio = document.getElementById('profileBio').value;
+        currentData.profile.avatar = document.getElementById('heroAvatarUrl').value;
+        currentData.profile.heroBtn1Text = document.getElementById('heroBtn1Text').value;
+        currentData.profile.heroBtn1Link = document.getElementById('heroBtn1Link').value;
+        currentData.profile.heroBtn2Text = document.getElementById('heroBtn2Text').value;
+        currentData.profile.heroBtn2Link = document.getElementById('heroBtn2Link').value;
+        persistData();
+      };
+
+      window.saveAboutSection = function() {
+        currentData.about.secSubtitle = document.getElementById('aboutSubtitle').value;
+        currentData.about.quote = document.getElementById('aboutQuote').value;
+        currentData.about.specializations = document.getElementById('aboutSpecializations').value;
+        currentData.about.matricMarks = document.getElementById('matricMarks').value;
+        currentData.about.matricTotal = document.getElementById('matricTotal').value;
+        currentData.about.matricBoard = document.getElementById('matricBoard').value;
+        currentData.about.interMarks = document.getElementById('interMarks').value;
+        currentData.about.interTotal = document.getElementById('interTotal').value;
+        currentData.about.interBoard = document.getElementById('interBoard').value;
+        currentData.about.cgpa = document.getElementById('cgpaVal').value;
+        currentData.about.cgpaTotal = document.getElementById('cgpaTotal').value;
+        currentData.about.semester = document.getElementById('currentSemester').value;
+        persistData();
+      };
+
+      window.saveEducationSection = function() { persistData(); };
+      window.saveJourneySection = function() { persistData(); };
+      window.saveCompoundsSection = function() { persistData(); };
+
+      window.saveMethodologySection = function() {
+        currentData.methodology.pill = document.getElementById('methodPill').value;
+        currentData.methodology.title = document.getElementById('methodTitle').value;
+        currentData.methodology.intro = document.getElementById('methodIntro').value;
+        currentData.methodology.note = document.getElementById('methodNote').value;
+        persistData();
+      };
+
+      window.saveSkillsSection = function() { persistData(); };
+      window.saveCertificationsSection = function() { persistData(); };
+
+      window.saveContactSection = function() {
+        currentData.contact.pill = document.getElementById('contactPill').value;
+        currentData.contact.heading = document.getElementById('contactHeading').value;
+        currentData.contact.name = document.getElementById('contactName').value;
+        currentData.contact.role = document.getElementById('contactRole').value;
+        currentData.contact.desc = document.getElementById('contactDesc').value;
+        currentData.contact.email = document.getElementById('contactEmail').value;
+        currentData.contact.phone = document.getElementById('contactPhone').value;
+        currentData.contact.linkedin = document.getElementById('contactLinkedIn').value;
+        currentData.contact.researchgate = document.getElementById('contactResearchGate').value;
+        currentData.contact.github = document.getElementById('contactGitHub').value;
+        currentData.contact.address = document.getElementById('contactAddress').value;
+        currentData.contact.tagline = document.getElementById('footerTagline').value;
+        currentData.contact.copyright = document.getElementById('footerCopyright').value;
+        persistData();
+      };
+
+      window.saveSettingsSection = function() {
+        currentData.theme.accentColor = document.getElementById('themeAccentColor').value;
+        currentData.theme.docTitle = document.getElementById('siteDocTitle').value;
+
+        // Check password change
+        const newEmail = document.getElementById('newAdminEmail').value.trim();
+        const newPass = document.getElementById('newAdminPassword').value.trim();
+        if (newEmail || newPass) {
+          const auth = getAuthCredentials();
+          if (newEmail && !auth.emails.includes(newEmail)) auth.emails.push(newEmail);
+          if (newPass) auth.password = newPass;
+          localStorage.setItem('asim_cms_auth', JSON.stringify(auth));
+          showToast('Theme & Admin Security updated!');
+        }
+
+        persistData();
+      };
+
+      // GLOBAL SAVE ALL
+      window.saveAllCmsData = function() {
+        saveProfileSection();
+        saveAboutSection();
+        saveMethodologySection();
+        saveContactSection();
+        saveSettingsSection();
+        showToast('All website sections saved and synced successfully!');
+      };
+
+      document.getElementById('btnSaveAllTop').addEventListener('click', saveAllCmsData);
+
+      // RESET DATA
+      document.getElementById('btnResetData').addEventListener('click', function() {
+        if (confirm("Reset all website data back to defaults? Custom edits will be cleared.")) {
+          localStorage.removeItem('asim_portfolio_cms_data');
+          currentData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+          populateAllFormPanes();
+          showToast('Data reset to original website defaults.');
+        }
+      });
+
+      // 8. BACKUP EXPORT & IMPORT (JSON)
+      window.exportBackupJson = function() {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentData, null, 2));
+        const dlAnchor = document.createElement('a');
+        dlAnchor.setAttribute("href", dataStr);
+        dlAnchor.setAttribute("download", "m_asim_portfolio_data_" + new Date().toISOString().slice(0,10) + ".json");
+        document.body.appendChild(dlAnchor);
+        dlAnchor.click();
+        dlAnchor.remove();
+      };
+
+      window.importBackupJson = function(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          try {
+            const imported = JSON.parse(e.target.result);
+            currentData = Object.assign({}, DEFAULT_DATA, imported);
+            persistData();
+            populateAllFormPanes();
+            showToast('Backup JSON imported successfully!');
+          } catch(err) {
+            alert('Invalid JSON file format.');
+          }
+        };
+        reader.readAsText(file);
+      };
+
+      // Check on initial load
+      checkSession();
 
     })();
   </script>

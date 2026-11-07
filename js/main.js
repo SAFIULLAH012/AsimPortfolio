@@ -11,16 +11,225 @@
     'THEORETICAL CHEMISTRY ENTHUSIAST'
   ];
 
-  function applyCmsData() {
+    // =========================================================================
+  // UNIVERSAL DYNAMIC COLOR ENGINE (Transforms EVERY Pink/Berry Element Logically)
+  // =========================================================================
+  function applyDynamicTheme(hexColor) {
+    if (!hexColor || typeof hexColor !== 'string' || !hexColor.startsWith('#')) return;
+
+    let clean = hexColor.replace('#', '').trim();
+    if (clean.length === 3) {
+      clean = clean.split('').map(c => c + c).join('');
+    }
+    if (clean.length !== 6) return;
+
+    const r = parseInt(clean.substring(0, 2), 16) || 149;
+    const g = parseInt(clean.substring(2, 4), 16) || 42;
+    const b = parseInt(clean.substring(4, 6), 16) || 101;
+
+    // Derived color calculations
+    const shade = (percent) => {
+      const factor = (100 + percent) / 100;
+      const clamp = (v) => Math.min(255, Math.max(0, Math.round(v)));
+      const nr = clamp(r * factor);
+      const ng = clamp(g * factor);
+      const nb = clamp(b * factor);
+      return '#' + ((1 << 24) + (nr << 16) + (ng << 8) + nb).toString(16).slice(1);
+    };
+
+    const darkHex = shade(-32);
+    const lightHex = shade(25);
+    const lighterHex = shade(48);
+
+    const glowRgba = `rgba(${r}, ${g}, ${b}, 0.45)`;
+    const softRgba = `rgba(${r}, ${g}, ${b}, 0.12)`;
+    const subtleRgba = `rgba(${r}, ${g}, ${b}, 0.22)`;
+    const borderRgba = `rgba(${r}, ${g}, ${b}, 0.4)`;
+    const deepRgba = `rgba(${r}, ${g}, ${b}, 0.75)`;
+
+    const root = document.documentElement;
+    root.style.setProperty('--teal', hexColor);
+    root.style.setProperty('--teal-dark', darkHex);
+    root.style.setProperty('--teal-light', lightHex);
+    root.style.setProperty('--teal-lighter', lighterHex);
+    root.style.setProperty('--teal-glow', glowRgba);
+    root.style.setProperty('--teal-soft', softRgba);
+    root.style.setProperty('--teal-subtle', subtleRgba);
+    root.style.setProperty('--section-berry-bg', hexColor);
+
+    // High-priority dynamic CSS injection to override every hardcoded berry/pink element
+    let styleEl = document.getElementById('dynamic-theme-accent-sheet');
+    if (!styleEl) {
+      styleEl = document.createElement('style');
+      styleEl.id = 'dynamic-theme-accent-sheet';
+      document.head.appendChild(styleEl);
+    }
+
+    styleEl.textContent = `
+      :root {
+        --teal: ${hexColor} !important;
+        --teal-dark: ${darkHex} !important;
+        --teal-light: ${lightHex} !important;
+        --teal-lighter: ${lighterHex} !important;
+        --teal-glow: ${glowRgba} !important;
+        --teal-soft: ${softRgba} !important;
+        --teal-subtle: ${subtleRgba} !important;
+        --section-berry-bg: ${hexColor} !important;
+      }
+
+      /* =========================================================================
+         SCREEN 7: THEORETICAL FRAMEWORK & METHODOLOGY (FULL COLOR TRANSFORMATION)
+         ========================================================================= */
+      section#methodology,
+      section#methodology.section-berry {
+        background: ${hexColor} !important;
+        background-color: ${hexColor} !important;
+      }
+
+      section#methodology .method-step-num {
+        color: ${hexColor} !important;
+        background: #ffffff !important;
+      }
+
+      section#methodology .method-card:hover .method-step-num {
+        background: #ffd166 !important;
+        color: #060608 !important;
+        box-shadow: 0 0 14px rgba(255, 209, 102, 0.8) !important;
+      }
+
+      section#methodology .method-card:hover {
+        border-color: #ffffff !important;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3), 0 0 20px ${glowRgba} !important;
+      }
+
+      section#methodology .pill-framework {
+        background: rgba(255, 255, 255, 0.2) !important;
+        border-color: rgba(255, 255, 255, 0.8) !important;
+      }
+
+      section#methodology .pill-framework:hover {
+        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.35) !important;
+      }
+
+      section#methodology .methodology-note {
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25), 0 0 14px ${subtleRgba} !important;
+      }
+
+      /* =========================================================================
+         SCREEN 3 & SCREEN 5: EDUCATION & CERTIFICATIONS BACKGROUNDS
+         ========================================================================= */
+      section#education.section-green,
+      section#certifications.section-green {
+        background: ${hexColor} !important;
+        background-color: ${hexColor} !important;
+      }
+
+      /* =========================================================================
+         SCREEN 1: HERO, BUTTONS & AMBIENT RADIANCE
+         ========================================================================= */
+      .hero-title em {
+        color: ${hexColor} !important;
+        text-shadow: 0 0 35px ${glowRgba} !important;
+      }
+
+      .btn-primary,
+      a.btn-primary {
+        background: ${hexColor} !important;
+        border-color: ${lightHex} !important;
+        box-shadow: 0 4px 18px ${glowRgba} !important;
+      }
+
+      .btn-primary:hover,
+      a.btn-primary:hover {
+        background: ${lightHex} !important;
+        box-shadow: 0 8px 25px ${deepRgba} !important;
+      }
+
+      body::before {
+        background: radial-gradient(circle, ${subtleRgba} 0%, transparent 70%) !important;
+      }
+
+      /* =========================================================================
+         SCREEN 2: ABOUT SCHOLAR ACCENTS
+         ========================================================================= */
+      #about .sec-subtitle {
+        color: ${darkHex} !important;
+      }
+
+      .about-highlight-box {
+        border-color: ${borderRgba} !important;
+        box-shadow: 0 0 20px ${softRgba} !important;
+      }
+
+      /* =========================================================================
+         SCREEN 4: RESEARCH JOURNEY 01 TO 03 MILESTONES
+         ========================================================================= */
+      #resume .t-node {
+        background: linear-gradient(135deg, ${hexColor} 0%, ${lightHex} 100%) !important;
+      }
+
+      #resume .t-line {
+        background: linear-gradient(180deg, ${hexColor} 0%, #ffd166 30%, ${lighterHex} 60%, ${hexColor} 100%) !important;
+        box-shadow: 0 0 8px ${glowRgba} !important;
+      }
+
+      #resume .timeline-card.journey-item:hover .t-body {
+        border-color: ${hexColor} !important;
+        box-shadow: 0 8px 24px ${softRgba}, -4px 0 0 0 ${hexColor} !important;
+      }
+
+      #resume .journey-item .t-header .t-badge.active {
+        background: ${hexColor} !important;
+        color: #ffffff !important;
+      }
+
+      .sw-item:hover .sw-ico {
+        color: ${lightHex} !important;
+      }
+
+      /* =========================================================================
+         SCREEN 6: HALO-DERIVATIVES DOSSIER ACCENTS
+         ========================================================================= */
+      .card-accent-bar.c-teal {
+        background: ${hexColor} !important;
+      }
+
+      .dossier-card:hover {
+        border-color: ${borderRgba} !important;
+        box-shadow: 0 16px 36px -6px ${glowRgba} !important;
+      }
+
+      /* =========================================================================
+         GLOBAL: NAVIGATION, SELECTION & SCROLLBARS
+         ========================================================================= */
+      .nav .links a.active {
+        color: ${lightHex} !important;
+      }
+
+      ::selection {
+        background: ${hexColor} !important;
+        color: #ffffff !important;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: ${hexColor} !important;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: ${lightHex} !important;
+      }
+    `;
+  }
+
+function applyCmsData() {
     try {
       const raw = localStorage.getItem('asim_portfolio_cms_data');
       if (!raw) return;
       const data = JSON.parse(raw);
 
-      // 1. Theme Accent Color
+      // 1. Theme Accent Color (Full Multi-Element Logical Synchronization)
       if (data.theme && data.theme.accentColor) {
-        document.documentElement.style.setProperty('--teal', data.theme.accentColor);
-        document.documentElement.style.setProperty('--teal-glow', data.theme.accentColor + '40');
+        applyDynamicTheme(data.theme.accentColor);
       }
       if (data.theme && data.theme.docTitle) {
         document.title = data.theme.docTitle;

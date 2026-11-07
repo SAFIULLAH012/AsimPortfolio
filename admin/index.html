@@ -1707,14 +1707,55 @@
               <div class="form-row">
                 <label for="themeAccentColor">Primary Theme Color <small>(Default: #952a65 Berry)</small></label>
                 <div style="display: flex; align-items: center; gap: 0.75rem;">
-                  <input type="color" id="themeAccentPicker" value="#952a65" style="width: 50px; height: 42px; padding: 2px; cursor: pointer;" onchange="document.getElementById('themeAccentColor').value = this.value">
-                  <input type="text" id="themeAccentColor" value="#952a65" onchange="document.getElementById('themeAccentPicker').value = this.value">
+                  <input type="color" id="themeAccentPicker" value="#952a65" style="width: 50px; height: 42px; padding: 2px; cursor: pointer;" oninput="setThemeAccentLive(this.value)">
+                  <input type="text" id="themeAccentColor" value="#952a65" oninput="setThemeAccentLive(this.value)">
                 </div>
               </div>
 
               <div class="form-row">
                 <label for="siteDocTitle">Browser Tab Title</label>
                 <input type="text" id="siteDocTitle" value="M. Asim | Computational Chemistry Portfolio">
+              </div>
+            </div>
+
+            <!-- QUICK COLOR PALETTES PRESETS -->
+            <div class="form-row" style="margin-top: 1rem;">
+              <label>Quick Preset Themes <small>(Click any color to transform all pink/berry screens, backgrounds, and icons universally)</small></label>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.5rem;">
+                <button type="button" class="preset-chip" style="background: #952a65; border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 0.4rem 0.85rem; border-radius: 20px; font-size: 0.75rem; cursor: pointer; font-weight: 500;" onclick="setThemeAccentLive('#952a65')">Berry Crimson (#952a65)</button>
+                <button type="button" class="preset-chip" style="background: #7c3aed; border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 0.4rem 0.85rem; border-radius: 20px; font-size: 0.75rem; cursor: pointer; font-weight: 500;" onclick="setThemeAccentLive('#7c3aed')">Royal Violet (#7c3aed)</button>
+                <button type="button" class="preset-chip" style="background: #0284c7; border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 0.4rem 0.85rem; border-radius: 20px; font-size: 0.75rem; cursor: pointer; font-weight: 500;" onclick="setThemeAccentLive('#0284c7')">Deep Ocean (#0284c7)</button>
+                <button type="button" class="preset-chip" style="background: #059669; border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 0.4rem 0.85rem; border-radius: 20px; font-size: 0.75rem; cursor: pointer; font-weight: 500;" onclick="setThemeAccentLive('#059669')">Emerald Forest (#059669)</button>
+                <button type="button" class="preset-chip" style="background: #be123c; border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 0.4rem 0.85rem; border-radius: 20px; font-size: 0.75rem; cursor: pointer; font-weight: 500;" onclick="setThemeAccentLive('#be123c')">Crimson Wine (#be123c)</button>
+                <button type="button" class="preset-chip" style="background: #d97706; border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 0.4rem 0.85rem; border-radius: 20px; font-size: 0.75rem; cursor: pointer; font-weight: 500;" onclick="setThemeAccentLive('#d97706')">Amber Gold (#d97706)</button>
+                <button type="button" class="preset-chip" style="background: #4f46e5; border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 0.4rem 0.85rem; border-radius: 20px; font-size: 0.75rem; cursor: pointer; font-weight: 500;" onclick="setThemeAccentLive('#4f46e5')">Midnight Indigo (#4f46e5)</button>
+                <button type="button" class="preset-chip" style="background: #e11d48; border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 0.4rem 0.85rem; border-radius: 20px; font-size: 0.75rem; cursor: pointer; font-weight: 500;" onclick="setThemeAccentLive('#e11d48')">Rose Pink (#e11d48)</button>
+              </div>
+            </div>
+
+            <!-- LIVE TRANSFORMATION PREVIEW BOX -->
+            <div style="margin-top: 1.5rem; background: var(--bg-surface); border: 1px solid var(--border-dark); border-radius: 12px; padding: 1.25rem;">
+              <h4 style="font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-eye" style="color: var(--teal-light);"></i> Live Screen 7 Methodology &amp; Theme Transformation Preview
+              </h4>
+              <div id="liveThemePreviewBox" style="background: #952a65; border-radius: 10px; padding: 1.25rem; transition: background 0.3s ease;">
+                <div style="text-align: center; margin-bottom: 0.85rem;">
+                  <span style="display: inline-block; padding: 0.25rem 0.9rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.7); background: rgba(255,255,255,0.2); font-size: 0.7rem; color: #fff; letter-spacing: 0.12em; text-transform: uppercase;">Theoretical Framework</span>
+                  <h3 style="font-family: var(--font-display); font-size: 1.6rem; color: #fff; margin-top: 0.3rem;">Computational Research <span style="color: #ffd166;">Methodology</span></h3>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem;">
+                  <div style="background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35); border-radius: 8px; padding: 0.75rem; backdrop-filter: blur(8px);">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem;">
+                      <span id="previewStepNum" style="display: inline-block; width: 24px; height: 24px; line-height: 24px; text-align: center; border-radius: 50%; background: #fff; color: #952a65; font-weight: 800; font-size: 0.78rem;">01</span>
+                      <strong style="color: #fff; font-size: 0.78rem;">Molecular Structure Preparation</strong>
+                    </div>
+                    <p style="font-size: 0.7rem; color: rgba(255,255,255,0.9); margin: 0;">Geometry construction in GaussView &amp; Avogadro.</p>
+                  </div>
+                  <div style="background: rgba(0,0,0,0.3); border: 1.5px solid #ffd166; border-radius: 8px; padding: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-align: center;">
+                    <i class="fas fa-info-circle" style="color: #ffd166; font-size: 0.85rem;"></i>
+                    <span style="font-size: 0.72rem; color: #fff;"><strong>Computational Details:</strong> Synchronized across entire website</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -2167,6 +2208,10 @@
         // Theme
         document.getElementById('themeAccentColor').value = d.theme.accentColor || '#952a65';
         document.getElementById('themeAccentPicker').value = d.theme.accentColor || '#952a65';
+        if (window.setThemeAccentLive) {
+          window.setThemeAccentLive(d.theme.accentColor || '#952a65');
+        }
+        document.getElementById('themeAccentPicker').value = d.theme.accentColor || '#952a65';
         document.getElementById('siteDocTitle').value = d.theme.docTitle || '';
       }
 
@@ -2579,6 +2624,23 @@
         currentData.contact.tagline = document.getElementById('footerTagline').value;
         currentData.contact.copyright = document.getElementById('footerCopyright').value;
         persistData();
+      };
+
+            window.setThemeAccentLive = function(color) {
+        if (!color) return;
+        document.getElementById('themeAccentColor').value = color;
+        document.getElementById('themeAccentPicker').value = color;
+        currentData.theme.accentColor = color;
+
+        // Update live preview box
+        const previewBox = document.getElementById('liveThemePreviewBox');
+        if (previewBox) previewBox.style.background = color;
+        const previewStep = document.getElementById('previewStepNum');
+        if (previewStep) previewStep.style.color = color;
+
+        // Update CSS custom variable on root
+        document.documentElement.style.setProperty('--teal', color);
+        document.documentElement.style.setProperty('--teal-glow', color + '40');
       };
 
       window.saveSettingsSection = function() {

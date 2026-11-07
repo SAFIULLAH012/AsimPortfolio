@@ -11,8 +11,12 @@
   --bg-white: #ffffff;
   --teal: #952a65;
   --teal-dark: #641841;
+  --teal-light: #b83a80;
+  --teal-lighter: #d4599e;
   --teal-glow: rgba(149, 42, 101, 0.45);
   --teal-soft: rgba(149, 42, 101, 0.12);
+  --teal-subtle: rgba(149, 42, 101, 0.22);
+  --section-berry-bg: var(--teal);
   --lavender: #b5b9f0;
   --white: #ffffff;
   --text-dark: #0a0b10;
@@ -2561,7 +2565,7 @@ footer#contact .pill-contact {
   display: block;
   height: 100%;
   border-radius: 99px;
-  background: linear-gradient(90deg, #952a65 0%, #b83a80 50%, #d4599e 100%) !important;
+  background: linear-gradient(90deg, var(--teal) 0%, var(--teal-light) 50%, var(--teal-lighter) 100%) !important;
   transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 0 10px rgba(149, 42, 101, 0.45);
 }
@@ -2671,7 +2675,7 @@ section#resume > .container {
   width: 26px !important;
   height: 26px !important;
   border-radius: 50% !important;
-  background: linear-gradient(135deg, #952a65 0%, #b83a80 100%) !important;
+  background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%) !important;
   color: #ffffff !important;
   font-family: var(--font-display) !important;
   font-size: 1.05rem !important;
@@ -2701,8 +2705,8 @@ section#resume > .container {
   transform: scale(1.22) rotate(360deg) !important;
   background: #ffd166 !important;
   color: #08090e !important;
-  border-color: #952a65 !important;
-  box-shadow: 0 0 18px rgba(255, 209, 102, 0.95), 0 0 0 4px rgba(149, 42, 101, 0.3) !important;
+  border-color: var(--teal) !important;
+  box-shadow: 0 0 18px rgba(255, 209, 102, 0.95), 0 0 0 4px var(--teal-soft) !important;
 }
 
 /* Continuous quantum beam connecting line */
@@ -2710,7 +2714,7 @@ section#resume > .container {
   width: 2.5px !important;
   flex: 1 !important;
   min-height: 22px !important;
-  background: linear-gradient(180deg, #952a65 0%, #ffd166 30%, #d4599e 60%, #952a65 100%) !important;
+  background: linear-gradient(180deg, var(--teal) 0%, #ffd166 30%, var(--teal-lighter) 60%, var(--teal) 100%) !important;
   background-size: 100% 200% !important;
   animation: lineBeamFlow 2.4s linear infinite !important;
   box-shadow: 0 0 8px rgba(149, 42, 101, 0.45) !important;
@@ -2729,8 +2733,8 @@ section#resume > .container {
 }
 
 #resume .timeline-card.journey-item:hover .t-body {
-  border-color: #952a65 !important;
-  box-shadow: 0 8px 24px rgba(149, 42, 101, 0.12), -4px 0 0 0 #952a65 !important;
+  border-color: var(--teal) !important;
+  box-shadow: 0 8px 24px var(--teal-soft), -4px 0 0 0 var(--teal) !important;
   background: #ffffff !important;
 }
 
@@ -2906,8 +2910,8 @@ section#resume > .container {
 /* 3. SCREEN 7: METHODOLOGY (#methodology) - PURE #952a65 BERRY THEME */
 section#methodology,
 section#methodology.section-berry {
-  background-color: #952a65 !important;
-  background: #952a65 !important;
+  background-color: var(--teal) !important;
+  background: var(--teal) !important;
   position: relative !important;
   overflow: hidden !important;
   justify-content: center !important;
@@ -3013,7 +3017,7 @@ section#methodology .methodology-intro {
 .method-step-num {
   font-family: var(--font-display) !important;
   font-size: 1.05rem !important;
-  color: #952a65 !important;
+  color: var(--teal) !important;
   background: #ffffff !important;
   font-weight: 800 !important;
   width: 28px !important;

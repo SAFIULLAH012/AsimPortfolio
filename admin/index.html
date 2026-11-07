@@ -1733,6 +1733,15 @@
               </div>
             </div>
 
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem;">
+              <button type="button" class="btn-save-pane" onclick="saveSettingsSection()">
+                <i class="fas fa-check-double"></i> Save Theme Settings
+              </button>
+              <a href="../" target="_blank" class="btn-top-action btn-view-site" id="btnPreviewThemeSite" style="padding: 0.75rem 1.25rem;">
+                <i class="fas fa-external-link-alt"></i> Open Live Site to Verify Color
+              </a>
+            </div>
+
             <!-- LIVE TRANSFORMATION PREVIEW BOX -->
             <div style="margin-top: 1.5rem; background: var(--bg-surface); border: 1px solid var(--border-dark); border-radius: 12px; padding: 1.25rem;">
               <h4 style="font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.5rem;">
@@ -2209,7 +2218,7 @@
         document.getElementById('themeAccentColor').value = d.theme.accentColor || '#952a65';
         document.getElementById('themeAccentPicker').value = d.theme.accentColor || '#952a65';
         if (window.setThemeAccentLive) {
-          window.setThemeAccentLive(d.theme.accentColor || '#952a65');
+          window.setThemeAccentLive(d.theme.accentColor || '#952a65', false);
         }
         document.getElementById('themeAccentPicker').value = d.theme.accentColor || '#952a65';
         document.getElementById('siteDocTitle').value = d.theme.docTitle || '';
@@ -2626,7 +2635,7 @@
         persistData();
       };
 
-            window.setThemeAccentLive = function(color) {
+            window.setThemeAccentLive = function(color, autoSave = true) {
         if (!color) return;
         document.getElementById('themeAccentColor').value = color;
         document.getElementById('themeAccentPicker').value = color;
@@ -2641,6 +2650,18 @@
         // Update CSS custom variable on root
         document.documentElement.style.setProperty('--teal', color);
         document.documentElement.style.setProperty('--teal-glow', color + '40');
+
+        // Update preview link with URL param for instant mobile verification
+        const previewLink = document.getElementById('btnPreviewThemeSite');
+        if (previewLink) {
+          previewLink.href = '../?color=' + encodeURIComponent(color);
+        }
+
+        // AUTO-SAVE to localStorage so changes take effect immediately on phone!
+        if (autoSave) {
+          localStorage.setItem('asim_portfolio_cms_data', JSON.stringify(currentData));
+          showToast('Theme color ' + color + ' saved! Live website updated.');
+        }
       };
 
       window.saveSettingsSection = function() {

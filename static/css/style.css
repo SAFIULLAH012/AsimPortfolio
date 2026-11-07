@@ -148,16 +148,29 @@ footer {
     scroll-snap-stop: always !important;
   }
 
-  header.hero,
-  footer#contact {
+  header.hero {
     justify-content: center !important;
     padding-top: var(--nav-height) !important;
     padding-bottom: 0 !important;
   }
 
-  header.hero > .container,
+  /* Footer #contact: detached with dedicated top gap from navbar */
+  footer#contact {
+    justify-content: center !important;
+    padding-top: calc(var(--nav-height) + clamp(2rem, 4.5vh, 3.5rem)) !important;
+    padding-bottom: clamp(1rem, 2vh, 1.8rem) !important;
+  }
+
+  header.hero > .container {
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+
   footer#contact > .container {
     height: auto !important;
+    max-height: calc(100svh - var(--nav-height) - clamp(2.5rem, 5vh, 4.5rem)) !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
@@ -3471,47 +3484,51 @@ section#resume > .container {
   margin: 0.35rem 0 0.55rem;
 }
 
-/* 3. SCREEN 7: METHODOLOGY (#methodology) - LUXURIOUS PINK/BERRY SCREEN */
-section#methodology {
-  background: linear-gradient(145deg, #250619 0%, #460d2f 35%, #6e1545 70%, #952a65 100%) !important;
+/* 3. SCREEN 7: METHODOLOGY (#methodology) - PURE #952a65 BERRY THEME (RESPONSIVE ON EVERY SCREEN) */
+section#methodology,
+section#methodology.section-berry {
+  background-color: #952a65 !important;
+  background: #952a65 !important;
   position: relative !important;
   overflow: hidden !important;
   justify-content: center !important;
-  padding-top: calc(var(--nav-height) + 0.4rem) !important;
-  padding-bottom: 1.8rem !important;
-}
-
-section#methodology::before {
-  content: '';
-  position: absolute;
-  top: -15%;
-  right: -10%;
-  width: 480px;
-  height: 480px;
-  background: radial-gradient(circle, rgba(212, 89, 158, 0.3) 0%, transparent 70%);
-  pointer-events: none;
+  box-sizing: border-box !important;
+  padding-top: calc(var(--nav-height) + clamp(0.5rem, 1.8vh, 1.2rem)) !important;
+  padding-bottom: clamp(0.6rem, 1.8vh, 1.3rem) !important;
 }
 
 section#methodology > .container {
   height: auto !important;
-  max-height: calc(100svh - var(--nav-height) - 2.5rem) !important;
+  max-height: calc(100svh - var(--nav-height) - 1.8rem) !important;
   justify-content: center !important;
-  gap: 0.65rem !important;
+  gap: clamp(0.35rem, 1vh, 0.65rem) !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 section#methodology .pill-framework {
-  border: 1.5px solid #ffffff !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.8) !important;
   color: #ffffff !important;
   background: rgba(255, 255, 255, 0.2) !important;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4) !important;
-  padding: 0.35rem 1.2rem !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2) !important;
+  padding: 0.35rem 1.3rem !important;
   font-size: 0.72rem !important;
   letter-spacing: 0.16em !important;
   text-transform: uppercase !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50px !important;
+  margin: 0 auto 0.35rem auto !important;
 }
 
 section#methodology .section-title {
   color: #ffffff !important;
+  font-family: var(--font-display) !important;
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem) !important;
+  letter-spacing: 0.04em !important;
+  margin: 0 auto 0.25rem !important;
+  text-align: center !important;
 }
 
 section#methodology .section-title span {
@@ -3519,49 +3536,51 @@ section#methodology .section-title span {
 }
 
 section#methodology .methodology-intro {
-  max-width: 760px;
-  margin: 0.4rem auto 0.95rem;
-  color: #fdf2f8 !important;
-  font-size: 0.88rem;
-  line-height: 1.55;
+  max-width: 780px !important;
+  margin: 0.15rem auto clamp(0.35rem, 1vh, 0.75rem) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  font-size: clamp(0.8rem, 1.05vw, 0.88rem) !important;
+  line-height: 1.55 !important;
+  text-align: center !important;
 }
 
 .methodology-grid-6 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto 0.85rem;
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: clamp(0.55rem, 1vw, 0.85rem) !important;
+  width: 100% !important;
+  max-width: 1120px !important;
+  margin: 0 auto clamp(0.4rem, 1.2vh, 0.8rem) !important;
 }
 
 .method-card {
-  background: rgba(255, 255, 255, 0.15) !important;
-  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+  background: rgba(255, 255, 255, 0.16) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.32) !important;
   backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
   border-radius: 10px !important;
-  padding: 0.75rem 0.95rem !important;
+  padding: clamp(0.6rem, 1.1vw, 0.85rem) clamp(0.75rem, 1.3vw, 1rem) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18) !important;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease !important;
 }
 
 .method-card:hover {
-  transform: translateY(-4px) !important;
-  background: rgba(255, 255, 255, 0.26) !important;
+  transform: translateY(-3px) !important;
+  background: rgba(255, 255, 255, 0.25) !important;
   border-color: #ffffff !important;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35), 0 0 20px rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.28), 0 0 16px rgba(255, 255, 255, 0.2) !important;
 }
 
 .method-card-head {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  margin-bottom: 0.3rem;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.55rem !important;
+  margin-bottom: 0.3rem !important;
 }
 
 .method-step-num {
   font-family: var(--font-display) !important;
-  font-size: 1.15rem !important;
+  font-size: 1.05rem !important;
   color: #952a65 !important;
   background: #ffffff !important;
   font-weight: 800 !important;
@@ -3571,11 +3590,11 @@ section#methodology .methodology-intro {
   border-radius: 50% !important;
   text-align: center !important;
   flex-shrink: 0 !important;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
 }
 
 .method-card-head h4 {
-  font-size: 0.8rem !important;
+  font-size: clamp(0.78rem, 1.05vw, 0.86rem) !important;
   font-weight: 700 !important;
   color: #ffffff !important;
   line-height: 1.25 !important;
@@ -3583,58 +3602,136 @@ section#methodology .methodology-intro {
 }
 
 .method-card p {
-  font-size: 0.71rem !important;
-  color: #fdf2f8 !important;
-  line-height: 1.4 !important;
+  font-size: clamp(0.7rem, 0.95vw, 0.75rem) !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+  line-height: 1.42 !important;
   margin: 0 !important;
 }
 
 .methodology-note {
-  max-width: 720px !important;
+  max-width: 740px !important;
   margin: 0 auto !important;
-  background: rgba(0, 0, 0, 0.45) !important;
+  background: rgba(0, 0, 0, 0.32) !important;
   border: 1.5px solid #ffd166 !important;
   border-radius: 8px !important;
-  padding: 0.5rem 1.3rem !important;
+  padding: clamp(0.4rem, 0.8vh, 0.55rem) 1.2rem !important;
   text-align: center !important;
-  font-size: 0.82rem !important;
+  font-size: clamp(0.76rem, 1vw, 0.84rem) !important;
   color: #ffffff !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   gap: 0.55rem !important;
-  box-shadow: 0 0 20px rgba(255, 209, 102, 0.25) !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25) !important;
 }
 
 .methodology-note i {
   color: #ffd166 !important;
 }
 
-/* 4. FOOTER / CONTACT TWEAKS */
-.tbc-desc {
-  max-width: 660px;
-  margin: 0.65rem auto 1.35rem;
-  color: #a0a0b2;
-  font-size: 0.86rem;
-  line-height: 1.6;
+/* 4. FOOTER / CONTACT TWEAKS (DETACHED FROM TOP & BEAUTIFULLY CENTERED) */
+footer#contact {
+  position: relative !important;
+  padding-top: calc(var(--nav-height) + clamp(2rem, 4.5vh, 3.5rem)) !important;
+  padding-bottom: clamp(1.2rem, 2.5vh, 2.2rem) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
 }
 
-.footer-bottom-info {
-  margin-top: 1.2rem;
-  padding-top: 0.85rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+footer#contact .pill-contact {
+  margin: 0 auto clamp(0.35rem, 0.9vh, 0.7rem) auto !important;
 }
 
-.footer-tagline {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--teal);
-  margin-bottom: 0.35rem;
-  text-transform: uppercase;
+footer#contact .tbc {
+  font-family: var(--font-display) !important;
+  font-weight: 400 !important;
+  font-size: clamp(1.8rem, 3.8vw, 3rem) !important;
+  line-height: 1.15 !important;
+  letter-spacing: 0.04em !important;
+  background: linear-gradient(180deg, #ffffff 40%, #a0a0b2) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  margin: 0.15rem auto clamp(0.25rem, 0.7vh, 0.45rem) !important;
+  text-align: center !important;
 }
 
-/* RESPONSIVE MEDIA QUERIES (DESKTOP & MOBILE) */
+footer#contact .tbc-name {
+  font-family: var(--font-display) !important;
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem) !important;
+  letter-spacing: 0.25em !important;
+  color: #ffffff !important;
+  margin-bottom: 0.2rem !important;
+}
+
+footer#contact .tbc-role {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.2em !important;
+  color: #94a3b8 !important;
+  margin-bottom: clamp(0.5rem, 1.1vh, 0.85rem) !important;
+}
+
+footer#contact .tbc-desc {
+  max-width: 680px !important;
+  margin: 0 auto clamp(0.45rem, 1.2vh, 0.95rem) !important;
+  color: #cbd5e1 !important;
+  font-size: clamp(0.78rem, 1.05vw, 0.85rem) !important;
+  line-height: 1.55 !important;
+}
+
+footer#contact .tbc-actions {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  gap: 0.65rem !important;
+  margin-bottom: clamp(0.45rem, 1.1vh, 0.75rem) !important;
+}
+
+footer#contact .tbc-actions .btn {
+  padding: 0.45rem 1.15rem !important;
+  font-size: 0.76rem !important;
+}
+
+footer#contact .tbc-links {
+  margin-top: 0.3rem !important;
+  margin-bottom: clamp(0.35rem, 0.9vh, 0.65rem) !important;
+}
+
+footer#contact .tbc-links a {
+  font-size: 0.74rem !important;
+  letter-spacing: 0.16em !important;
+  color: #94a3b8 !important;
+}
+
+footer#contact .tbc-links a:hover {
+  color: var(--teal) !important;
+}
+
+footer#contact .footer-bottom-info {
+  margin-top: clamp(0.35rem, 0.9vh, 0.65rem) !important;
+  padding-top: clamp(0.35rem, 0.9vh, 0.65rem) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+footer#contact .footer-tagline {
+  font-size: 0.68rem !important;
+  letter-spacing: 0.12em !important;
+  color: #e06da8 !important;
+  margin-bottom: 0.25rem !important;
+  text-transform: uppercase !important;
+}
+
+footer#contact .copyright {
+  font-size: 0.65rem !important;
+  color: #64748b !important;
+  margin: 0 !important;
+}
+
+/* RESPONSIVE MEDIA QUERIES (TABLET & MOBILE) */
 @media (max-width: 991px) {
   #resume.section-white .story-grid,
   #resume .story-grid {
@@ -3654,17 +3751,55 @@ section#methodology .methodology-intro {
     margin-top: 0.5rem !important;
   }
   .dossier-grid-3 {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
   .project-scope-bar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.4rem;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.4rem !important;
   }
   .methodology-grid-6 {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.85rem !important;
   }
   .software-grid-2x2 {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+  }
+  section#methodology,
+  section#methodology.section-berry {
+    min-height: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    padding-top: calc(var(--nav-height) + 2rem) !important;
+    padding-bottom: 3rem !important;
+  }
+  footer#contact {
+    min-height: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    padding-top: calc(var(--nav-height) + 3rem) !important;
+    padding-bottom: 3.5rem !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .methodology-grid-6 {
+    grid-template-columns: 1fr !important;
+    gap: 0.65rem !important;
+  }
+  .methodology-note {
+    flex-direction: column !important;
+    text-align: center !important;
+    padding: 0.6rem 0.9rem !important;
+    gap: 0.35rem !important;
+  }
+  section#methodology,
+  section#methodology.section-berry {
+    padding-top: calc(var(--nav-height) + 1.5rem) !important;
+    padding-bottom: 2.5rem !important;
+  }
+  footer#contact {
+    padding-top: calc(var(--nav-height) + 2.5rem) !important;
+    padding-bottom: 3rem !important;
   }
 }

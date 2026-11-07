@@ -814,7 +814,7 @@ footer {
   border: 1px solid var(--border-dark);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 25px 60px -15px #000, 0 0 35px rgba(149, 42, 101, 0.2);
+  box-shadow: 0 25px 60px -15px #000, 0 0 35px var(--teal-soft);
   transform: perspective(1000px) rotateY(-4deg);
   transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
@@ -822,7 +822,7 @@ footer {
 .hero-art:hover .portrait-card {
   transform: perspective(1000px) rotateY(0deg) translateY(-4px);
   border-color: var(--teal);
-  box-shadow: 0 30px 70px -15px #000, 0 0 45px rgba(149, 42, 101, 0.35);
+  box-shadow: 0 30px 70px -15px #000, 0 0 45px var(--teal-glow);
 }
 
 .portrait-img {
@@ -854,7 +854,7 @@ footer {
   top: 14px;
   right: 14px;
   background: rgba(6, 6, 8, 0.85);
-  border: 1px solid rgba(149, 42, 101, 0.5);
+  border: 1px solid var(--teal);
   color: var(--teal);
   font-size: 0.64rem;
   letter-spacing: 0.15em;
@@ -2291,13 +2291,13 @@ footer#contact .pill-contact {
   font-weight: 700 !important;
   letter-spacing: 0.22em !important;
   text-transform: uppercase !important;
-  color: var(--teal) !important;
-  border: 1.5px solid rgba(149, 42, 101, 0.45) !important;
-  background: rgba(149, 42, 101, 0.12) !important;
+  color: var(--teal-light) !important;
+  border: 1.5px solid var(--teal) !important;
+  background: var(--teal-soft) !important;
   backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
   margin: 0 auto 0.75rem auto !important;
-  box-shadow: 0 0 20px rgba(149, 42, 101, 0.15) !important;
+  box-shadow: 0 0 20px var(--teal-glow) !important;
   line-height: 1 !important;
 }
 
@@ -2428,7 +2428,7 @@ footer#contact .pill-contact {
 
 .portrait-card:hover {
   transform: translateY(-8px) scale(1.02) !important;
-  box-shadow: 0 25px 50px -12px rgba(149, 42, 101, 0.35), 0 0 30px rgba(149, 42, 101, 0.25) !important;
+  box-shadow: 0 25px 50px -12px var(--teal-glow), 0 0 30px var(--teal-soft) !important;
 }
 
 .beacon-dot, .sec-dot {
@@ -3190,7 +3190,7 @@ footer#contact .footer-bottom-info {
 footer#contact .footer-tagline {
   font-size: 0.68rem !important;
   letter-spacing: 0.12em !important;
-  color: #e06da8 !important;
+  color: var(--teal-light) !important;
   margin-bottom: 0.25rem !important;
   text-transform: uppercase !important;
 }

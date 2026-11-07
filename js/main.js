@@ -125,6 +125,35 @@
       }
 
       /* =========================================================================
+         SCREEN 1: HERO, PORTRAIT PICTURE GLOW, BUTTONS & AMBIENT RADIANCE
+         ========================================================================= */
+      .portrait-card {
+        border-color: ${borderRgba} !important;
+        box-shadow: 0 25px 60px -15px #000, 0 0 35px ${glowRgba} !important;
+      }
+
+      .hero-art:hover .portrait-card,
+      .portrait-card:hover {
+        border-color: ${hexColor} !important;
+        box-shadow: 0 30px 70px -15px #000, 0 0 50px ${glowRgba} !important;
+      }
+
+      .about-visual .portrait-card {
+        border-color: ${borderRgba} !important;
+        box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.12), 0 0 25px ${softRgba} !important;
+      }
+
+      .about-visual:hover .portrait-card {
+        border-color: ${hexColor} !important;
+        box-shadow: 0 22px 50px -12px rgba(0, 0, 0, 0.2), 0 0 40px ${glowRgba} !important;
+      }
+
+      .status-chip {
+        border-color: ${hexColor} !important;
+        color: ${lightHex} !important;
+        box-shadow: 0 0 15px ${softRgba} !important;
+      }
+      /* =========================================================================
          SCREEN 1: HERO, BUTTONS & AMBIENT RADIANCE
          ========================================================================= */
       .hero-title em {
@@ -199,6 +228,25 @@
         box-shadow: 0 16px 36px -6px ${glowRgba} !important;
       }
 
+      /* =========================================================================
+         SCREEN 8: FOOTER / CONNECT & COLLABORATE & TAGLINE COLOR SYNC
+         ========================================================================= */
+      footer#contact .footer-tagline {
+        color: ${lightHex} !important;
+      }
+
+      footer#contact .tbc-tag,
+      footer#contact .pill-contact {
+        color: ${lightHex} !important;
+        border: 1.5px solid ${hexColor} !important;
+        background: ${softRgba} !important;
+        box-shadow: 0 0 20px ${glowRgba} !important;
+      }
+
+      footer#contact .pill-contact:hover {
+        border-color: ${lightHex} !important;
+        box-shadow: 0 0 30px ${glowRgba} !important;
+      }
       /* =========================================================================
          GLOBAL: NAVIGATION, SELECTION & SCROLLBARS
          ========================================================================= */

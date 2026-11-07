@@ -3148,3 +3148,355 @@ footer#contact .pill-contact {
   transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 0 10px rgba(149, 42, 101, 0.45);
 }
+
+/* ==========================================================================
+   COMPUTATIONAL CHEMISTRY CUSTOM ENHANCEMENTS
+   ========================================================================== */
+
+/* Aliases for #expertise and #projects */
+#expertise.section-white .story-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: clamp(1rem, 2vw, 1.8rem);
+  align-items: stretch;
+  margin-top: 0;
+}
+#expertise.section-white .timeline-pipeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+#expertise.section-white .t-body {
+  padding: 0.6rem 0.95rem;
+}
+#expertise.section-white .unified-analytics-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  justify-content: space-between;
+  padding: 0.85rem 1.15rem;
+  background: #f8fafc !important;
+  border: 1.5px solid #e2e8f0 !important;
+  color: #08090e !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+}
+#expertise.section-white .card-section-head h4 {
+  font-size: 0.84rem !important;
+  font-weight: 700 !important;
+}
+
+#projects.section-white .dossier-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* SECTION 7: COMPUTATIONAL ANALYSIS TECHNIQUES GRID */
+.tech-grid-6 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.45rem;
+  margin-top: 0.35rem;
+}
+
+.tech-item {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.45rem 0.65rem;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.tech-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--teal);
+  box-shadow: 0 4px 12px rgba(149, 42, 101, 0.12);
+}
+
+.tech-head {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.2rem;
+}
+
+.tech-tag {
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: var(--teal);
+  background: var(--teal-soft);
+  padding: 0.12rem 0.35rem;
+  border-radius: 4px;
+}
+
+.tech-head strong {
+  font-size: 0.72rem;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.tech-item p {
+  font-size: 0.66rem;
+  color: #64748b;
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* SECTION 10: RESEARCH PROJECTS OVERVIEW & CARDS */
+.research-overview-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-left: 4px solid var(--teal);
+  border-radius: 12px;
+  padding: 0.85rem 1.25rem;
+  margin-bottom: 0.85rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  width: 100%;
+}
+
+.ro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.ro-header h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.ro-status {
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  background: var(--teal);
+  padding: 0.2rem 0.55rem;
+  border-radius: 99px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.ro-desc {
+  font-size: 0.82rem;
+  color: #475569;
+  line-height: 1.5;
+  margin-bottom: 0.6rem;
+}
+
+.ro-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  background: #f8fafc;
+  padding: 0.6rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid #f1f5f9;
+}
+
+.ro-details-grid .full-width {
+  grid-column: 1 / -1;
+}
+
+.ro-box strong {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.15rem;
+}
+
+.ro-box span {
+  font-size: 0.76rem;
+  color: #1e293b;
+  line-height: 1.35;
+}
+
+.dossier-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.85rem;
+  width: 100%;
+}
+
+.dossier-snippet {
+  font-size: 0.74rem;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0.4rem 0 0.65rem;
+}
+
+/* SECTION 11: METHODOLOGY WORKFLOW */
+.methodology-intro {
+  max-width: 780px;
+  margin: 0.4rem auto 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.methodology-flow {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 1rem;
+}
+
+.flow-step {
+  flex: 1 1 150px;
+  max-width: 175px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+  padding: 0.75rem 0.65rem;
+  text-align: center;
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+.flow-step:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #ffffff;
+}
+
+.flow-num {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.35);
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  margin-bottom: 0.35rem;
+}
+
+.flow-step h4 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.3rem;
+  line-height: 1.25;
+}
+
+.flow-step p {
+  font-size: 0.66rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.flow-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+}
+
+.methodology-note {
+  max-width: 680px;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  padding: 0.55rem 1.1rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.methodology-note i {
+  color: #ffd166;
+}
+
+/* SECTION 12 & 13: CONTACT & FOOTER ENHANCEMENTS */
+.tbc-desc {
+  max-width: 680px;
+  margin: 0.65rem auto 1.35rem;
+  color: #a0a0b2;
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.footer-bottom-info {
+  margin-top: 1.2rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-tagline {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--teal);
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+}
+
+/* RESPONSIVE MEDIA QUERIES */
+@media (max-width: 991px) {
+  #expertise.section-white .story-grid,
+  #expertise .story-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+  }
+  #expertise.section-white .timeline-pipeline,
+  #expertise .timeline-pipeline {
+    order: 1 !important;
+    width: 100% !important;
+  }
+  #expertise.section-white .unified-analytics-card,
+  #expertise .unified-analytics-card {
+    order: 2 !important;
+    width: 100% !important;
+    margin-top: 0.5rem !important;
+  }
+  .tech-grid-6 {
+    grid-template-columns: 1fr;
+  }
+  .dossier-grid-3 {
+    grid-template-columns: 1fr;
+  }
+  .ro-details-grid {
+    grid-template-columns: 1fr;
+  }
+  .methodology-flow {
+    flex-direction: column;
+    align-items: center;
+  }
+  .flow-step {
+    max-width: 100%;
+    width: 100%;
+  }
+  .flow-arrow {
+    transform: rotate(90deg);
+    margin: 0.2rem 0;
+  }
+}

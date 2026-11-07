@@ -60,10 +60,10 @@
   const typewriterEl = document.getElementById('typewriterText');
   if (typewriterEl) {
     const phrases = [
-      'CHEMISTRY STUDENT & RESEARCH SCHOLAR',
-      'COMPUTATIONAL CHEMISTRY ENTHUSIAST',
-      'MOLECULAR MODELING & DFT EXPLORER',
-      'LAB BENCH & SPECTROSCOPY ANALYST'
+      'COMPUTATIONAL CHEMIST',
+      'BS CHEMISTRY STUDENT',
+      'MOLECULAR MODELING RESEARCHER',
+      'THEORETICAL CHEMISTRY ENTHUSIAST'
     ];
     let phraseIndex = 0;
     let charIndex = phrases[0].length;

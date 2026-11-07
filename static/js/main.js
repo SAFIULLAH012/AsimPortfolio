@@ -144,20 +144,5 @@
   }, { threshold: 0.6 });
   counterElems.forEach(el => counterObserver.observe(el));
 
-  // 3. Expertise Meter Bar Animation
-  const meterBars = document.querySelectorAll('.meter-row .m-bar i[data-perc]');
-  const meterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const perc = entry.target.dataset.perc;
-        entry.target.style.width = perc;
-        meterObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.3 });
-  meterBars.forEach(bar => {
-    bar.style.width = '0%';
-    meterObserver.observe(bar);
-  });
 
 })();

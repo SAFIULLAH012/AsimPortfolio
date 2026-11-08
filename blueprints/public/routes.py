@@ -226,9 +226,16 @@ def contact():
 # ─────────────────────────────────────────────────────────────────────────────
 # Theme Color API (Permanent Sync across Browsers & Devices)
 # ─────────────────────────────────────────────────────────────────────────────
-@public_bp.route("/api/theme", methods=["GET", "POST"])
+@public_bp.route("/api/theme", methods=["GET", "POST", "OPTIONS"])
 @csrf.exempt
 def api_theme():
+    if request.method == "OPTIONS":
+        response = make_response()
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+        return response
+
     s = _get_settings()
     if request.method == "POST":
         data = request.get_json(silent=True) or request.form
@@ -240,10 +247,16 @@ def api_theme():
             if len(color) in (4, 7):
                 s.theme_color = color
                 db.session.commit()
-                return jsonify({"success": True, "theme_color": s.theme_color})
-        return jsonify({"success": False, "error": "Invalid color format"}), 400
+                resp = jsonify({"success": True, "theme_color": s.theme_color})
+                resp.headers["Access-Control-Allow-Origin"] = "*"
+                return resp
+        resp = jsonify({"success": False, "error": "Invalid color format"})
+        resp.headers["Access-Control-Allow-Origin"] = "*"
+        return resp, 400
 
-    return jsonify({"theme_color": getattr(s, "theme_color", "#952a65") or "#952a65"})
+    resp = jsonify({"theme_color": getattr(s, "theme_color", "#952a65") or "#952a65"})
+    resp.headers["Access-Control-Allow-Origin"] = "*"
+    return resp
 
 
 

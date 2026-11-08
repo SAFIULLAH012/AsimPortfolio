@@ -2022,22 +2022,25 @@
           currentData.theme.accentColor = standaloneColor;
         }
 
-        // Background server sync if Flask backend is available
-        try {
-          fetch('/api/theme')
-            .then(res => res.json())
-            .then(data => {
-              if (data && data.theme_color) {
-                localStorage.setItem('asim_theme_color', data.theme_color);
-                if (currentData.theme) currentData.theme.accentColor = data.theme_color;
-                const colorInput = document.getElementById('themeAccentColor');
-                const colorPicker = document.getElementById('themeAccentPicker');
-                if (colorInput) colorInput.value = data.theme_color;
-                if (colorPicker) colorPicker.value = data.theme_color;
-                setThemeAccentLive(data.theme_color, false);
-              }
-            }).catch(() => {});
-        } catch(e){}
+        // Background server sync if Flask backend or PythonAnywhere is available
+        const themeApiEndpoints = ['/api/theme', 'https://safiulllah.pythonanywhere.com/api/theme'];
+        themeApiEndpoints.forEach(endpoint => {
+          try {
+            fetch(endpoint)
+              .then(res => res.json())
+              .then(data => {
+                if (data && data.theme_color) {
+                  localStorage.setItem('asim_theme_color', data.theme_color);
+                  if (currentData.theme) currentData.theme.accentColor = data.theme_color;
+                  const colorInput = document.getElementById('themeAccentColor');
+                  const colorPicker = document.getElementById('themeAccentPicker');
+                  if (colorInput) colorInput.value = data.theme_color;
+                  if (colorPicker) colorPicker.value = data.theme_color;
+                  setThemeAccentLive(data.theme_color, false);
+                }
+              }).catch(() => {});
+          } catch(e){}
+        });
       }
 
       function setThemeAccentLive(color, autoSave = true) {
@@ -2072,14 +2075,17 @@
           previewLink.href = '../?color=' + encodeURIComponent(color);
         }
 
-        // Sync to server backend permanently
-        try {
-          fetch('/api/theme', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ color: color })
-          }).catch(() => {});
-        } catch(e){}
+        // Sync to server backend permanently (local & PythonAnywhere)
+        const themeApiEndpoints = ['/api/theme', 'https://safiulllah.pythonanywhere.com/api/theme'];
+        themeApiEndpoints.forEach(endpoint => {
+          try {
+            fetch(endpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ color: color })
+            }).catch(() => {});
+          } catch(e){}
+        });
 
         // AUTO-SAVE to localStorage so changes take effect immediately across all screens
         if (autoSave) {
@@ -2724,14 +2730,17 @@
         currentData.theme.docTitle = document.getElementById('siteDocTitle').value;
         localStorage.setItem('asim_theme_color', chosenColor);
 
-        // Background server sync
-        try {
-          fetch('/api/theme', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ color: chosenColor })
-          }).catch(() => {});
-        } catch(e){}
+        // Background server sync (local & PythonAnywhere)
+        const themeApiEndpoints = ['/api/theme', 'https://safiulllah.pythonanywhere.com/api/theme'];
+        themeApiEndpoints.forEach(endpoint => {
+          try {
+            fetch(endpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ color: chosenColor })
+            }).catch(() => {});
+          } catch(e){}
+        });
 
         // Check password change
         const newEmail = document.getElementById('newAdminEmail').value.trim();

@@ -64,17 +64,20 @@
               if (data && data.theme && data.theme.accentColor) hexColor = data.theme.accentColor;
             }
           }
-          // Background server fetch
-          try {
-            fetch('/api/theme')
-              .then(function(r){ return r.json(); })
-              .then(function(d){
-                if (d && d.theme_color && d.theme_color !== localStorage.getItem('asim_theme_color')) {
-                  localStorage.setItem('asim_theme_color', d.theme_color);
-                  location.reload();
-                }
-              }).catch(function(){});
-          } catch(e){}
+          // Background server fetch (local API & PythonAnywhere sync)
+          var themeApis = ['/api/theme', 'https://safiulllah.pythonanywhere.com/api/theme'];
+          themeApis.forEach(function(u) {
+            try {
+              fetch(u)
+                .then(function(r){ return r.json(); })
+                .then(function(d){
+                  if (d && d.theme_color && d.theme_color !== localStorage.getItem('asim_theme_color')) {
+                    localStorage.setItem('asim_theme_color', d.theme_color);
+                    location.reload();
+                  }
+                }).catch(function(){});
+            } catch(e){}
+          });
         }
 
         if (hexColor && hexColor.startsWith('#')) {

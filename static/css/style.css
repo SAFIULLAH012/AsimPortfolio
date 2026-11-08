@@ -3723,12 +3723,15 @@ footer#contact .copyright {
 }
 
 section#education .timeline-card {
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease !important;
+  background: #ffffff !important;
 }
-section#education .timeline-card:hover {
+section#education .timeline-card:hover,
+section#education .timeline-card:active,
+section#education .timeline-card:focus {
   transform: translateY(-3px) scale(1.01) !important;
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14), 0 0 25px rgba(255, 255, 255, 0.22) !important;
-  background: rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16) !important;
+  background: #ffffff !important;
 }
 section#education .timeline-icon i {
   transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease, text-shadow 0.3s ease !important;

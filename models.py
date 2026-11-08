@@ -294,6 +294,9 @@ class SiteSettings(db.Model):
     # The GitHub @handle displayed in the contact section
     github_handle = db.Column(db.String(100), default="@SAFIULLAH012")
 
+    # Primary Theme Color (Default #952a65 Berry)
+    theme_color = db.Column(db.String(20), default="#952a65")
+
     updated_at = db.Column(db.DateTime, default=utcnow, onupdate=utcnow)
 
     def __repr__(self):

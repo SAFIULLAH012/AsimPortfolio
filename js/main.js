@@ -271,14 +271,30 @@
 
 function applyCmsData() {
     try {
+      // 1. Theme Accent Color (Universal Persistent Synchronization)
+      const persistentColor = localStorage.getItem('asim_theme_color');
+      if (persistentColor) {
+        applyDynamicTheme(persistentColor);
+      }
+
+      // Background server API check for cross-device persistence
+      try {
+        fetch('/api/theme')
+          .then(res => res.json())
+          .then(serverData => {
+            if (serverData && serverData.theme_color) {
+              localStorage.setItem('asim_theme_color', serverData.theme_color);
+              applyDynamicTheme(serverData.theme_color);
+            }
+          }).catch(() => {});
+      } catch(e){}
+
       const raw = localStorage.getItem('asim_portfolio_cms_data');
       if (!raw) return;
       const data = JSON.parse(raw);
 
-      // 1. Theme Accent Color (Full Multi-Element Logical Synchronization)
-      const persistentColor = localStorage.getItem('asim_theme_color') || (data.theme && data.theme.accentColor);
-      if (persistentColor) {
-        applyDynamicTheme(persistentColor);
+      if (!persistentColor && data.theme && data.theme.accentColor) {
+        applyDynamicTheme(data.theme.accentColor);
       }
       if (data.theme && data.theme.docTitle) {
         document.title = data.theme.docTitle;
@@ -687,5 +703,25 @@ function applyCmsData() {
     });
   }, { threshold: 0.6 });
   counterElems.forEach(el => counterObserver.observe(el));
+
+  // 3. Animated Progress Meters on Scroll
+  const meterFills = document.querySelectorAll('.meter-fill');
+  if (meterFills.length > 0) {
+    const meterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const fill = entry.target;
+          const targetW = fill.style.width;
+          fill.style.width = '0%';
+          setTimeout(() => {
+            fill.style.transition = 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
+            fill.style.width = targetW;
+          }, 150);
+          meterObserver.unobserve(fill);
+        }
+      });
+    }, { threshold: 0.2 });
+    meterFills.forEach(m => meterObserver.observe(m));
+  }
 
 })();

@@ -14,7 +14,7 @@ from flask_wtf.csrf import validate_csrf
 from wtforms.validators import ValidationError
 
 from blueprints.public import public_bp
-from extensions import db, mail, limiter
+from extensions import db, mail, limiter, csrf
 from models import Project, Skill, Education, Experience, Certification, Message, SiteSettings
 
 logger = logging.getLogger(__name__)
@@ -221,5 +221,29 @@ def contact():
             logger.exception("Email dispatch failed (contact form)")
 
     return jsonify({"success": True, "message": "Thank you! Your message has been received."})
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Theme Color API (Permanent Sync across Browsers & Devices)
+# ─────────────────────────────────────────────────────────────────────────────
+@public_bp.route("/api/theme", methods=["GET", "POST"])
+@csrf.exempt
+def api_theme():
+    s = _get_settings()
+    if request.method == "POST":
+        data = request.get_json(silent=True) or request.form
+        color = data.get("color") or data.get("theme_color")
+        if color and isinstance(color, str):
+            color = color.strip()
+            if not color.startswith("#"):
+                color = "#" + color
+            if len(color) in (4, 7):
+                s.theme_color = color
+                db.session.commit()
+                return jsonify({"success": True, "theme_color": s.theme_color})
+        return jsonify({"success": False, "error": "Invalid color format"}), 400
+
+    return jsonify({"theme_color": getattr(s, "theme_color", "#952a65") or "#952a65"})
+
 
 

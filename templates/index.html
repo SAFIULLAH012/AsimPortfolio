@@ -4,6 +4,35 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>M. ASIM — Computational Chemistry Portfolio</title>
+
+<!-- ══ SEO & SOCIAL LINK PREVIEW (WhatsApp, LinkedIn, Twitter, Facebook) ══ -->
+<meta name="description" content="Official portfolio of M. Asim — BS Chemistry Scholar at University of Layyah, specializing in Computational Chemistry, Quantum Chemical Calculations, and Molecular Modeling.">
+<meta name="keywords" content="M. Asim, Asim Chemistry, Computational Chemistry, University of Layyah, Gaussian, GaussView, Molecular Modeling, Layyah, Pakistan">
+<meta name="author" content="M. Asim">
+
+<!-- ══ OPEN GRAPH (WhatsApp, LinkedIn, Facebook) ══ -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="M. Asim Portfolio">
+<meta property="og:title" content="M. ASIM — Computational Chemistry Portfolio">
+<meta property="og:description" content="Undergraduate BS Chemistry Scholar (5th Semester • CGPA 3.82) at University of Layyah specializing in computational chemistry, quantum modeling (Gaussian, ORCA, Chemcraft), and molecular electronic structure research.">
+<meta property="og:image" content="{{ request.url_root.rstrip('/') if request else '' }}/assets/asim.jpeg">
+<meta property="og:image:secure_url" content="{{ request.url_root.rstrip('/') if request else '' }}/assets/asim.jpeg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="1200">
+<meta property="og:image:alt" content="M. Asim - Computational Chemist">
+<meta property="og:url" content="{{ request.base_url if request else '' }}">
+
+<!-- ══ TWITTER / X CARD ══ -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="M. ASIM — Computational Chemistry Portfolio">
+<meta name="twitter:description" content="BS Chemistry Scholar (CGPA 3.82) at University of Layyah specializing in computational chemistry, quantum calculations, and molecular modeling.">
+<meta name="twitter:image" content="{{ request.url_root.rstrip('/') if request else '' }}/assets/asim.jpeg">
+
+<!-- ══ FAVICON & ICONS ══ -->
+<link rel="icon" type="image/jpeg" href="assets/asim.jpeg">
+<link rel="apple-touch-icon" href="assets/asim.jpeg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -28,7 +57,12 @@
           data.theme.accentColor = hexColor;
           localStorage.setItem('asim_portfolio_cms_data', JSON.stringify(data));
         } else {
+          var serverTheme = "{{ settings.theme_color if settings and settings.theme_color else '' }}";
           hexColor = localStorage.getItem('asim_theme_color');
+          if (!hexColor && serverTheme) {
+            hexColor = serverTheme;
+            localStorage.setItem('asim_theme_color', hexColor);
+          }
           if (!hexColor) {
             var raw = localStorage.getItem('asim_portfolio_cms_data');
             if (raw) {
@@ -36,6 +70,7 @@
               if (data && data.theme && data.theme.accentColor) hexColor = data.theme.accentColor;
             }
           }
+          if (!hexColor && serverTheme) hexColor = serverTheme;
         }
 
         if (hexColor && hexColor.startsWith('#')) {
@@ -298,12 +333,12 @@
       <div class="sec-head motion-reveal">
         <div>
           <h2>My Academic &amp; Research Journey</h2>
-          <p class="sec-subtitle">ACADEMIC FOUNDATION &bull; COMPUTATIONAL SOFTWARE &bull; MOLECULAR ELECTRONIC ANALYSIS</p>
+          <p class="sec-subtitle">ACADEMIC FOUNDATION &bull; BENCH INVESTIGATION &bull; QUANTITATIVE METROLOGY</p>
         </div>
         <span class="rule"></span>
       </div>
       <div class="story-grid">
-        <!-- LEFT: 3 CLEAN TIMELINE MILESTONES (NO WHITE BOX, PERFECT SPACING) -->
+        <!-- LEFT: 3 CLEAN TIMELINE MILESTONES (ORDER: 1 ON MOBILE / FIRST ON DESKTOP) -->
         <div class="timeline-pipeline motion-reveal motion-stagger-1">
           <!-- MILESTONE 1 -->
           <div class="timeline-card journey-item">
@@ -316,14 +351,14 @@
                 <span class="t-category">ACADEMIC FOUNDATION</span>
                 <span class="t-badge active">5th Semester &bull; CGPA 3.82</span>
               </div>
-              <h3 class="t-title">Academic Foundation</h3>
+              <h3 class="t-title">BS Chemistry (Hons) &bull; University of Layyah</h3>
               <p class="t-desc">
-                Currently pursuing BS Chemistry (5th Semester) at University of Layyah with a 3.82 CGPA. Developing a strong academic foundation in physical chemistry and computational theory.
+                Core curriculum honors in Organic Synthesis, Reaction Kinetics &amp; Coordination Complexes.
               </p>
               <div class="t-tags">
-                <span class="t-tag">BS Chemistry</span>
-                <span class="t-tag">5th Semester</span>
-                <span class="t-tag">CGPA 3.82</span>
+                <span class="t-tag">Organic Synthesis</span>
+                <span class="t-tag">Reaction Kinetics</span>
+                <span class="t-tag">Coordination Chem</span>
               </div>
             </div>
           </div>
@@ -336,18 +371,17 @@
             </div>
             <div class="t-body">
               <div class="t-header">
-                <span class="t-category">COMPUTATIONAL TOOLS</span>
-                <span class="t-badge">Modeling &bull; Visualization</span>
+                <span class="t-category">BENCH INVESTIGATION</span>
+                <span class="t-badge">Bench Operations &bull; Research</span>
               </div>
-              <h3 class="t-title">Computational Chemistry Software</h3>
+              <h3 class="t-title">Undergraduate Lab Researcher</h3>
               <p class="t-desc">
-                Applying quantum tools to visualize geometries, configure electronic calculations, and inspect molecular coordinates.
+                Multi-step synthesis protocols, UV-Vis spectrophotometry &amp; strict GLP safety.
               </p>
               <div class="t-tags">
-                <span class="t-tag">Gaussian</span>
-                <span class="t-tag">GaussView</span>
-                <span class="t-tag">Chemcraft</span>
-                <span class="t-tag">Avogadro</span>
+                <span class="t-tag">Bench Synthesis</span>
+                <span class="t-tag">Spectrophotometry</span>
+                <span class="t-tag">GLP Compliance</span>
               </div>
             </div>
           </div>
@@ -359,84 +393,141 @@
             </div>
             <div class="t-body">
               <div class="t-header">
-                <span class="t-category">ELECTRONIC PROPERTIES</span>
-                <span class="t-badge">Quantum &bull; Reactivity</span>
+                <span class="t-category">QUANTITATIVE METHODS</span>
+                <span class="t-badge">Analytical Metrology &bull; QC</span>
               </div>
-              <h3 class="t-title">Molecular Electronic Analysis</h3>
+              <h3 class="t-title">Quantitative Analytical Practicum</h3>
               <p class="t-desc">
-                Research focus on predicting molecular reactivity and electronic distributions using quantum electronic descriptors.
+                Precision volumetric titrations, gravimetric assays &amp; statistical error calibration.
               </p>
               <div class="t-tags">
-                <span class="t-tag">FMO</span>
-                <span class="t-tag">NBO</span>
-                <span class="t-tag">NLO</span>
-                <span class="t-tag">TDM</span>
-                <span class="t-tag">DOS</span>
-                <span class="t-tag">GRPs</span>
+                <span class="t-tag">Volumetric Assays</span>
+                <span class="t-tag">Gravimetry</span>
+                <span class="t-tag">Data Metrology</span>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- RIGHT: STREAMLINED ANALYTICS CARD (HIGH CONTRAST, ZERO OVERFLOW) -->
+        <!-- RIGHT: STREAMLINED ANALYTICS CARD (ORDER: 2 ON MOBILE / NEECHY) -->
         <div class="unified-analytics-card motion-reveal motion-stagger-2" id="interests">
-          <!-- SECTION 6: CORE RESEARCH INTERESTS -->
+          <!-- SECTION 1: PRIMARY SYNTHESIS & COMPUTATIONAL DOMAINS -->
           <div class="card-section">
             <div class="card-section-head">
               <span class="sec-dot"></span>
-              <h4>CORE RESEARCH INTERESTS</h4>
+              <h4>PRIMARY SYNTHESIS &amp; COMPUTATIONAL DOMAINS</h4>
             </div>
             <div class="domain-badges-row">
+              <div class="d-pill"><span class="d-ico">&#x232C;</span><span>Organic Synthesis</span></div>
+              <div class="d-ico-sep">&bull;</div>
+              <div class="d-pill"><span class="d-ico">&#x269B;</span><span>Coordination Complexes</span></div>
+              <div class="d-ico-sep">&bull;</div>
               <div class="d-pill"><span class="d-ico">&#x2699;</span><span>Computational Chemistry</span></div>
               <div class="d-ico-sep">&bull;</div>
-              <div class="d-pill"><span class="d-ico">&#x2B21;</span><span>Molecular Modeling</span></div>
+              <div class="d-pill"><span class="d-ico">&lambda;</span><span>Spectroscopy</span></div>
               <div class="d-ico-sep">&bull;</div>
-              <div class="d-pill"><span class="d-ico">&#x03C8;</span><span>Quantum Calculations</span></div>
-              <div class="d-ico-sep">&bull;</div>
-              <div class="d-pill"><span class="d-ico">&#x229E;</span><span>Electronic Structure</span></div>
-              <div class="d-ico-sep">&bull;</div>
-              <div class="d-pill"><span class="d-ico">&#x26A1;</span><span>Reactivity</span></div>
-              <div class="d-ico-sep">&bull;</div>
-              <div class="d-pill"><span class="d-ico">&#x03C1;</span><span>DFT Theory</span></div>
+              <div class="d-pill"><span class="d-ico">&#x26A1;</span><span>Reaction Kinetics</span></div>
             </div>
           </div>
 
           <div class="card-inner-rule"></div>
 
-
-          <!-- SECTION 8: SOFTWARE PROFICIENCY (Substantial, Rich & Balanced) -->
+          <!-- SECTION 2: BENCH & ANALYSIS EXPERTISE (VIBRANT GLOWING METERS) -->
           <div class="card-section">
             <div class="card-section-head">
               <span class="sec-dot"></span>
-              <h4>SOFTWARE PROFICIENCY</h4>
+              <h4>BENCH &amp; ANALYSIS EXPERTISE</h4>
             </div>
-            <div class="software-grid-2x2">
-              <div class="sw-item">
+            <div class="expertise-meters">
+              <div class="meter-item">
+                <div class="meter-info">
+                  <span class="meter-name">Spectroscopy (FTIR/UV-Vis)</span>
+                  <span class="meter-val">94%</span>
+                </div>
+                <div class="meter-track">
+                  <div class="meter-fill" style="width: 94%;">
+                    <span class="meter-flare"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="meter-item">
+                <div class="meter-info">
+                  <span class="meter-name">Wet Lab Synthesis</span>
+                  <span class="meter-val">90%</span>
+                </div>
+                <div class="meter-track">
+                  <div class="meter-fill" style="width: 90%;">
+                    <span class="meter-flare"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="meter-item">
+                <div class="meter-info">
+                  <span class="meter-name">Analytical Titrations</span>
+                  <span class="meter-val">96%</span>
+                </div>
+                <div class="meter-track">
+                  <div class="meter-fill" style="width: 96%;">
+                    <span class="meter-flare"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="meter-item">
+                <div class="meter-info">
+                  <span class="meter-name">Lab Safety &amp; GLP Compliance</span>
+                  <span class="meter-val">98%</span>
+                </div>
+                <div class="meter-track">
+                  <div class="meter-fill" style="width: 98%;">
+                    <span class="meter-flare"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-inner-rule"></div>
+
+          <!-- SECTION 3: SCIENTIFIC SOFTWARE & MODELING -->
+          <div class="card-section">
+            <div class="card-section-head">
+              <span class="sec-dot"></span>
+              <h4>SCIENTIFIC SOFTWARE &amp; MODELING</h4>
+            </div>
+            <div class="software-grid-wrap">
+              <div class="sw-chip">
+                <i class="fas fa-flask-vial sw-ico"></i>
+                <div class="sw-details">
+                  <strong>ChemDraw Pro 22</strong>
+                  <small>Structure Drawing</small>
+                </div>
+              </div>
+              <div class="sw-chip">
+                <i class="fas fa-chart-line sw-ico"></i>
+                <div class="sw-details">
+                  <strong>OriginLab Peak Fit</strong>
+                  <small>Spectral Deconvolution</small>
+                </div>
+              </div>
+              <div class="sw-chip">
                 <i class="fas fa-atom sw-ico"></i>
                 <div class="sw-details">
-                  <strong>Gaussian</strong>
-                  <small>DFT &amp; Quantum Engine</small>
+                  <strong>ORCA / DFT Modeling</strong>
+                  <small>Quantum Chemistry</small>
                 </div>
               </div>
-              <div class="sw-item">
-                <i class="fas fa-desktop sw-ico"></i>
+              <div class="sw-chip">
+                <i class="fas fa-wave-square sw-ico"></i>
                 <div class="sw-details">
-                  <strong>GaussView</strong>
-                  <small>3D Geometry Builder</small>
+                  <strong>MestReNova NMR</strong>
+                  <small>Spectra Processing</small>
                 </div>
               </div>
-              <div class="sw-item">
-                <i class="fas fa-cube sw-ico"></i>
+              <div class="sw-chip">
+                <i class="fas fa-search sw-ico"></i>
                 <div class="sw-details">
-                  <strong>Chemcraft</strong>
-                  <small>Orbital &amp; Gap Visualizer</small>
-                </div>
-              </div>
-              <div class="sw-item">
-                <i class="fas fa-project-diagram sw-ico"></i>
-                <div class="sw-details">
-                  <strong>Avogadro</strong>
-                  <small>Coordinate Modeler</small>
+                  <strong>SciFinder CAS</strong>
+                  <small>Literature &amp; Reactions</small>
                 </div>
               </div>
             </div>

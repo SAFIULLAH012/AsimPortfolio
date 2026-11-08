@@ -762,6 +762,13 @@ def settings():
         s.projects_badge_count = request.form.get("projects_badge_count", "7+").strip()[:10]
         s.github_handle = request.form.get("github_handle", "@SAFIULLAH012").strip()[:100]
 
+        # Theme accent color
+        chosen_theme = request.form.get("theme_color", "").strip()
+        if chosen_theme:
+            if not chosen_theme.startswith("#"):
+                chosen_theme = "#" + chosen_theme
+            s.theme_color = chosen_theme[:20]
+
         # Hero tags (comma-separated or JSON)
         raw_hero_tags = request.form.get("hero_tags", "")
         if raw_hero_tags:

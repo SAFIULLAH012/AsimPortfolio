@@ -1863,25 +1863,25 @@
             step: "01",
             category: "ACADEMIC FOUNDATION",
             badge: "5th Semester • CGPA 3.82",
-            title: "Academic Foundation",
-            desc: "Currently pursuing BS Chemistry (5th Semester) at University of Layyah with a 3.82 CGPA. Developing a strong academic foundation in physical chemistry and computational theory.",
-            tags: "BS Chemistry, 5th Semester, CGPA 3.82"
+            title: "BS Chemistry (Hons) • University of Layyah",
+            desc: "Core curriculum honors in Organic Synthesis, Reaction Kinetics & Coordination Complexes.",
+            tags: "Organic Synthesis, Reaction Kinetics, Coordination Chem"
           },
           {
             step: "02",
-            category: "COMPUTATIONAL TOOLS",
-            badge: "Modeling • Visualization",
-            title: "Computational Chemistry Software",
-            desc: "Applying quantum tools to visualize geometries, configure electronic calculations, and inspect molecular coordinates.",
-            tags: "Gaussian, GaussView, Chemcraft, Avogadro"
+            category: "BENCH INVESTIGATION",
+            badge: "Bench Operations • Research",
+            title: "Undergraduate Lab Researcher",
+            desc: "Multi-step synthesis protocols, UV-Vis spectrophotometry & strict GLP safety.",
+            tags: "Bench Synthesis, Spectrophotometry, GLP Compliance"
           },
           {
             step: "03",
-            category: "ELECTRONIC PROPERTIES",
-            badge: "Quantum • Reactivity",
-            title: "Molecular Electronic Analysis",
-            desc: "Research focus on predicting molecular reactivity and electronic distributions using quantum electronic descriptors.",
-            tags: "FMO, NBO, NLO, TDM, DOS, GRPs"
+            category: "QUANTITATIVE METHODS",
+            badge: "Analytical Metrology • QC",
+            title: "Quantitative Analytical Practicum",
+            desc: "Precision volumetric titrations, gravimetric assays & statistical error calibration.",
+            tags: "Volumetric Assays, Gravimetry, Data Metrology"
           }
         ],
         compounds: [
@@ -2007,14 +2007,92 @@
           try {
             const parsed = JSON.parse(saved);
             currentData = Object.assign({}, DEFAULT_DATA, parsed);
+            if (parsed.theme) {
+              currentData.theme = Object.assign({}, DEFAULT_DATA.theme, parsed.theme);
+            }
           } catch(e) {
             console.error('Failed to parse saved CMS data:', e);
           }
+        }
+
+        // Direct persistent theme color takes ultimate precedence
+        const standaloneColor = localStorage.getItem('asim_theme_color');
+        if (standaloneColor && standaloneColor.startsWith('#')) {
+          if (!currentData.theme) currentData.theme = {};
+          currentData.theme.accentColor = standaloneColor;
+        }
+
+        // Background server sync if Flask backend is available
+        try {
+          fetch('/api/theme')
+            .then(res => res.json())
+            .then(data => {
+              if (data && data.theme_color) {
+                localStorage.setItem('asim_theme_color', data.theme_color);
+                if (currentData.theme) currentData.theme.accentColor = data.theme_color;
+                const colorInput = document.getElementById('themeAccentColor');
+                const colorPicker = document.getElementById('themeAccentPicker');
+                if (colorInput) colorInput.value = data.theme_color;
+                if (colorPicker) colorPicker.value = data.theme_color;
+                setThemeAccentLive(data.theme_color, false);
+              }
+            }).catch(() => {});
+        } catch(e){}
+      }
+
+      function setThemeAccentLive(color, autoSave = true) {
+        if (!color) return;
+        if (!color.startsWith('#')) color = '#' + color;
+        const colorInput = document.getElementById('themeAccentColor');
+        const colorPicker = document.getElementById('themeAccentPicker');
+        if (colorInput) colorInput.value = color;
+        if (colorPicker) colorPicker.value = color;
+        if (!currentData.theme) currentData.theme = {};
+        currentData.theme.accentColor = color;
+        localStorage.setItem('asim_theme_color', color);
+
+        // Update live preview box
+        const previewBox = document.getElementById('liveThemePreviewBox');
+        if (previewBox) {
+          previewBox.style.background = color;
+          previewBox.style.boxShadow = `0 4px 20px ${color}66`;
+        }
+        const previewStep = document.getElementById('previewStepNum');
+        if (previewStep) previewStep.style.color = color;
+        const hexDisplay = document.getElementById('previewHexDisplay');
+        if (hexDisplay) hexDisplay.textContent = color.toUpperCase();
+
+        // Update CSS custom variable on root
+        document.documentElement.style.setProperty('--teal', color);
+        document.documentElement.style.setProperty('--teal-glow', color + '40');
+
+        // Update preview link with URL param for instant mobile verification
+        const previewLink = document.getElementById('btnPreviewThemeSite');
+        if (previewLink) {
+          previewLink.href = '../?color=' + encodeURIComponent(color);
+        }
+
+        // Sync to server backend permanently
+        try {
+          fetch('/api/theme', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ color: color })
+          }).catch(() => {});
+        } catch(e){}
+
+        // AUTO-SAVE to localStorage so changes take effect immediately across all screens
+        if (autoSave) {
+          localStorage.setItem('asim_portfolio_cms_data', JSON.stringify(currentData));
+          showToast('Theme color ' + color + ' permanently saved across all screens!');
         }
       }
 
       // Persist working dataset to localStorage
       function persistData() {
+        if (currentData && currentData.theme && currentData.theme.accentColor) {
+          localStorage.setItem('asim_theme_color', currentData.theme.accentColor);
+        }
         localStorage.setItem('asim_portfolio_cms_data', JSON.stringify(currentData));
         showToast("Changes saved successfully! Live website updated.");
         updateDashboardCounters();
@@ -2221,13 +2299,11 @@
         document.getElementById('footerCopyright').value = d.contact.copyright || '';
 
         // Theme
-        document.getElementById('themeAccentColor').value = d.theme.accentColor || '#952a65';
-        document.getElementById('themeAccentPicker').value = d.theme.accentColor || '#952a65';
-        if (window.setThemeAccentLive) {
-          window.setThemeAccentLive(d.theme.accentColor || '#952a65', false);
-        }
-        document.getElementById('themeAccentPicker').value = d.theme.accentColor || '#952a65';
-        document.getElementById('siteDocTitle').value = d.theme.docTitle || '';
+        const activeThemeColor = (d.theme && d.theme.accentColor) || localStorage.getItem('asim_theme_color') || '#952a65';
+        document.getElementById('themeAccentColor').value = activeThemeColor;
+        document.getElementById('themeAccentPicker').value = activeThemeColor;
+        setThemeAccentLive(activeThemeColor, false);
+        document.getElementById('siteDocTitle').value = (d.theme && d.theme.docTitle) || '';
       }
 
       function updateDashboardCounters() {
@@ -2641,39 +2717,21 @@
         persistData();
       };
 
-            function setThemeAccentLive(color, autoSave = true) {
-        if (!color) return;
-        document.getElementById('themeAccentColor').value = color;
-        document.getElementById('themeAccentPicker').value = color;
-        currentData.theme.accentColor = color;
-        localStorage.setItem('asim_theme_color', color);
-
-        // Update live preview box
-        const previewBox = document.getElementById('liveThemePreviewBox');
-        if (previewBox) previewBox.style.background = color;
-        const previewStep = document.getElementById('previewStepNum');
-        if (previewStep) previewStep.style.color = color;
-
-        // Update CSS custom variable on root
-        document.documentElement.style.setProperty('--teal', color);
-        document.documentElement.style.setProperty('--teal-glow', color + '40');
-
-        // Update preview link with URL param for instant mobile verification
-        const previewLink = document.getElementById('btnPreviewThemeSite');
-        if (previewLink) {
-          previewLink.href = '../?color=' + encodeURIComponent(color);
-        }
-
-        // AUTO-SAVE to localStorage so changes take effect immediately on phone!
-        if (autoSave) {
-          localStorage.setItem('asim_portfolio_cms_data', JSON.stringify(currentData));
-          showToast('Theme color ' + color + ' saved! Live website updated.');
-        }
-      };
-
       function saveSettingsSection() {
-        currentData.theme.accentColor = document.getElementById('themeAccentColor').value;
+        const chosenColor = document.getElementById('themeAccentColor').value.trim() || '#952a65';
+        if (!currentData.theme) currentData.theme = {};
+        currentData.theme.accentColor = chosenColor;
         currentData.theme.docTitle = document.getElementById('siteDocTitle').value;
+        localStorage.setItem('asim_theme_color', chosenColor);
+
+        // Background server sync
+        try {
+          fetch('/api/theme', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ color: chosenColor })
+          }).catch(() => {});
+        } catch(e){}
 
         // Check password change
         const newEmail = document.getElementById('newAdminEmail').value.trim();
@@ -2741,6 +2799,7 @@
       };
 
       // Check on initial load
+      loadPersistedData();
       checkSession();
 
     

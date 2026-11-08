@@ -141,10 +141,10 @@ footer {
     max-height: 100svh !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: flex-start !important;
+    justify-content: center !important;
     align-items: center !important;
-    padding-top: calc(var(--nav-height) + 0.35rem) !important;
-    padding-bottom: 0.65rem !important;
+    padding-top: calc(var(--nav-height) + clamp(0.3rem, 1vh, 0.75rem)) !important;
+    padding-bottom: clamp(0.4rem, 1vh, 0.85rem) !important;
     margin: 0 !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
@@ -161,8 +161,8 @@ footer {
   /* Footer #contact: detached with dedicated top gap from navbar */
   footer#contact {
     justify-content: center !important;
-    padding-top: calc(var(--nav-height) + clamp(2rem, 4.5vh, 3.5rem)) !important;
-    padding-bottom: clamp(1rem, 2vh, 1.8rem) !important;
+    padding-top: calc(var(--nav-height) + clamp(1.2rem, 3vh, 2.5rem)) !important;
+    padding-bottom: clamp(0.8rem, 1.8vh, 1.5rem) !important;
   }
 
   header.hero > .container {
@@ -174,7 +174,7 @@ footer {
 
   footer#contact > .container {
     height: auto !important;
-    max-height: calc(100svh - var(--nav-height) - clamp(2.5rem, 5vh, 4.5rem)) !important;
+    max-height: calc(100svh - var(--nav-height) - clamp(1.5rem, 3.5vh, 3rem)) !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
@@ -182,39 +182,40 @@ footer {
 
   section > .container {
     height: auto !important;
-    max-height: calc(100svh - var(--nav-height) - 1.5rem) !important;
+    max-height: calc(100svh - var(--nav-height) - clamp(0.75rem, 1.8vh, 1.5rem)) !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: flex-start !important;
+    justify-content: center !important;
     align-items: stretch !important;
-    gap: 0.65rem !important;
+    gap: clamp(0.45rem, 1vh, 0.75rem) !important;
     box-sizing: border-box !important;
+    margin: auto 0 !important;
   }
 
-  /* Screen 2: About - pulled up with compact gap */
+  /* Screen 2: About - perfectly centered without dead space */
   #about .about-grid {
     display: grid;
     grid-template-columns: 0.75fr 1.25fr;
     gap: clamp(1.2rem, 2.5vw, 2.2rem);
-    align-items: stretch;
+    align-items: center;
     margin-top: 0;
   }
   #about .about-visual {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     gap: 0.6rem;
   }
   #about .about-visual .portrait-card {
-    height: 330px;
-    max-height: calc(100svh - 230px);
+    height: clamp(280px, 40vh, 350px);
+    max-height: calc(100svh - 220px);
     width: min(100%, 280px);
   }
   #about .about-info {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 0.55rem;
   }
   #about .quote-card {
@@ -235,12 +236,12 @@ footer {
     margin-bottom: 0;
   }
 
-  /* Screen 3: Education Timeline - pulled up directly under heading */
+  /* Screen 3: Education Timeline - vertically centered, rich breathing room */
   section#education.section-green .timeline {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
-    max-width: 920px;
+    gap: clamp(0.55rem, 1.2vh, 0.9rem);
+    max-width: 960px;
     width: 100%;
     margin: 0 auto;
   }
@@ -248,44 +249,44 @@ footer {
     margin-bottom: 0 !important;
   }
   section#education.section-green .timeline-card {
-    padding: 0.7rem 1.2rem;
+    padding: clamp(0.7rem, 1.5vh, 1.1rem) clamp(1rem, 1.6vw, 1.35rem);
   }
 
-  /* Screen 4: Resume Story - pulled up directly under heading */
+  /* Screen 4: Resume Story - balanced columns, centered vertically */
   #resume.section-white .story-grid {
     display: grid;
-    grid-template-columns: 1.25fr 1fr;
+    grid-template-columns: 1.15fr 1fr;
     gap: clamp(1rem, 2vw, 1.8rem);
-    align-items: stretch;
+    align-items: center;
     margin-top: 0;
   }
   #resume.section-white .timeline-pipeline {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: clamp(0.35rem, 0.8vh, 0.6rem);
   }
   #resume.section-white .t-body {
-    padding: 0.6rem 0.95rem;
+    padding: clamp(0.5rem, 1.1vh, 0.8rem) clamp(0.8rem, 1.2vw, 1.1rem);
   }
   #resume.section-white .unified-analytics-card {
     display: flex;
     flex-direction: column;
-    gap: 0.45rem;
+    gap: clamp(0.35rem, 0.8vh, 0.55rem);
     justify-content: space-between;
-    padding: 0.85rem 1.15rem;
+    padding: clamp(0.65rem, 1.3vh, 0.95rem) clamp(0.9rem, 1.3vw, 1.2rem);
   }
 
-  /* Screen 5: Certifications Grid - pulled up directly under heading */
+  /* Screen 5: Certifications Grid - handsome cards, zero bottom dead space */
   section#certifications.section-green .certs-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
+    gap: clamp(0.75rem, 1.4vw, 1.2rem);
     width: 100%;
-    max-width: 1120px;
+    max-width: 1140px;
     margin: 0 auto;
   }
   section#certifications.section-green .cert-card {
-    padding: 0.75rem 1rem;
+    padding: clamp(0.85rem, 1.8vh, 1.35rem) clamp(0.95rem, 1.3vw, 1.25rem);
   }
 
   /* Screen 6: Originals Dossiers - elegant 6-card dashboard presentation */
@@ -2764,69 +2765,231 @@ section#resume > .container {
   background: #ffffff !important;
   border: 1.5px solid #e2e8f0 !important;
   border-radius: 12px !important;
-  padding: 0.75rem 1.1rem !important;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04) !important;
+  padding: clamp(0.7rem, 1.4vh, 1rem) clamp(0.9rem, 1.3vw, 1.2rem) !important;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04), 0 0 20px var(--teal-soft) !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: space-between !important;
-  gap: 0.4rem !important;
+  gap: clamp(0.35rem, 0.8vh, 0.55rem) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+#resume .unified-analytics-card:hover {
+  border-color: var(--teal) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 0 0 28px var(--teal-soft) !important;
 }
 
 #resume .card-section-head h4 {
-  font-size: 0.78rem !important;
+  font-size: 0.76rem !important;
   font-weight: 800 !important;
   color: #0f172a !important;
-  letter-spacing: 0.06em !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
 }
 
-
-/* SECTION 8: SOFTWARE PROFICIENCY - 2x2 HANDSOME GRID (NOT EMPTY!) */
-.software-grid-2x2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.45rem;
-  margin-top: 0.25rem;
+/* SECTION 1: PRIMARY SYNTHESIS & COMPUTATIONAL DOMAINS */
+#resume .domain-badges-row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+  margin-top: 0.2rem !important;
 }
 
-.sw-item {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 0.35rem 0.65rem;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+#resume .domain-badges-row .d-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+  background: #f8fafc !important;
+  border: 1.5px solid #e2e8f0 !important;
+  padding: 0.22em 0.65em !important;
+  border-radius: 99px !important;
+  font-size: 0.68rem !important;
+  font-weight: 600 !important;
+  color: #1e293b !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  cursor: default;
 }
 
-.sw-item:hover {
-  transform: translateY(-2px);
-  border-color: var(--teal);
-  box-shadow: 0 4px 12px rgba(149, 42, 101, 0.12);
-  background: #ffffff;
+#resume .domain-badges-row .d-pill:hover {
+  background: var(--teal) !important;
+  color: #ffffff !important;
+  border-color: var(--teal) !important;
+  transform: translateY(-2px) scale(1.03) !important;
+  box-shadow: 0 4px 14px var(--teal-glow) !important;
 }
 
-.sw-ico {
-  font-size: 1.15rem;
-  color: var(--teal);
-  flex-shrink: 0;
+#resume .domain-badges-row .d-ico {
+  color: var(--teal) !important;
+  font-size: 0.82rem !important;
+  font-weight: 800 !important;
+  transition: transform 0.25s ease, color 0.25s ease;
 }
 
-.sw-details {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.25;
+#resume .domain-badges-row .d-pill:hover .d-ico {
+  color: #ffffff !important;
+  transform: rotate(20deg);
 }
 
-.sw-details strong {
-  font-size: 0.76rem;
-  color: #0f172a;
-  font-weight: 700;
+#resume .d-ico-sep {
+  color: #cbd5e1 !important;
+  font-size: 0.65rem !important;
 }
 
-.sw-details small {
-  font-size: 0.64rem;
-  color: #64748b;
+#resume .card-inner-rule {
+  height: 1px !important;
+  background: linear-gradient(90deg, transparent 0%, #e2e8f0 20%, var(--teal-soft) 50%, #e2e8f0 80%, transparent 100%) !important;
+  margin: 0.2rem 0 !important;
+}
+
+/* SECTION 2: BENCH & ANALYSIS EXPERTISE (GLOWING PROGRESS METERS) */
+.expertise-meters {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: clamp(0.28rem, 0.6vh, 0.42rem) !important;
+  margin-top: 0.2rem !important;
+}
+
+.meter-item {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.15rem !important;
+  transition: transform 0.2s ease !important;
+}
+
+.meter-item:hover {
+  transform: translateX(3px) !important;
+}
+
+.meter-info {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  font-size: 0.68rem !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+}
+
+.meter-name {
+  color: #334155 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.meter-val {
+  color: var(--teal) !important;
+  font-weight: 800 !important;
+  font-family: var(--font-display) !important;
+  font-size: 0.95rem !important;
+  letter-spacing: 0.04em !important;
+  text-shadow: 0 0 10px var(--teal-soft) !important;
+}
+
+.meter-track {
+  width: 100% !important;
+  height: 6.5px !important;
+  background: #f1f5f9 !important;
+  border-radius: 99px !important;
+  overflow: hidden !important;
+  position: relative !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+.meter-fill {
+  height: 100% !important;
+  border-radius: 99px !important;
+  background: linear-gradient(90deg, var(--teal) 0%, #b83a80 50%, #d4599e 80%, #ffd166 100%) !important;
+  background-size: 200% 100% !important;
+  animation: meterGradientFlow 3.5s ease infinite !important;
+  position: relative !important;
+  box-shadow: 0 0 10px var(--teal-soft) !important;
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes meterGradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.meter-flare {
+  position: absolute !important;
+  right: 0 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  box-shadow: 0 0 6px #ffffff, 0 0 12px #ffd166 !important;
+  animation: flarePulse 2s ease-in-out infinite !important;
+}
+
+@keyframes flarePulse {
+  0%, 100% { opacity: 0.7; transform: translateY(-50%) scale(0.9); }
+  50% { opacity: 1; transform: translateY(-50%) scale(1.3); }
+}
+
+/* SECTION 3: SCIENTIFIC SOFTWARE & MODELING (5 STREAMLINED CHIPS) */
+.software-grid-wrap {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 0.35rem !important;
+  margin-top: 0.2rem !important;
+}
+
+.sw-chip {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.45rem !important;
+  background: #f8fafc !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 7px !important;
+  padding: 0.28rem 0.55rem !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.sw-chip:last-child:nth-child(odd) {
+  grid-column: span 2 !important;
+}
+
+.sw-chip:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  border-color: var(--teal) !important;
+  background: #ffffff !important;
+  box-shadow: 0 6px 16px var(--teal-soft), 0 0 14px var(--teal-glow) !important;
+}
+
+.sw-chip .sw-ico {
+  font-size: 1rem !important;
+  color: var(--teal) !important;
+  flex-shrink: 0 !important;
+  transition: transform 0.3s ease, color 0.3s ease !important;
+}
+
+.sw-chip:hover .sw-ico {
+  transform: scale(1.2) rotate(8deg) !important;
+  color: var(--teal-light) !important;
+}
+
+.sw-chip .sw-details {
+  display: flex !important;
+  flex-direction: column !important;
+  line-height: 1.2 !important;
+}
+
+.sw-chip .sw-details strong {
+  font-size: 0.72rem !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.01em !important;
+}
+
+.sw-chip .sw-details small {
+  font-size: 0.6rem !important;
+  color: #64748b !important;
+  font-weight: 500 !important;
 }
 
 /* 2. SCREEN 6: PROJECTS (#originals) - STREAMLINED 3-CARD SHOWCASE */
@@ -3434,8 +3597,12 @@ footer#contact .copyright {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 0.85rem !important;
   }
-  .software-grid-2x2 {
+  .software-grid-2x2,
+  .software-grid-wrap {
     grid-template-columns: 1fr !important;
+  }
+  .sw-chip:last-child:nth-child(odd) {
+    grid-column: span 1 !important;
   }
 
   /* CRITICAL MOBILE ARCHITECTURE FIX: Never cap section or container height on mobile */
@@ -3528,4 +3695,81 @@ footer#contact .copyright {
     padding-top: calc(var(--nav-height) + 2.2rem) !important;
     padding-bottom: 3.5rem !important;
   }
+}
+
+/* ==========================================================================
+   ENHANCED GLOBAL GLOWS & HOVER MOVEMENTS SUITE
+   ========================================================================== */
+.hero-title em {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), text-shadow 0.3s ease;
+}
+.hero-title:hover em {
+  transform: scale(1.15) rotate(-4deg);
+  text-shadow: 0 0 45px var(--teal-glow), 0 0 20px #ffd166 !important;
+}
+
+.fact {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease !important;
+}
+.fact:hover {
+  transform: translateY(-4px) scale(1.02) !important;
+  border-color: var(--teal) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06), 0 0 20px var(--teal-soft) !important;
+}
+.fact:hover b {
+  color: var(--teal) !important;
+  text-shadow: 0 0 15px var(--teal-soft) !important;
+}
+
+section#education .timeline-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease !important;
+}
+section#education .timeline-card:hover {
+  transform: translateY(-3px) scale(1.01) !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14), 0 0 25px rgba(255, 255, 255, 0.22) !important;
+  background: rgba(255, 255, 255, 0.22) !important;
+}
+section#education .timeline-icon i {
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease, text-shadow 0.3s ease !important;
+}
+section#education .timeline-item:hover .timeline-icon i {
+  transform: rotate(360deg) scale(1.22) !important;
+  color: #ffd166 !important;
+  text-shadow: 0 0 16px #ffd166 !important;
+}
+
+section#certifications .cert-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, background 0.3s ease !important;
+}
+section#certifications .cert-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  transform: skewX(-25deg);
+  transition: left 0.75s ease;
+  pointer-events: none;
+}
+section#certifications .cert-card:hover::before {
+  left: 200%;
+}
+section#certifications .cert-card:hover {
+  transform: translateY(-5px) scale(1.02) !important;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.2), 0 0 30px rgba(255, 255, 255, 0.3) !important;
+  background: rgba(255, 255, 255, 0.24) !important;
+}
+
+#originals .dossier-card {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease !important;
+}
+#originals .dossier-card:hover {
+  transform: translateY(-5px) scale(1.015) !important;
+  border-color: var(--teal) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08), 0 0 25px var(--teal-soft) !important;
 }

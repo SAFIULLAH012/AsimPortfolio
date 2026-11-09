@@ -277,20 +277,17 @@ function applyCmsData() {
         applyDynamicTheme(persistentColor);
       }
 
-      // Background server API check for cross-device persistence (local & PythonAnywhere)
-      const themeEndpoints = ['/api/theme', 'https://safiulllah.pythonanywhere.com/api/theme'];
-      themeEndpoints.forEach(ep => {
-        try {
-          fetch(ep)
-            .then(res => res.json())
-            .then(serverData => {
-              if (serverData && serverData.theme_color) {
-                localStorage.setItem('asim_theme_color', serverData.theme_color);
-                applyDynamicTheme(serverData.theme_color);
-              }
-            }).catch(() => {});
-        } catch(e){}
-      });
+      // Background server API check if running on Flask backend
+      try {
+        fetch('/api/theme')
+          .then(res => { if (res.ok) return res.json(); return null; })
+          .then(serverData => {
+            if (serverData && serverData.theme_color) {
+              localStorage.setItem('asim_theme_color', serverData.theme_color);
+              applyDynamicTheme(serverData.theme_color);
+            }
+          }).catch(() => {});
+      } catch(e){}
 
       const raw = localStorage.getItem('asim_portfolio_cms_data');
       if (!raw) return;

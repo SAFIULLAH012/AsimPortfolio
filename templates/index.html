@@ -42,6 +42,82 @@
     <!-- EARLY DYNAMIC THEME ENGINE (Executes immediately before DOM render) -->
   <script>
     (function() {
+      var CLOUD_THEME_URL = 'https://api.restful-api.dev/objects/ff808181a09d98f701a1bfa8b02f6e85';
+
+      function applyDynamicThemeEarly(hexColor) {
+        if (!hexColor || typeof hexColor !== 'string' || !hexColor.startsWith('#')) return;
+        var clean = hexColor.replace('#', '').trim();
+        if (clean.length === 3) clean = clean.split('').map(function(c){return c+c;}).join('');
+        if (clean.length !== 6) return;
+
+        var r = parseInt(clean.substring(0, 2), 16) || 149;
+        var g = parseInt(clean.substring(2, 4), 16) || 42;
+        var b = parseInt(clean.substring(4, 6), 16) || 101;
+        var shade = function(p) {
+          var f = (100 + p) / 100;
+          var nr = Math.min(255, Math.max(0, Math.round(r * f)));
+          var ng = Math.min(255, Math.max(0, Math.round(g * f)));
+          var nb = Math.min(255, Math.max(0, Math.round(b * f)));
+          return '#' + ((1 << 24) + (nr << 16) + (ng << 8) + nb).toString(16).slice(1);
+        };
+        var dark = shade(-32);
+        var light = shade(25);
+        var lighter = shade(48);
+        var glow = 'rgba(' + r + ',' + g + ',' + b + ',0.45)';
+        var soft = 'rgba(' + r + ',' + g + ',' + b + ',0.12)';
+        var subtle = 'rgba(' + r + ',' + g + ',' + b + ',0.22)';
+        var border = 'rgba(' + r + ',' + g + ',' + b + ',0.4)';
+
+        document.documentElement.style.setProperty('--teal', hexColor);
+        document.documentElement.style.setProperty('--teal-dark', dark);
+        document.documentElement.style.setProperty('--teal-light', light);
+        document.documentElement.style.setProperty('--teal-lighter', lighter);
+        document.documentElement.style.setProperty('--teal-glow', glow);
+        document.documentElement.style.setProperty('--teal-soft', soft);
+        document.documentElement.style.setProperty('--teal-subtle', subtle);
+        document.documentElement.style.setProperty('--section-berry-bg', hexColor);
+
+        var css = ':root{' +
+          '--teal:' + hexColor + '!important;' +
+          '--teal-dark:' + dark + '!important;' +
+          '--teal-light:' + light + '!important;' +
+          '--teal-lighter:' + lighter + '!important;' +
+          '--teal-glow:' + glow + '!important;' +
+          '--teal-soft:' + soft + '!important;' +
+          '--teal-subtle:' + subtle + '!important;' +
+          '--section-berry-bg:' + hexColor + '!important;' +
+          '}' +
+          'section#methodology,section#methodology.section-berry{background:' + hexColor + '!important;background-color:' + hexColor + '!important;}' +
+          'section#methodology .method-step-num{color:' + hexColor + '!important;background:#ffffff!important;}' +
+          'section#methodology .method-card:hover{border-color:#ffffff!important;box-shadow:0 12px 30px rgba(0,0,0,0.3),0 0 20px ' + glow + '!important;}' +
+          'section#education.section-green,section#certifications.section-green{background:' + hexColor + '!important;background-color:' + hexColor + '!important;}' +
+          '.hero-title em{color:' + hexColor + '!important;text-shadow:0 0 35px ' + glow + '!important;}' +
+          '.btn-primary,a.btn-primary{background:' + hexColor + '!important;border-color:' + light + '!important;box-shadow:0 4px 18px ' + glow + '!important;}' +
+          '.btn-primary:hover,a.btn-primary:hover{background:' + light + '!important;}' +
+          'body::before{background:radial-gradient(circle,' + subtle + ' 0%,transparent 70%)!important;}' +
+          '#resume .t-node{background:linear-gradient(135deg,' + hexColor + ' 0%,' + light + ' 100%)!important;}' +
+          '#resume .t-line{background:linear-gradient(180deg,' + hexColor + ' 0%,#ffd166 30%,' + lighter + ' 60%,' + hexColor + ' 100%)!important;box-shadow:0 0 8px ' + glow + '!important;}' +
+          '#resume .timeline-card.journey-item:hover .t-body{border-color:' + hexColor + '!important;box-shadow:0 8px 24px ' + soft + ',-4px 0 0 0 ' + hexColor + '!important;}' +
+          '#resume .journey-item .t-header .t-badge.active{background:' + hexColor + '!important;color:#fff!important;}' +
+          '.card-accent-bar.c-teal{background:' + hexColor + '!important;}' +
+          '.dossier-card:hover{border-color:' + border + '!important;box-shadow:0 16px 36px -6px ' + glow + '!important;}' +
+          '.portrait-card{border-color:' + border + '!important;box-shadow:0 25px 60px -15px #000,0 0 35px ' + glow + '!important;}' +
+          '.hero-art:hover .portrait-card,.portrait-card:hover{border-color:' + hexColor + '!important;box-shadow:0 30px 70px -15px #000,0 0 50px ' + glow + '!important;}' +
+          '.status-chip{border-color:' + hexColor + '!important;color:' + light + '!important;box-shadow:0 0 15px ' + soft + '!important;}' +
+          'footer#contact .footer-tagline{color:' + light + '!important;}' +
+          'footer#contact .tbc-tag,footer#contact .pill-contact{color:' + light + '!important;border:1.5px solid ' + hexColor + '!important;background:' + soft + '!important;box-shadow:0 0 20px ' + glow + '!important;}';
+
+        var styleEl = document.getElementById('early-theme-accent-style');
+        if (!styleEl) {
+          styleEl = document.createElement('style');
+          styleEl.id = 'early-theme-accent-style';
+          document.head.appendChild(styleEl);
+        }
+        styleEl.textContent = css;
+      }
+
+      window.applyDynamicThemeEarly = applyDynamicThemeEarly;
+
       try {
         var params = new URLSearchParams(window.location.search);
         var qColor = params.get('color') || params.get('theme');
@@ -73,73 +149,25 @@
           if (!hexColor && serverTheme) hexColor = serverTheme;
         }
 
-        if (hexColor && hexColor.startsWith('#')) {
-          var clean = hexColor.replace('#', '').trim();
-          if (clean.length === 3) clean = clean.split('').map(function(c){return c+c;}).join('');
-          if (clean.length === 6) {
-            var r = parseInt(clean.substring(0, 2), 16) || 149;
-            var g = parseInt(clean.substring(2, 4), 16) || 42;
-            var b = parseInt(clean.substring(4, 6), 16) || 101;
-            var shade = function(p) {
-              var f = (100 + p) / 100;
-              var nr = Math.min(255, Math.max(0, Math.round(r * f)));
-              var ng = Math.min(255, Math.max(0, Math.round(g * f)));
-              var nb = Math.min(255, Math.max(0, Math.round(b * f)));
-              return '#' + ((1 << 24) + (nr << 16) + (ng << 8) + nb).toString(16).slice(1);
-            };
-            var dark = shade(-32);
-            var light = shade(25);
-            var lighter = shade(48);
-            var glow = 'rgba(' + r + ',' + g + ',' + b + ',0.45)';
-            var soft = 'rgba(' + r + ',' + g + ',' + b + ',0.12)';
-            var subtle = 'rgba(' + r + ',' + g + ',' + b + ',0.22)';
-            var border = 'rgba(' + r + ',' + g + ',' + b + ',0.4)';
-
-            document.documentElement.style.setProperty('--teal', hexColor);
-            document.documentElement.style.setProperty('--teal-dark', dark);
-            document.documentElement.style.setProperty('--teal-light', light);
-            document.documentElement.style.setProperty('--teal-lighter', lighter);
-            document.documentElement.style.setProperty('--teal-glow', glow);
-            document.documentElement.style.setProperty('--teal-soft', soft);
-            document.documentElement.style.setProperty('--teal-subtle', subtle);
-            document.documentElement.style.setProperty('--section-berry-bg', hexColor);
-
-            var css = ':root{' +
-              '--teal:' + hexColor + '!important;' +
-              '--teal-dark:' + dark + '!important;' +
-              '--teal-light:' + light + '!important;' +
-              '--teal-lighter:' + lighter + '!important;' +
-              '--teal-glow:' + glow + '!important;' +
-              '--teal-soft:' + soft + '!important;' +
-              '--teal-subtle:' + subtle + '!important;' +
-              '--section-berry-bg:' + hexColor + '!important;' +
-              '}' +
-              'section#methodology,section#methodology.section-berry{background:' + hexColor + '!important;background-color:' + hexColor + '!important;}' +
-              'section#methodology .method-step-num{color:' + hexColor + '!important;background:#ffffff!important;}' +
-              'section#methodology .method-card:hover{border-color:#ffffff!important;box-shadow:0 12px 30px rgba(0,0,0,0.3),0 0 20px ' + glow + '!important;}' +
-              'section#education.section-green,section#certifications.section-green{background:' + hexColor + '!important;background-color:' + hexColor + '!important;}' +
-              '.hero-title em{color:' + hexColor + '!important;text-shadow:0 0 35px ' + glow + '!important;}' +
-              '.btn-primary,a.btn-primary{background:' + hexColor + '!important;border-color:' + light + '!important;box-shadow:0 4px 18px ' + glow + '!important;}' +
-              '.btn-primary:hover,a.btn-primary:hover{background:' + light + '!important;}' +
-              'body::before{background:radial-gradient(circle,' + subtle + ' 0%,transparent 70%)!important;}' +
-              '#resume .t-node{background:linear-gradient(135deg,' + hexColor + ' 0%,' + light + ' 100%)!important;}' +
-              '#resume .t-line{background:linear-gradient(180deg,' + hexColor + ' 0%,#ffd166 30%,' + lighter + ' 60%,' + hexColor + ' 100%)!important;box-shadow:0 0 8px ' + glow + '!important;}' +
-              '#resume .timeline-card.journey-item:hover .t-body{border-color:' + hexColor + '!important;box-shadow:0 8px 24px ' + soft + ',-4px 0 0 0 ' + hexColor + '!important;}' +
-              '#resume .journey-item .t-header .t-badge.active{background:' + hexColor + '!important;color:#fff!important;}' +
-              '.card-accent-bar.c-teal{background:' + hexColor + '!important;}' +
-              '.dossier-card:hover{border-color:' + border + '!important;box-shadow:0 16px 36px -6px ' + glow + '!important;}' +
-              '.portrait-card{border-color:' + border + '!important;box-shadow:0 25px 60px -15px #000,0 0 35px ' + glow + '!important;}' +
-              '.hero-art:hover .portrait-card,.portrait-card:hover{border-color:' + hexColor + '!important;box-shadow:0 30px 70px -15px #000,0 0 50px ' + glow + '!important;}' +
-              '.status-chip{border-color:' + hexColor + '!important;color:' + light + '!important;box-shadow:0 0 15px ' + soft + '!important;}' +
-              'footer#contact .footer-tagline{color:' + light + '!important;}' +
-              'footer#contact .tbc-tag,footer#contact .pill-contact{color:' + light + '!important;border:1.5px solid ' + hexColor + '!important;background:' + soft + '!important;box-shadow:0 0 20px ' + glow + '!important;}';
-
-            var styleEl = document.createElement('style');
-            styleEl.id = 'early-theme-accent-style';
-            styleEl.textContent = css;
-            document.head.appendChild(styleEl);
-          }
+        if (hexColor) {
+          applyDynamicThemeEarly(hexColor);
         }
+
+        // Live Universal Cloud Theme Synchronization (Works across all devices & cookies cleared)
+        fetch(CLOUD_THEME_URL)
+          .then(function(res){ if (res.ok) return res.json(); return null; })
+          .then(function(cloud){
+            if (cloud && cloud.data && cloud.data.color) {
+              var liveColor = cloud.data.color;
+              if (liveColor && liveColor.startsWith('#') && liveColor !== hexColor) {
+                localStorage.setItem('asim_theme_color', liveColor);
+                applyDynamicThemeEarly(liveColor);
+              }
+            }
+          }).catch(function(){});
+      } catch(e) {}
+    })();
+  </script>
       } catch(e) {}
     })();
   </script>

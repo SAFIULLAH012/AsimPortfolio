@@ -277,7 +277,23 @@ function applyCmsData() {
         applyDynamicTheme(persistentColor);
       }
 
-      // Background server API check if running on Flask backend
+      // Live Universal Cloud Theme Synchronization (Works across all devices & cookies cleared)
+      var CLOUD_THEME_URL = 'https://api.restful-api.dev/objects/ff808181a09d98f701a1bfa8b02f6e85';
+      try {
+        fetch(CLOUD_THEME_URL)
+          .then(res => { if (res.ok) return res.json(); return null; })
+          .then(cloud => {
+            if (cloud && cloud.data && cloud.data.color) {
+              var liveColor = cloud.data.color;
+              if (liveColor && liveColor.startsWith('#')) {
+                localStorage.setItem('asim_theme_color', liveColor);
+                applyDynamicTheme(liveColor);
+              }
+            }
+          }).catch(() => {});
+      } catch(e){}
+
+      // Optional local Flask backend sync
       try {
         fetch('/api/theme')
           .then(res => { if (res.ok) return res.json(); return null; })

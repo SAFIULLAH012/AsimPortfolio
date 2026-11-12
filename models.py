@@ -277,8 +277,8 @@ class SiteSettings(db.Model):
     resume_url = db.Column(db.String(300), default="cv/m_asim_cv.pdf")
 
     # SEO
-    site_title = db.Column(db.String(200), default="M. ASIM — Computational Chemistry & Molecular Modeling Portfolio")
-    meta_description = db.Column(db.Text, default="Official portfolio of M. Asim — BS Chemistry Scholar at University of Layyah, specializing in Computational Chemistry, Quantum Chemical Calculations, and Molecular Modeling.")
+    site_title = db.Column(db.String(200), default="MUHAMMAD ASIM — Computational Chemistry & Molecular Modeling Portfolio")
+    meta_description = db.Column(db.Text, default="Official portfolio of Muhammad Asim — BS Chemistry Scholar at University of Layyah, specializing in Computational Chemistry, Quantum Chemical Calculations, and Molecular Modeling.")
 
     # Hero Content
     hero_description = db.Column(db.Text, default="Undergraduate BS Chemistry researcher (5th Semester • CGPA 3.82) at University of Layyah specializing in computational quantum modeling (Gaussian, ORCA, Chemcraft, Avogadro) and molecular electronic structure research.")

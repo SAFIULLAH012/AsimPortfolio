@@ -179,7 +179,7 @@ def contact():
                 f"</p></div>"
             )
             payload = {
-                "from": "M. Asim Portfolio <onboarding@resend.dev>",
+                "from": "Muhammad Asim Portfolio <onboarding@resend.dev>",
                 "to": [recipient],
                 "reply_to": email,
                 "subject": f"🚀 New Portfolio Message from {name}: {subject}",

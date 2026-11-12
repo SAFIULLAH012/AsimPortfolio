@@ -732,21 +732,26 @@ footer {
 .hero-title {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(4.5rem, 10.5vw, 9rem);
+  font-size: clamp(3.2rem, 7.5vw, 7.5rem);
   line-height: 0.88;
   letter-spacing: 0.02em;
   color: var(--white);
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
 .hero-title .name-white {
   color: #ffffff !important;
   display: inline-block;
+  white-space: nowrap;
 }
 
 .hero-title em {
   font-style: normal;
   color: var(--teal);
   text-shadow: 0 0 35px var(--teal-glow);
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .hero-tag {
@@ -1562,6 +1567,17 @@ footer.section-black .copyright {
     gap: 2.2rem;
   }
 
+  .hero-title {
+    font-size: clamp(2.8rem, 8.5vw, 5.2rem);
+    line-height: 0.94;
+    word-break: normal;
+  }
+
+  .sec-head h2 {
+    font-size: clamp(2rem, 5.5vw, 3rem);
+    line-height: 0.98;
+  }
+
   .hero-desc {
     margin-inline: auto;
   }
@@ -1621,6 +1637,17 @@ footer.section-black .copyright {
     display: none;
   }
 
+  .hero-title {
+    font-size: clamp(2.4rem, 9.8vw, 3.8rem);
+    line-height: 0.95;
+    margin-bottom: 0.4rem;
+  }
+
+  .sec-head h2 {
+    font-size: clamp(1.8rem, 6.2vw, 2.5rem);
+    line-height: 1.0;
+  }
+
   .about-facts {
     grid-template-columns: 1fr;
   }
@@ -1631,6 +1658,17 @@ footer.section-black .copyright {
 }
 
 @media (max-width: 480px) {
+  .hero-title {
+    font-size: clamp(2rem, 11vw, 2.9rem);
+    line-height: 0.98;
+    margin-bottom: 0.35rem;
+  }
+
+  .sec-head h2 {
+    font-size: clamp(1.5rem, 7.5vw, 2.1rem);
+    line-height: 1.05;
+  }
+
   .acad-main-score {
     flex-direction: column;
     gap: 0.1rem;

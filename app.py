@@ -281,7 +281,7 @@ def register_cli_commands(app: Flask) -> None:
 
 
 def _seed_database() -> None:
-    """Seed the database with initial chemistry portfolio data for M. Asim."""
+    """Seed the database with initial chemistry portfolio data for Muhammad Asim."""
     from models import (
         Admin, Project, Skill, Education, Certification, Experience, SiteSettings,
     )
@@ -300,7 +300,7 @@ def _seed_database() -> None:
     settings_obj = SiteSettings.query.first()
     if not settings_obj:
         s = SiteSettings(
-            name="M. Asim",
+            name="Muhammad Asim",
             headline="Chemistry Research Scholar & Laboratory Analyst",
             bio=(
                 "Chemistry student at the University of Layyah (5th Semester, CGPA 3.82/4.00) "
@@ -313,10 +313,10 @@ def _seed_database() -> None:
             github_url="https://github.com",
             linkedin_url="https://linkedin.com",
             whatsapp_number="+923000000000",
-            site_title="M. Asim | BS Chemistry Scholar & Laboratory Researcher",
+            site_title="Muhammad Asim | BS Chemistry Scholar & Laboratory Researcher",
             meta_description=(
                 "Explore undergraduate laboratory research, organic synthesis protocols, and spectroscopic "
-                "analyses by M. Asim, Chemistry Scholar at the University of Layyah."
+                "analyses by Muhammad Asim, Chemistry Scholar at the University of Layyah."
             ),
             hero_description=(
                 "Passionate Chemistry Student & Laboratory Researcher specializing in Organic Synthesis, "
@@ -338,7 +338,7 @@ def _seed_database() -> None:
         )
         db.session.add(s)
     else:
-        settings_obj.name = "M. Asim"
+        settings_obj.name = "Muhammad Asim"
         settings_obj.headline = "Chemistry Research Scholar & Laboratory Analyst"
         settings_obj.profile_image = "assets/asim.jpeg"
         settings_obj.contact_email = "m.asim.chemistry@gmail.com"

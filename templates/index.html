@@ -2,44 +2,172 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>M. ASIM — Computational Chemistry Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<!-- ══ SEO & SOCIAL LINK PREVIEW (WhatsApp, LinkedIn, Twitter, Facebook) ══ -->
-<meta name="description" content="Official portfolio of M. Asim — BS Chemistry Scholar at University of Layyah, specializing in Computational Chemistry, Quantum Chemical Calculations, and Molecular Modeling.">
-<meta name="keywords" content="M. Asim, Asim Chemistry, Computational Chemistry, University of Layyah, Gaussian, GaussView, Molecular Modeling, Layyah, Pakistan">
+<!-- ══ PRIMARY SEO META TAGS ══ -->
+<title>M. ASIM — Computational Chemistry &amp; Molecular Modeling Portfolio</title>
+<meta name="title" content="M. ASIM — Computational Chemistry &amp; Molecular Modeling Portfolio">
+<meta name="description" content="Official portfolio of M. Asim — BS Chemistry Scholar at University of Layyah, specializing in Computational Chemistry, Quantum Chemical Calculations (Gaussian, ORCA, Chemcraft, Avogadro), and Molecular Modeling.">
+<meta name="keywords" content="M. Asim, Asim Chemistry, Computational Chemistry, Quantum Chemistry, Molecular Modeling, Gaussian 16, GaussView, Chemcraft, Avogadro, DFT Theory, FMO Analysis, University of Layyah, Layyah, Pakistan, Para-haloacetophenones">
 <meta name="author" content="M. Asim">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="googlebot" content="index, follow">
+<link rel="canonical" href="{{ request.base_url if request else 'https://safiullah012.github.io/AsimPortfolio/' }}">
 
-<!-- ══ OPEN GRAPH (WhatsApp, LinkedIn, Facebook) ══ -->
-<meta property="og:type" content="website">
+<!-- ══ MOBILE & UX OPTIMIZATION ══ -->
+<meta name="theme-color" content="#952a65" id="meta-theme-color">
+<meta name="format-detection" content="telephone=no">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<!-- ══ OPEN GRAPH (Facebook, LinkedIn, WhatsApp) ══ -->
+<meta property="og:type" content="profile">
 <meta property="og:site_name" content="M. Asim Portfolio">
-<meta property="og:title" content="M. ASIM — Computational Chemistry Portfolio">
-<meta property="og:description" content="Undergraduate BS Chemistry Scholar (5th Semester • CGPA 3.82) at University of Layyah specializing in computational chemistry, quantum modeling (Gaussian, ORCA, Chemcraft), and molecular electronic structure research.">
-<meta property="og:image" content="{{ request.url_root.rstrip('/') if request else '' }}/assets/asim.jpeg">
-<meta property="og:image:secure_url" content="{{ request.url_root.rstrip('/') if request else '' }}/assets/asim.jpeg">
+<meta property="og:title" content="M. ASIM — Computational Chemistry &amp; Molecular Modeling Portfolio">
+<meta property="og:description" content="Undergraduate BS Chemistry Scholar (5th Semester • CGPA 3.82) at University of Layyah specializing in computational quantum modeling, DFT electronic structure research, and molecular spectroscopy.">
+<meta property="og:url" content="{{ request.base_url if request else 'https://safiullah012.github.io/AsimPortfolio/' }}">
+<meta property="og:image" content="{{ request.url_root.rstrip('/') if request else 'https://safiullah012.github.io/AsimPortfolio' }}/assets/asim.jpeg">
+<meta property="og:image:secure_url" content="{{ request.url_root.rstrip('/') if request else 'https://safiullah012.github.io/AsimPortfolio' }}/assets/asim.jpeg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="1200">
-<meta property="og:image:alt" content="M. Asim - Computational Chemist">
-<meta property="og:url" content="{{ request.base_url if request else '' }}">
+<meta property="og:image:alt" content="M. Asim - Computational Chemist &amp; Undergraduate Researcher">
+<meta property="og:locale" content="en_US">
+<meta property="profile:first_name" content="Muhammad">
+<meta property="profile:last_name" content="Asim">
+<meta property="profile:username" content="m_asim">
 
 <!-- ══ TWITTER / X CARD ══ -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="M. ASIM — Computational Chemistry Portfolio">
+<meta name="twitter:url" content="{{ request.base_url if request else 'https://safiullah012.github.io/AsimPortfolio/' }}">
+<meta name="twitter:title" content="M. ASIM — Computational Chemistry &amp; Molecular Modeling Portfolio">
 <meta name="twitter:description" content="BS Chemistry Scholar (CGPA 3.82) at University of Layyah specializing in computational chemistry, quantum calculations, and molecular modeling.">
-<meta name="twitter:image" content="{{ request.url_root.rstrip('/') if request else '' }}/assets/asim.jpeg">
+<meta name="twitter:image" content="{{ request.url_root.rstrip('/') if request else 'https://safiullah012.github.io/AsimPortfolio' }}/assets/asim.jpeg">
+<meta name="twitter:image:alt" content="M. Asim - Computational Chemist">
 
-<!-- ══ FAVICON & ICONS ══ -->
+<!-- ══ FAVICON & TOUCH ICONS ══ -->
 <link rel="icon" type="image/jpeg" href="assets/asim.jpeg">
 <link rel="apple-touch-icon" href="assets/asim.jpeg">
 
+<!-- ══ DNS PREFETCH & PRECONNECT (High-Speed Performance) ══ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://api.restful-api.dev">
+
+<!-- ══ FONTS & CORE STYLESHEET ══ -->
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-  
-  <link rel="stylesheet" href="css/style.css?v=20261108_1">
-    <!-- EARLY DYNAMIC THEME ENGINE (Executes immediately before DOM render) -->
+<link rel="stylesheet" href="css/style.css?v=20261112_1">
+
+<!-- ══ SCHEMA.ORG JSON-LD STRUCTURED DATA (Rich Snippets) ══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://safiullah012.github.io/AsimPortfolio/#person",
+      "name": "M. Asim",
+      "givenName": "Muhammad",
+      "familyName": "Asim",
+      "jobTitle": "Computational Chemist & Undergraduate Researcher",
+      "worksFor": {
+        "@type": "EducationalOrganization",
+        "name": "University of Layyah",
+        "url": "https://layyah.edu.pk"
+      },
+      "alumnusOf": {
+        "@type": "EducationalOrganization",
+        "name": "University of Layyah",
+        "department": "Department of Chemistry"
+      },
+      "image": "https://safiullah012.github.io/AsimPortfolio/assets/asim.jpeg",
+      "url": "https://safiullah012.github.io/AsimPortfolio/",
+      "email": "mailto:seefooo63@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Layyah",
+        "addressRegion": "Punjab",
+        "addressCountry": "Pakistan"
+      },
+      "knowsAbout": [
+        "Computational Chemistry",
+        "Quantum Chemical Calculations",
+        "Molecular Modeling",
+        "Density Functional Theory (DFT)",
+        "Gaussian 16",
+        "GaussView",
+        "Chemcraft",
+        "Avogadro",
+        "Frontier Molecular Orbital (FMO) Analysis",
+        "Natural Bond Orbital (NBO) Analysis",
+        "Organic Synthesis",
+        "UV-Vis & FTIR Spectroscopy"
+      ],
+      "sameAs": [
+        "https://github.com/SAFIULLAH012/AsimPortfolio",
+        "https://linkedin.com",
+        "https://researchgate.net"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://safiullah012.github.io/AsimPortfolio/#website",
+      "url": "https://safiullah012.github.io/AsimPortfolio/",
+      "name": "M. Asim Portfolio",
+      "description": "Computational Chemistry and Molecular Modeling Portfolio of M. Asim",
+      "publisher": {
+        "@id": "https://safiullah012.github.io/AsimPortfolio/#person"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://safiullah012.github.io/AsimPortfolio/#webpage",
+      "url": "https://safiullah012.github.io/AsimPortfolio/",
+      "name": "M. ASIM — Computational Chemistry & Molecular Modeling Portfolio",
+      "isPartOf": {
+        "@id": "https://safiullah012.github.io/AsimPortfolio/#website"
+      },
+      "about": {
+        "@id": "https://safiullah012.github.io/AsimPortfolio/#person"
+      },
+      "mainEntity": {
+        "@id": "https://safiullah012.github.io/AsimPortfolio/#person"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://safiullah012.github.io/AsimPortfolio/#compounds",
+      "name": "Investigated Chemical Derivatives & Quantum Chemical Projects",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "4-Chloroacetophenone (C8H7ClO)",
+          "description": "Computational DFT modeling of molecular geometry, electronic structure, dipole moments, and chlorine halogen substituent effects."
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "4-Bromoacetophenone (C8H7BrO)",
+          "description": "Comparative quantum chemical investigation focusing on heavier bromine substituent influence on molecular polarizability and orbital energy gaps."
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "4-Fluoroacetophenone (C8H7FO)",
+          "description": "Density functional exploration of fluorine strong electronegative inductive effect on charge distribution and frontier molecular orbitals."
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+  <!-- EARLY DYNAMIC THEME ENGINE (Executes immediately before DOM render) -->
   <script>
     (function() {
       var CLOUD_THEME_URL = 'https://api.restful-api.dev/objects/ff808181a09d98f701a1bfa8b02f6e85';
@@ -92,6 +220,7 @@
           'section#methodology .method-card:hover{border-color:#ffffff!important;box-shadow:0 12px 30px rgba(0,0,0,0.3),0 0 20px ' + glow + '!important;}' +
           'section#education.section-green,section#certifications.section-green{background:' + hexColor + '!important;background-color:' + hexColor + '!important;}' +
           '.hero-title em{color:' + hexColor + '!important;text-shadow:0 0 35px ' + glow + '!important;}' +
+          '.hero-title .name-white{color:#ffffff!important;}' +
           '.btn-primary,a.btn-primary{background:' + hexColor + '!important;border-color:' + light + '!important;box-shadow:0 4px 18px ' + glow + '!important;}' +
           '.btn-primary:hover,a.btn-primary:hover{background:' + light + '!important;}' +
           'body::before{background:radial-gradient(circle,' + subtle + ' 0%,transparent 70%)!important;}' +
@@ -168,9 +297,6 @@
       } catch(e) {}
     })();
   </script>
-      } catch(e) {}
-    })();
-  </script>
 </head>
 <body>
 
@@ -202,7 +328,7 @@
     <div class="container">
       <div class="hero-grid">
         <div class="hero-content motion-reveal">
-          <h1 class="hero-title">M. <em>A</em>SIM</h1>
+          <h1 class="hero-title"><span class="name-white" style="color: #ffffff;">MUHAMMAD</span> <em>ASIM</em></h1>
           <p class="hero-tag"><span class="typewriter-text" id="typewriterText">COMPUTATIONAL CHEMIST</span><span class="typewriter-cursor">|</span></p>
           <p class="hero-desc">
             Computational Chemistry undergraduate specializing in quantum chemical calculations, molecular modeling, and electronic structure analysis. Investigating molecular properties and chemical reactivity through computational approaches.

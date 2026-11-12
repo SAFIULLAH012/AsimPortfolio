@@ -1,0 +1,251 @@
+{
+  "profile": {
+    "name": "MUHAMMAD ASIM",
+    "tagline": "BS Chemistry Student • Computational Chemistry Enthusiast",
+    "typewriter": "COMPUTATIONAL CHEMIST, BS CHEMISTRY STUDENT, MOLECULAR MODELING RESEARCHER, THEORETICAL CHEMISTRY ENTHUSIAST",
+    "bio": "Computational Chemistry undergraduate specializing in quantum chemical calculations, molecular modeling, and electronic structure analysis. Investigating molecular properties and chemical reactivity through computational approaches.",
+    "avatar": "assets/asim.jpeg",
+    "heroBtn1Text": "Explore Research",
+    "heroBtn1Link": "#originals",
+    "heroBtn2Text": "About Me",
+    "heroBtn2Link": "#about"
+  },
+  "about": {
+    "secSubtitle": "COMPUTATIONAL CHEMIST • BS CHEMISTRY STUDENT • RESEARCH ENTHUSIAST",
+    "quote": "Undergraduate BS Chemistry student (5th Semester) with a strong academic interest in computational chemistry and theoretical molecular research. Exploring molecular structures, electronic properties, chemical bonding, and reactivity using Gaussian, GaussView, Chemcraft, and Avogadro. Currently conducting computational research on para-haloacetophenone derivatives.",
+    "specializations": "Gaussian, GaussView, Chemcraft, Avogadro, FMO Analysis, NBO Analysis",
+    "matricMarks": "1083",
+    "matricTotal": "1100",
+    "matricBoard": "BISE DG Khan",
+    "interMarks": "824",
+    "interTotal": "1100",
+    "interBoard": "BISE DG Khan",
+    "cgpa": "3.82",
+    "cgpaTotal": "4.00",
+    "semester": "5th Semester (In Progress)"
+  },
+  "education": [
+    {
+      "degree": "Bachelor of Science in Chemistry",
+      "year": "Currently Studying — 5th Semester",
+      "institute": "University of Layyah",
+      "score": "3.82",
+      "scoreLabel": "CGPA: 3.82/4.00",
+      "desc": "Undergraduate degree with academic focus on computational chemistry and theoretical molecular modeling.",
+      "icon": "fa-university"
+    },
+    {
+      "degree": "Intermediate (HSSC)",
+      "year": "Higher Secondary School Certificate (HSSC)",
+      "institute": "BISE DG Khan board",
+      "score": "824",
+      "scoreLabel": "Obtained: 824/1100",
+      "desc": "Pre-Medical science foundation with core fundamentals in Chemistry and Physics.",
+      "icon": "fa-atom"
+    },
+    {
+      "degree": "Matriculation (SSC)",
+      "year": "Secondary School Certificate (SSC)",
+      "institute": "BISE DG Khan board",
+      "score": "1083",
+      "scoreLabel": "Obtained: 1083/1100",
+      "desc": "Science Group with academic distinction in fundamental physical and chemical sciences.",
+      "icon": "fa-graduation-cap"
+    }
+  ],
+  "journey": [
+    {
+      "step": "01",
+      "category": "ACADEMIC FOUNDATION",
+      "badge": "5th Semester • CGPA 3.82",
+      "title": "BS Chemistry (Hons) • University of Layyah",
+      "desc": "Core curriculum honors in Organic Synthesis, Reaction Kinetics & Coordination Complexes.",
+      "tags": "Organic Synthesis, Reaction Kinetics, Coordination Chem"
+    },
+    {
+      "step": "02",
+      "category": "BENCH INVESTIGATION",
+      "badge": "Bench Operations • Research",
+      "title": "Undergraduate Lab Researcher",
+      "desc": "Multi-step synthesis protocols, UV-Vis spectrophotometry & strict GLP safety.",
+      "tags": "Bench Synthesis, Spectrophotometry, GLP Compliance"
+    },
+    {
+      "step": "03",
+      "category": "QUANTITATIVE METHODS",
+      "badge": "Analytical Metrology • QC",
+      "title": "Quantitative Analytical Practicum",
+      "desc": "Precision volumetric titrations, gravimetric assays & statistical error calibration.",
+      "tags": "Volumetric Assays, Gravimetry, Data Metrology"
+    }
+  ],
+  "compounds": [
+    {
+      "tag": "CMPD-01",
+      "status": "ONGOING RESEARCH",
+      "name": "4-CHLOROACETOPHENONE",
+      "formula": "C8H7ClO • 4-Cl-C6H4-COCH3",
+      "desc": "Computational modeling examining molecular geometry, electronic structure, dipole moments, and chlorine halogen substituent effects.",
+      "bm1Title": "FMO / NBO",
+      "bm1Sub": "Analysis",
+      "bm2Title": "Dipole μ",
+      "bm2Sub": "Polarity",
+      "chips": "Gaussian, Chemcraft, In Progress",
+      "accent": "c-teal"
+    },
+    {
+      "tag": "CMPD-02",
+      "status": "ONGOING RESEARCH",
+      "name": "4-BROMOACETOPHENONE",
+      "formula": "C8H7BrO • 4-Br-C6H4-COCH3",
+      "desc": "Comparative quantum chemical investigation focusing on heavier bromine substituent influence on molecular polarizability and orbital energy gaps.",
+      "bm1Title": "NLO / TDM",
+      "bm1Sub": "Optics",
+      "bm2Title": "ΔE Gap",
+      "bm2Sub": "Hardness",
+      "chips": "GaussView, Avogadro, In Progress",
+      "accent": "c-purple"
+    },
+    {
+      "tag": "CMPD-03",
+      "status": "ONGOING RESEARCH",
+      "name": "4-FLUOROACETOPHENONE",
+      "formula": "C8H7FO • 4-F-C6H4-COCH3",
+      "desc": "Density functional exploration of fluorine strong electronegative inductive effect on charge distribution and frontier molecular orbitals.",
+      "bm1Title": "DOS / GRPs",
+      "bm1Sub": "Reactivity",
+      "bm2Title": "δ± Charge",
+      "bm2Sub": "Inductive",
+      "chips": "FMO Frontier, DFT State, In Progress",
+      "accent": "c-cyan"
+    }
+  ],
+  "methodology": {
+    "pill": "Theoretical Framework",
+    "title": "Computational Research Methodology",
+    "intro": "Computational chemistry provides a theoretical framework for investigating molecular structures, electronic properties, and chemical behavior through quantum chemical calculations and computational analysis.",
+    "note": "Computational Details: To be updated after methodology is finalized.",
+    "steps": [
+      {
+        "num": "01",
+        "title": "Molecular Structure Preparation",
+        "desc": "Geometry construction & initial coordinate modeling in GaussView & Avogadro."
+      },
+      {
+        "num": "02",
+        "title": "Computational Setup",
+        "desc": "Configuring calculation types, molecular charge, and spin multiplicity parameters."
+      },
+      {
+        "num": "03",
+        "title": "Quantum Chemical Calculations",
+        "desc": "Execution of electronic structure calculations using Gaussian software."
+      },
+      {
+        "num": "04",
+        "title": "Molecular Orbital Analysis",
+        "desc": "Inspection of HOMO-LUMO frontiers, band gaps, and orbitals in Chemcraft."
+      },
+      {
+        "num": "05",
+        "title": "Electronic Property Analysis",
+        "desc": "Evaluation of NBO, NLO, TDM, DOS, and global reactivity descriptors."
+      },
+      {
+        "num": "06",
+        "title": "Comparative Interpretation",
+        "desc": "Systematic evaluation of substituent effects across halo-derivatives."
+      }
+    ]
+  },
+  "skills": [
+    {
+      "name": "Gaussian",
+      "sub": "DFT & Quantum Engine",
+      "icon": "fa-atom"
+    },
+    {
+      "name": "GaussView",
+      "sub": "3D Geometry Builder",
+      "icon": "fa-desktop"
+    },
+    {
+      "name": "Chemcraft",
+      "sub": "Orbital & Gap Visualizer",
+      "icon": "fa-cube"
+    },
+    {
+      "name": "Avogadro",
+      "sub": "Coordinate Modeler",
+      "icon": "fa-project-diagram"
+    }
+  ],
+  "interests": [
+    {
+      "icon": "⚙",
+      "label": "Computational Chemistry"
+    },
+    {
+      "icon": "⬡",
+      "label": "Molecular Modeling"
+    },
+    {
+      "icon": "ψ",
+      "label": "Quantum Calculations"
+    },
+    {
+      "icon": "⊞",
+      "label": "Electronic Structure"
+    },
+    {
+      "icon": "⚡",
+      "label": "Reactivity"
+    },
+    {
+      "icon": "ρ",
+      "label": "DFT Theory"
+    }
+  ],
+  "certifications": [
+    {
+      "idTag": "BS CHEMISTRY",
+      "title": "Bachelor of Science in Chemistry",
+      "issuer": "University of Layyah",
+      "date": "CGPA: 3.82 / 4.00 • 5th Semester",
+      "desc": "Academic excellence in core undergraduate chemical sciences with a focused research trajectory in computational chemistry."
+    },
+    {
+      "idTag": "INTERMEDIATE",
+      "title": "Higher Secondary School Certificate (HSSC)",
+      "issuer": "BISE DG Khan board",
+      "date": "Obtained Marks: 824 / 1100",
+      "desc": "Pre-Medical science foundation with comprehensive coursework in fundamental chemistry and physics."
+    },
+    {
+      "idTag": "MATRICULATION",
+      "title": "Secondary School Certificate (SSC)",
+      "issuer": "BISE DG Khan board",
+      "date": "Obtained Marks: 1083 / 1100",
+      "desc": "High academic distinction in Secondary School Science Group provincial board examinations."
+    }
+  ],
+  "contact": {
+    "pill": "CONNECT & COLLABORATE",
+    "heading": "LET'S CONNECT & COLLABORATE",
+    "name": "M. ASIM",
+    "role": "BS CHEMISTRY STUDENT • COMPUTATIONAL CHEMISTRY ENTHUSIAST",
+    "desc": "I am interested in connecting with researchers, academics, students, and scientific communities working in computational chemistry, molecular modeling, and theoretical chemistry. I welcome academic discussions, research-related communication, and opportunities to learn and contribute to computational chemistry projects.",
+    "email": "seefooo63@gmail.com",
+    "phone": "",
+    "linkedin": "https://linkedin.com",
+    "researchgate": "https://researchgate.net",
+    "github": "https://github.com",
+    "address": "Department of Chemistry, University of Layyah, Punjab, Pakistan",
+    "tagline": "M. ASIM • COMPUTATIONAL CHEMIST | COMPUTATIONAL CHEMISTRY • MOLECULAR MODELING • THEORETICAL RESEARCH",
+    "copyright": "© 2026 M. ASIM — COMPUTATIONAL CHEMISTRY PORTFOLIO. ALL RIGHTS RESERVED."
+  },
+  "theme": {
+    "accentColor": "#952a65",
+    "docTitle": "M. Asim | Computational Chemistry Portfolio"
+  }
+}

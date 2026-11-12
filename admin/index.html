@@ -1239,7 +1239,7 @@
             <div class="form-grid-2">
               <div class="form-row">
                 <label for="profileName">Full Display Name</label>
-                <input type="text" id="profileName" value="M. ASIM">
+                <input type="text" id="profileName" value="MUHAMMAD ASIM">
               </div>
               <div class="form-row">
                 <label for="profileTagline">Hero Subtitle / Tagline</label>
@@ -2015,6 +2015,22 @@
           } catch(e) {
             console.error('Failed to parse saved CMS data:', e);
           }
+        } else {
+          // If browser storage is empty, load master portfolio database
+          const masterUrls = ['../data/portfolio.json', '/api/portfolio'];
+          masterUrls.forEach(url => {
+            fetch(url)
+              .then(res => { if (res.ok) return res.json(); return null; })
+              .then(data => {
+                if (data && typeof data === 'object' && Object.keys(data).length > 0) {
+                  currentData = Object.assign({}, DEFAULT_DATA, data);
+                  if (data.theme) currentData.theme = Object.assign({}, DEFAULT_DATA.theme, data.theme);
+                  localStorage.setItem('asim_portfolio_cms_data', JSON.stringify(currentData));
+                  populateAllFormPanes();
+                  updateDashboardCounters();
+                }
+              }).catch(() => {});
+          });
         }
 
         // Direct persistent theme color takes ultimate precedence
@@ -2115,13 +2131,23 @@
         }
       }
 
-      // Persist working dataset to localStorage
+      // Persist working dataset to localStorage & server database
       function persistData() {
         if (currentData && currentData.theme && currentData.theme.accentColor) {
           localStorage.setItem('asim_theme_color', currentData.theme.accentColor);
         }
         localStorage.setItem('asim_portfolio_cms_data', JSON.stringify(currentData));
-        showToast("Changes saved successfully! Live website updated.");
+
+        // Background server sync if Flask backend is running
+        try {
+          fetch('/api/portfolio', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(currentData)
+          }).catch(() => {});
+        } catch(e){}
+
+        showToast("Changes saved successfully! Database and live website updated.");
         updateDashboardCounters();
       };
 

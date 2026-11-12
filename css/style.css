@@ -738,6 +738,11 @@ footer {
   color: var(--white);
 }
 
+.hero-title .name-white {
+  color: #ffffff !important;
+  display: inline-block;
+}
+
 .hero-title em {
   font-style: normal;
   color: var(--teal);
@@ -3726,12 +3731,17 @@ section#education .timeline-card {
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease !important;
   background: #ffffff !important;
 }
+section#education .timeline-card::after {
+  display: none !important;
+}
 section#education .timeline-card:hover,
 section#education .timeline-card:active,
 section#education .timeline-card:focus {
   transform: translateY(-3px) scale(1.01) !important;
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16) !important;
   background: #ffffff !important;
+  opacity: 1 !important;
+  filter: none !important;
 }
 section#education .timeline-icon i {
   transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.3s ease, text-shadow 0.3s ease !important;

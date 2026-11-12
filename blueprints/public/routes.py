@@ -259,4 +259,114 @@ def api_theme():
     return resp
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# Full Portfolio Master Database API (Persistent Unified Data Sync)
+# ─────────────────────────────────────────────────────────────────────────────
+@public_bp.route("/api/portfolio", methods=["GET", "POST", "OPTIONS"])
+@csrf.exempt
+def api_portfolio():
+    if request.method == "OPTIONS":
+        response = make_response()
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+        return response
+
+    s = _get_settings()
+    json_path = os.path.join(current_app.root_path, "data", "portfolio.json")
+
+    if request.method == "POST":
+        payload = request.get_json(silent=True)
+        if not payload or not isinstance(payload, dict):
+            resp = jsonify({"success": False, "error": "Invalid JSON body"})
+            resp.headers["Access-Control-Allow-Origin"] = "*"
+            return resp, 400
+
+        # Save to database
+        s.portfolio_json = json.dumps(payload, ensure_ascii=False)
+        if "theme" in payload and isinstance(payload["theme"], dict):
+            accent = payload["theme"].get("accentColor")
+            if accent and isinstance(accent, str):
+                s.theme_color = accent.strip()[:20]
+        db.session.commit()
+
+        # Also persist to data/portfolio.json file
+        try:
+            os.makedirs(os.path.dirname(json_path), exist_ok=True)
+            with open(json_path, "w", encoding="utf-8") as f:
+                json.dump(payload, f, indent=2, ensure_ascii=False)
+        except Exception:
+            logger.exception("Failed to write data/portfolio.json")
+
+        resp = jsonify({"success": True, "message": "Master portfolio database updated successfully."})
+        resp.headers["Access-Control-Allow-Origin"] = "*"
+        return resp
+
+    # GET request: return database JSON or fallback to file
+    data = None
+    if s.portfolio_json:
+        try:
+            data = json.loads(s.portfolio_json)
+        except Exception:
+            data = None
+
+    if not data and os.path.exists(json_path):
+        try:
+            with open(json_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+        except Exception:
+            data = None
+
+    resp = jsonify(data or {})
+    resp.headers["Access-Control-Allow-Origin"] = "*"
+    return resp
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Technical SEO Endpoints: robots.txt and sitemap.xml
+# ─────────────────────────────────────────────────────────────────────────────
+@public_bp.route("/robots.txt")
+def robots_txt():
+    robots_path = os.path.join(current_app.root_path, "robots.txt")
+    if os.path.exists(robots_path):
+        with open(robots_path, "r", encoding="utf-8") as f:
+            content = f.read()
+    else:
+        site_root = request.url_root.rstrip("/")
+        content = (
+            "User-agent: *\n"
+            "Allow: /\n"
+            "Disallow: /admin/\n"
+            "Disallow: /api/\n\n"
+            f"Sitemap: {site_root}/sitemap.xml\n"
+        )
+    response = make_response(content, 200)
+    response.mimetype = "text/plain"
+    return response
+
+
+@public_bp.route("/sitemap.xml")
+def sitemap_xml():
+    sitemap_path = os.path.join(current_app.root_path, "sitemap.xml")
+    if os.path.exists(sitemap_path):
+        with open(sitemap_path, "r", encoding="utf-8") as f:
+            content = f.read()
+    else:
+        site_root = request.url_root.rstrip("/")
+        now_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        content = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>{site_root}/</loc>
+    <lastmod>{now_date}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>"""
+    response = make_response(content, 200)
+    response.mimetype = "application/xml"
+    return response
+
+
+
 

@@ -262,40 +262,43 @@ class SiteSettings(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     # Profile / About
-    name = db.Column(db.String(100), default="Safi Ullah")
-    headline = db.Column(db.String(200), default="AI & Machine Learning Engineer")
-    bio = db.Column(db.Text, default="")
-    profile_image = db.Column(db.String(300), default="img/safiullah_profile.jpeg")
-    location = db.Column(db.String(100), default="Pakistan")
-    contact_email = db.Column(db.String(120), default="")
-    availability = db.Column(db.String(100), default="Open for Opportunities")
+    name = db.Column(db.String(100), default="MUHAMMAD ASIM")
+    headline = db.Column(db.String(200), default="Computational Chemist • BS Chemistry Student")
+    bio = db.Column(db.Text, default="Computational Chemistry undergraduate specializing in quantum chemical calculations, molecular modeling, and electronic structure analysis. Investigating molecular properties and chemical reactivity through computational approaches.")
+    profile_image = db.Column(db.String(300), default="assets/asim.jpeg")
+    location = db.Column(db.String(100), default="University of Layyah, Punjab, Pakistan")
+    contact_email = db.Column(db.String(120), default="seefooo63@gmail.com")
+    availability = db.Column(db.String(100), default="Open for Academic & Research Collaboration")
 
     # Social Links
-    github_url = db.Column(db.String(300), default="")
-    linkedin_url = db.Column(db.String(300), default="")
+    github_url = db.Column(db.String(300), default="https://github.com/SAFIULLAH012/AsimPortfolio")
+    linkedin_url = db.Column(db.String(300), default="https://linkedin.com")
     whatsapp_number = db.Column(db.String(50), default="923477845540")
-    resume_url = db.Column(db.String(300), default="cv/safi_ullah_cv.pdf")
+    resume_url = db.Column(db.String(300), default="cv/m_asim_cv.pdf")
 
     # SEO
-    site_title = db.Column(db.String(200), default="Safi Ullah | AI & Machine Learning Engineer")
-    meta_description = db.Column(db.Text, default="")
+    site_title = db.Column(db.String(200), default="M. ASIM — Computational Chemistry & Molecular Modeling Portfolio")
+    meta_description = db.Column(db.Text, default="Official portfolio of M. Asim — BS Chemistry Scholar at University of Layyah, specializing in Computational Chemistry, Quantum Chemical Calculations, and Molecular Modeling.")
 
     # Hero Content
-    hero_description = db.Column(db.Text, default="")
-    # JSON list of strings — the 3 role pills shown in the hero section
-    hero_tags = db.Column(db.Text, default='["AI & Machine Learning Engineer", "Computer Vision & MediaPipe", "Deep Learning & CNN"]')
+    hero_description = db.Column(db.Text, default="Undergraduate BS Chemistry researcher (5th Semester • CGPA 3.82) at University of Layyah specializing in computational quantum modeling (Gaussian, ORCA, Chemcraft, Avogadro) and molecular electronic structure research.")
+    # JSON list of strings — the role pills shown in the hero section
+    hero_tags = db.Column(db.Text, default='["Computational Chemistry", "Quantum Chemical Calculations", "Molecular Modeling & DFT"]')
 
     # About Section
-    about_domain = db.Column(db.String(100), default="AI / ML / Computer Vision")
+    about_domain = db.Column(db.String(100), default="Computational Chemistry & Molecular Modeling")
     # JSON list of strings — the "Why Work With Me" capability bullets
-    why_work_with_me = db.Column(db.Text, default='["Custom Deep Learning & CNN Architecture Engineering", "Real-Time Computer Vision (ALPR, Hand Tracking, Face Mesh)", "End-to-End Machine Learning & Predictive Analytics Pipelines", "Web API Deployment with Flask & Streamlit"]')
-    # The number shown on the projects badge (e.g. "7+")
-    projects_badge_count = db.Column(db.String(10), default="7+")
+    why_work_with_me = db.Column(db.Text, default='["Quantum Chemical Electronic Structure Calculations", "Geometry Optimization & Frontier Molecular Orbital (FMO) Analysis", "Spectroscopic Profiling (UV-Vis & FTIR Absorption Modeling)", "Thermodynamic & Kinetic Stability Simulations with Gaussian & ORCA"]')
+    # The number shown on the projects badge
+    projects_badge_count = db.Column(db.String(10), default="3+")
     # The GitHub @handle displayed in the contact section
     github_handle = db.Column(db.String(100), default="@SAFIULLAH012")
 
     # Primary Theme Color (Default #952a65 Berry)
     theme_color = db.Column(db.String(20), default="#952a65")
+
+    # Full CMS Master Portfolio JSON Store
+    portfolio_json = db.Column(db.Text, default="")
 
     updated_at = db.Column(db.DateTime, default=utcnow, onupdate=utcnow)
 

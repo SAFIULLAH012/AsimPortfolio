@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://safiullah012.github.io/AsimPortfolio/sitemap.xml
+

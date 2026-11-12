@@ -160,6 +160,9 @@
         color: ${hexColor} !important;
         text-shadow: 0 0 35px ${glowRgba} !important;
       }
+      .hero-title .name-white {
+        color: #ffffff !important;
+      }
 
       .btn-primary,
       a.btn-primary {
@@ -306,26 +309,54 @@ function applyCmsData() {
       } catch(e){}
 
       const raw = localStorage.getItem('asim_portfolio_cms_data');
-      if (!raw) return;
-      const data = JSON.parse(raw);
+      if (raw) {
+        try {
+          const data = JSON.parse(raw);
+          renderDynamicCmsContent(data);
+        } catch(e){}
+      }
 
-      if (!persistentColor && data.theme && data.theme.accentColor) {
-        applyDynamicTheme(data.theme.accentColor);
-      }
-      if (data.theme && data.theme.docTitle) {
-        document.title = data.theme.docTitle;
-      }
+      // Universal Master Database Sync (Loads data/portfolio.json if cache is empty or on load)
+      const masterSources = ['data/portfolio.json', '/api/portfolio'];
+      masterSources.forEach(source => {
+        fetch(source)
+          .then(res => { if (res.ok) return res.json(); return null; })
+          .then(remoteData => {
+            if (remoteData && typeof remoteData === 'object' && Object.keys(remoteData).length > 0) {
+              if (!raw) {
+                localStorage.setItem('asim_portfolio_cms_data', JSON.stringify(remoteData));
+                renderDynamicCmsContent(remoteData);
+              }
+            }
+          }).catch(() => {});
+      });
+    } catch(err) {
+      console.warn('CMS application error:', err);
+    }
+  }
+
+  function renderDynamicCmsContent(data) {
+    if (!data) return;
+    try {
+      if (data.theme && data.theme.accentColor) {
+      applyDynamicTheme(data.theme.accentColor);
+    }
+    if (data.theme && data.theme.docTitle) {
+      document.title = data.theme.docTitle;
+    }
 
       // 2. Profile & Hero (Screen 1)
       if (data.profile) {
         const titleEl = document.querySelector('.hero-title');
         if (titleEl && data.profile.name) {
-          // Format name with stylized initial if desired
-          const parts = data.profile.name.split(' ');
+          const rawName = data.profile.name.trim();
+          const parts = rawName.split(/\s+/);
           if (parts.length > 1) {
-            titleEl.innerHTML = `${parts[0]} <em>${parts[1][0]}</em>${parts[1].slice(1)}`;
+            const firstName = parts.slice(0, -1).join(' ');
+            const lastName = parts[parts.length - 1];
+            titleEl.innerHTML = `<span class="name-white" style="color:#ffffff;">${firstName}</span> <em>${lastName}</em>`;
           } else {
-            titleEl.textContent = data.profile.name;
+            titleEl.innerHTML = `<em>${rawName}</em>`;
           }
         }
         const descEl = document.querySelector('.hero-desc');

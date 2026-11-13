@@ -1785,6 +1785,52 @@
               </div>
             </div>
           </div>
+
+          <!-- ═══════════════════════════════════════════════════════════════
+               GITHUB DEPLOY CARD — Push portfolio.json to GitHub repo
+               ═══════════════════════════════════════════════════════════════ -->
+          <div class="cms-card" style="border-color: rgba(74,222,128,0.35); margin-top: 1.5rem;">
+            <div class="cms-card-header">
+              <h3><i class="fas fa-cloud-upload-alt" style="color:#4ade80;"></i> Deploy to GitHub — Make Permanent</h3>
+            </div>
+            <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1rem;">
+              Pushes <code>data/portfolio.json</code> directly to the GitHub repo via the GitHub API.
+              All CMS changes become <strong>permanent across every device</strong> in ~1–2 minutes (GitHub Pages rebuild).
+              Your token is stored only in your browser's localStorage — never sent anywhere except GitHub.
+            </p>
+            <div class="form-row" style="margin-bottom:0.75rem;">
+              <label for="githubPAT">
+                GitHub Personal Access Token
+                <small style="font-weight:400;opacity:0.75;">— needs <code>repo</code> scope (classic token) or <code>Contents: Read &amp; Write</code> (fine-grained)</small>
+              </label>
+              <input type="password" id="githubPAT" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+                     autocomplete="off"
+                     oninput="localStorage.setItem('asim_github_pat', this.value)">
+            </div>
+            <div style="display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center;margin-bottom:0.75rem;">
+              <button type="button" onclick="pushToGitHub()" id="btnGitPush"
+                      style="background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border:none;
+                             padding:0.75rem 1.5rem;border-radius:10px;font-size:0.88rem;font-weight:700;
+                             cursor:pointer;display:flex;align-items:center;gap:0.5rem;letter-spacing:0.03em;
+                             transition:opacity 0.2s;">
+                <i class="fas fa-cloud-upload-alt"></i>&nbsp;🚀 Push to GitHub — Make Permanent
+              </button>
+              <span id="gitPushStatus" style="font-size:0.8rem;color:var(--text-muted);"></span>
+            </div>
+            <details style="font-size:0.74rem;color:var(--text-muted);cursor:pointer;">
+              <summary style="cursor:pointer;font-weight:600;">ℹ️ How to get a Personal Access Token (PAT)</summary>
+              <ol style="margin:0.5rem 0 0 1.2rem;line-height:1.9;">
+                <li>Go to <strong>GitHub.com → Settings → Developer Settings</strong></li>
+                <li>Click <strong>Personal access tokens → Tokens (classic)</strong></li>
+                <li>Click <strong>Generate new token (classic)</strong></li>
+                <li>Give it a note (e.g. "AsimPortfolio CMS"), set expiration</li>
+                <li>Check the <strong><code>repo</code></strong> scope checkbox</li>
+                <li>Click <strong>Generate token</strong> → copy and paste above</li>
+              </ol>
+            </details>
+          </div>
+          <!-- ═══════════════════════════════════════════════════════════════ -->
+
         </section>
 
       </main>
@@ -2897,6 +2943,108 @@
       window.saveAllCmsData = saveAllCmsData;
       window.exportBackupJson = exportBackupJson;
       window.importBackupJson = importBackupJson;
+
+      // ══════════════════════════════════════════════════════════════════════
+      // GITHUB API DEPLOY — Push data/portfolio.json to repo via Contents API
+      // ══════════════════════════════════════════════════════════════════════
+      window.pushToGitHub = async function() {
+        const patInput = document.getElementById('githubPAT');
+        const pat = (patInput ? patInput.value.trim() : '') || localStorage.getItem('asim_github_pat') || '';
+        if (!pat) {
+          showToast('❌ Please enter your GitHub Personal Access Token first.');
+          if (patInput) patInput.focus();
+          return;
+        }
+
+        const btn      = document.getElementById('btnGitPush');
+        const statusEl = document.getElementById('gitPushStatus');
+
+        btn.disabled = true;
+        btn.style.opacity = '0.65';
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>&nbsp; Pushing to GitHub…';
+        statusEl.style.color = 'var(--text-muted)';
+        statusEl.textContent = 'Connecting to GitHub API…';
+
+        const REPO      = 'SAFIULLAH012/AsimPortfolio';
+        const FILE_PATH = 'data/portfolio.json';
+        const API_URL   = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
+        const HEADERS   = {
+          'Authorization': `token ${pat}`,
+          'Accept':        'application/vnd.github+json',
+          'Content-Type':  'application/json',
+          'X-GitHub-Api-Version': '2022-11-28'
+        };
+
+        const resetBtn = () => {
+          btn.disabled = false;
+          btn.style.opacity = '1';
+          btn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i>&nbsp;🚀 Push to GitHub — Make Permanent';
+        };
+
+        try {
+          // ── Step 1: Get current file SHA (required for update) ──────────
+          statusEl.textContent = '📡 Fetching current file SHA from GitHub…';
+          const getRes = await fetch(API_URL, { headers: HEADERS });
+          if (getRes.status === 401) throw new Error('Invalid or expired token — please check your PAT.');
+          if (getRes.status === 403) throw new Error('Forbidden — your PAT may lack the "repo" scope.');
+          if (getRes.status === 404) throw new Error('File not found in repo. Check REPO / FILE_PATH.');
+          if (!getRes.ok) throw new Error(`GitHub GET error: ${getRes.status} ${await getRes.text()}`);
+          const fileData = await getRes.json();
+          const sha = fileData.sha;
+
+          // ── Step 2: Encode current in-memory CMS data as Base64 ─────────
+          statusEl.textContent = '🗜 Encoding portfolio data…';
+          const jsonContent   = JSON.stringify(currentData, null, 2);
+          const base64Content = btoa(unescape(encodeURIComponent(jsonContent)));
+
+          // ── Step 3: PUT updated content ──────────────────────────────────
+          statusEl.textContent = '📤 Uploading to GitHub…';
+          const commitMsg = `CMS: Update portfolio data — ${new Date().toISOString().replace('T',' ').slice(0,19)} UTC`;
+          const putRes = await fetch(API_URL, {
+            method: 'PUT',
+            headers: HEADERS,
+            body: JSON.stringify({
+              message: commitMsg,
+              content: base64Content,
+              sha: sha,
+              branch: 'main'
+            })
+          });
+          if (!putRes.ok) {
+            const errBody = await putRes.text();
+            throw new Error(`Upload failed (${putRes.status}): ${errBody}`);
+          }
+
+          // ── Success ──────────────────────────────────────────────────────
+          resetBtn();
+          btn.innerHTML = '<i class="fas fa-check-circle" style="color:#4ade80;"></i>&nbsp;✅ Pushed Successfully!';
+          statusEl.style.color = '#4ade80';
+          statusEl.textContent = '✅ Done! GitHub Pages will rebuild in ~1–2 minutes. Changes are now permanent on all devices.';
+          localStorage.setItem('asim_github_pat', pat);
+          showToast('✅ Successfully pushed to GitHub! Site updates in ~2 min.');
+          setTimeout(() => {
+            btn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i>&nbsp;🚀 Push to GitHub — Make Permanent';
+            statusEl.style.color = '';
+          }, 10000);
+
+        } catch(err) {
+          resetBtn();
+          statusEl.style.color = '#f87171';
+          statusEl.textContent = '❌ ' + err.message;
+          showToast('❌ GitHub push failed: ' + err.message);
+          console.error('[pushToGitHub]', err);
+        }
+      };
+      // ══════════════════════════════════════════════════════════════════════
+
+      // Pre-load stored PAT on page load
+      (function loadStoredPAT() {
+        const stored = localStorage.getItem('asim_github_pat');
+        if (stored) {
+          const el = document.getElementById('githubPAT');
+          if (el) el.value = stored;
+        }
+      })();
 
     })();</script>
 </body>
